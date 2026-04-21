@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solutions - PromptSentry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #020c1b 0%, #0a192f 50%, #112240 100%);
+            --text-main: #e6f1ff;
+            --text-muted: #8892b0;
+            --accent-blue: #0ea5e9;
+            --accent-green: #10b981;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #020c1b; background-image: var(--bg-gradient); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        /* Navbar */
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); padding: 15px 40px; border-radius: 8px; margin: 20px; border: 1px solid var(--card-border); position: sticky; top: 10px; z-index: 100;}
+        .logo { text-decoration: none; cursor: pointer; }
+        .logo h2 { color: var(--text-main); font-weight: 800; letter-spacing: 1px; font-size: 20px;}
+        .logo span { color: var(--accent-blue); }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 14px; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--accent-blue); }
+        .nav-actions { display: flex; align-items: center; }
+        .btn-mini-demo { background: none; border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 6px 16px; border-radius: 4px; font-weight: 600; font-size: 13px; text-decoration: none;}
+        .btn-mini-demo:hover { background: rgba(14, 165, 233, 0.1); }
+
+        .page-header { text-align: center; padding: 100px 20px 60px; max-width: 800px; margin: 0 auto; }
+        .page-header h1 { font-size: 52px; font-weight: 800; margin-bottom: 20px; color: var(--text-main); line-height: 1.15; }
+        .page-header h1 span { color: var(--accent-blue); }
+        .page-header p { font-size: 18px; color: var(--text-muted); line-height: 1.6; }
+
+        .section-title { text-align: center; margin: 80px 0 40px; }
+        .section-title h2 { font-size: 32px; font-weight: 800; color: var(--text-main); }
+        .section-title p { font-size: 16px; color: var(--text-muted); margin-top: 10px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; margin-bottom: 60px; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 40px 30px; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .card:hover { transform: translateY(-4px); border-color: rgba(14, 165, 233, 0.3); }
+        .card-icon { font-size: 28px; margin-bottom: 20px; color: var(--accent-blue); display: inline-block; padding: 12px; background: rgba(14, 165, 233, 0.05); border-radius: 8px; border: 1px solid rgba(14, 165, 233, 0.1);}
+        .card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--text-main); }
+        .card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+        
+        .feature-list { list-style: none; margin-top: 20px; border-top: 1px solid var(--card-border); padding-top: 20px;}
+        .feature-list li { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; display: flex; align-items: start; }
+        .feature-list li::before { content: "→"; color: var(--accent-blue); margin-right: 10px; font-weight: bold; }
+
+        /* NEW: Ecosystem / Integrations Band */
+        .ecosystem-band { padding: 60px 20px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); text-align: center; margin-top: 80px; }
+        .ecosystem-band p { font-size: 13px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 30px; }
+        .tag-cloud { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; max-width: 900px; margin: 0 auto; }
+        .tech-tag { padding: 10px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; font-size: 14px; font-weight: 600; color: var(--text-main); transition: all 0.3s; }
+        .tech-tag:hover { border-color: var(--accent-blue); color: var(--accent-blue); background: rgba(14, 165, 233, 0.05); }
+
+        /* NEW: Bottom CTA */
+        .bottom-cta { text-align: center; padding: 100px 20px 80px; max-width: 800px; margin: 0 auto; }
+        .bottom-cta h2 { font-size: 44px; font-weight: 800; margin-bottom: 20px; color: var(--text-main); line-height: 1.2; }
+        .bottom-cta p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; }
+        .cta-benefits { display: flex; justify-content: center; gap: 30px; list-style: none; margin-bottom: 50px; flex-wrap: wrap; }
+        .cta-benefits li { font-size: 15px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 8px;}
+        .cta-benefits li span { color: var(--accent-green); font-size: 18px; }
+        
+        .btn-hero { display: inline-block; background-color: var(--accent-blue); color: white; padding: 16px 36px; font-size: 17px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: background 0.3s ease, transform 0.2s ease; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2); }
+        .btn-hero:hover { background-color: #0284c7; transform: translateY(-2px); }
+
+        /* Pro Footer */
+        .footer { background-color: #020c1b; border-top: 1px solid rgba(255,255,255,0.05); padding: 80px 40px 30px; margin-top: auto; width: 100%; position: relative; z-index: 2;}
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
+        .footer-logo { display: flex; flex-direction: column; align-items: flex-start; }
+        .footer-logo h2 { color: var(--text-main); font-weight: 800; font-size: 26px; margin-bottom: 40px; letter-spacing: 1px; }
+        .footer-logo span { color: var(--accent-blue); }
+        .footer-col h4 { color: var(--text-main); font-size: 14px; font-weight: 700; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .footer-col h4.contact-header { color: #f9a826; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 16px; }
+        .footer-links a { text-decoration: none; color: var(--text-muted); font-size: 15px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--text-main); }
+        .social-icons { display: flex; gap: 24px; margin-top: 40px; }
+        .social-icons a { display: block; transition: transform 0.3s ease; }
+        .social-icons a svg { width: 28px; height: 28px; fill: var(--text-main); transition: fill 0.3s ease; }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons a:hover svg { fill: var(--accent-blue); }
+        .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); }
+        .footer-bottom-links a { color: var(--text-muted); text-decoration: none; margin-left: 24px; transition: color 0.3s; }
+        .footer-bottom-links a:hover { color: var(--text-main); }
+        @media (max-width: 768px) { .footer-content { grid-template-columns: 1fr; gap: 40px; } .cta-benefits { flex-direction: column; gap: 15px; align-items: center; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><h2>▲ Prompt<span>Sentry</span></h2></a>
+        <ul class="nav-links">
+            <li><a href="solutions.html" style="color: #0ea5e9;">Solutions</a></li>
+            <li><a href="company.html">Company</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+        <div class="nav-actions"><a href="get-demo.html" class="btn-mini-demo">Get a Demo</a></div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Secure GenAI Adoption<br><span>at Every Layer</span></h1>
+        <p>From discovering shadow AI to blocking active prompt injections in production, PromptSentry provides the critical infrastructure needed to operate safely.</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="grid-3">
+            <div class="card"><div class="card-icon">👁️</div><h3>Shadow AI Governance</h3><p>Gain instant visibility into unsanctioned GenAI usage across your enterprise.</p><ul class="feature-list"><li>Discover hidden AI applications</li><li>Monitor prompt volume and risk</li><li>Enforce network-wide usage policies</li></ul></div>
+            <div class="card"><div class="card-icon">🛡️</div><h3>Data Leak Prevention (DLP)</h3><p>Automatically intercept and redact PII, PHI, and IP before it reaches external LLMs.</p><ul class="feature-list"><li>Real-time redaction & anonymization</li><li>Customizable compliance rules</li><li>Comprehensive audit logging</li></ul></div>
+            <div class="card"><div class="card-icon">⚔️</div><h3>Prompt Injection Firewall</h3><p>Protect homegrown applications from malicious actors attempting to jailbreak your models.</p><ul class="feature-list"><li>Block advanced injection attacks</li><li>Context-aware threat detection</li><li>Zero latency impact on UX</li></ul></div>
+        </div>
+
+        <div class="section-title"><h2>Use Cases</h2><p>Tailored security for how your organization actually builds and uses AI.</p></div>
+        
+        <div class="grid-3">
+            <div class="card"><h3>For Employees</h3><p>Attain complete visibility, security, and governance for day-to-day AI tool usage. Allow your workforce to leverage ChatGPT, Claude, and Gemini without risking proprietary data leaks.</p></div>
+            <div class="card"><h3>For Homegrown Apps</h3><p>Deploy internal AI applications with confidence. Actively block prompt injections, data extraction attempts, and toxic LLM content before it interacts with your system.</p></div>
+            <div class="card"><h3>For AI Code Assistants</h3><p>Securely adopt AI-based development tools like GitHub Copilot. Ensure developers aren't accidentally exposing API keys, secrets, or proprietary source code to public training sets.</p></div>
+            <div class="card"><h3>For Agentic AI Security</h3><p>As autonomous AI agents execute complex tasks across your network, PromptSentry monitors, governs, and establishes strict boundaries to prevent unauthorized actions.</p></div>
+            <div class="card"><h3>AI Red Teaming</h3><p>Proactively identify vulnerabilities. Simulate advanced prompt injection and jailbreak scenarios to stress-test your homegrown AI applications before they go to production.</p></div>
+        </div>
+
+        <div class="section-title"><h2>Built for Highly Regulated Industries</h2><p>Enterprise-grade compliance and data protection.</p></div>
+        
+        <div class="grid-2">
+            <div class="card"><div class="card-icon">⚕️</div><h3>Healthcare</h3><p>Secure AI adoption for the next generation of patient care. Ensure strict HIPAA compliance by automatically detecting and redacting Protected Health Information (PHI) from all AI interactions.</p></div>
+            <div class="card"><div class="card-icon">🏦</div><h3>Finance & Insurance</h3><p>Protect sensitive customer financial data, internal algorithms, and intellectual property. Meet rigorous industry compliance standards while safely leveraging AI for risk analysis and customer service.</p></div>
+        </div>
+
+    </div>
+
+    <section class="ecosystem-band">
+        <p>Natively securing the world's leading models & tools</p>
+        <div class="tag-cloud">
+            <span class="tech-tag">OpenAI GPT-4</span>
+            <span class="tech-tag">Anthropic Claude</span>
+            <span class="tech-tag">Google Gemini</span>
+            <span class="tech-tag">GitHub Copilot</span>
+            <span class="tech-tag">Hugging Face</span>
+            <span class="tech-tag">Custom LLMs</span>
+        </div>
+    </section>
+
+    <section class="bottom-cta">
+        <h2>Ready to secure your AI layer?</h2>
+        <p>Join the forward-thinking enterprises deploying PromptSentry to govern Shadow AI and stop data leaks before they happen.</p>
+        
+        <ul class="cta-benefits">
+            <li><span>✓</span> Deploy in under 15 minutes</li>
+            <li><span>✓</span> Zero impact on model latency</li>
+            <li><span>✓</span> Out-of-the-box compliance</li>
+        </ul>
+
+        <a href="get-demo.html" class="btn-hero">Book Your Demo</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col footer-logo">
+                <h2>▲ Prompt<span>Sentry</span></h2>
+                <h4 class="contact-header">Contact</h4>
+                <ul class="footer-links"><li><a href="contact.html">Contact Us</a></li></ul>
+                <div class="social-icons">
+                    <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
+                    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <ul class="footer-links"><li><a href="solutions.html">Shadow AI Governance</a></li><li><a href="solutions.html">Data Leak Prevention</a></li><li><a href="solutions.html">Prompt Injection Defense</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul class="footer-links"><li><a href="company.html">About FNC</a></li><li><a href="#">Newsroom</a></li><li><a href="get-demo.html">Book a Demo</a></li></ul>
+            </div>
+        </div>
+        <div class="footer-bottom"><div>&copy; 2026 PromptSentry. A product of Five Nines Consulting. All rights reserved.</div><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div>
+    </footer>
+</body>
+</html>
