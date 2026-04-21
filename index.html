@@ -1,449 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FNC | Home</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-        <link href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" rel="stylesheet"
-        >
-        <link rel="stylesheet" href="https://sets.hugeicons.com/YOUR-SET-ID.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="styles/general_styles/nav_styles.css">
-    <link rel="stylesheet" href="styles/index_styles/styles.css">
-    <link rel="stylesheet" href="styles/general_styles/footer.css">
-    <link rel="icon" type="image/webp" sizes="32x32" href="image/general_image/token.webp">
-    <link rel="apple-touch-icon" href="image/general_image/token.webp">
-    <link rel="stylesheet" href="styles/company_styles/styles.css">
-
+    <title>PromptSentry - AI Security</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: linear-gradient(135deg, #2b1654 0%, #4a2b82 50%, #6b3fa0 100%); color: white; min-height: 100vh; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 40px; border-radius: 8px; margin: 20px; color: #333; }
+        .logo h2 { color: #4a2b82; font-weight: 800; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 600; font-size: 14px; }
+        .nav-links a:hover { color: #4a2b82; }
+        .dropdown { position: relative; }
+        .dropdown-content { display: none; position: absolute; top: 30px; left: -50px; background-color: white; min-width: 500px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1); border-radius: 8px; padding: 20px; z-index: 1; gap: 20px; }
+        .dropdown:hover .dropdown-content { display: flex; }
+        .column h4 { color: #6b3fa0; margin-bottom: 15px; font-size: 12px; text-transform: uppercase; }
+        .column a { display: block; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+        .column a span { font-size: 11px; color: #777; font-weight: 400; }
+        .nav-actions { display: flex; align-items: center; gap: 20px; }
+        .sign-in { text-decoration: none; color: #333; font-weight: 600; }
+        .btn-demo { background-color: #f9a826; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; }
+        .hero { text-align: center; padding: 100px 20px; }
+        .hero h1 { font-size: 64px; font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
+        .hero p { font-size: 14px; letter-spacing: 2px; margin-bottom: 40px; font-weight: 600; }
+        .btn-demo.large { padding: 15px 30px; font-size: 16px; border-radius: 8px; }
+        .trusted-by { margin-top: 100px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; }
+        .trusted-by p { font-size: 12px; color: #f9a826; letter-spacing: 1px; }
+        .logos { display: flex; justify-content: center; gap: 40px; margin-top: 20px; opacity: 0.6; }
+    </style>
 </head>
- 
 <body>
 
-    <nav class="navbar puppy-park">
-        <div class="navbar-brand animate animate-slide-left">
-            <img src="image/general_image/newlogo.png" alt="Five Nines Consulting Logo">
+    <nav class="navbar">
+        <div class="logo">
+            <h2>▲ PromptSentry</h2> 
         </div>
-        <button class="menu-button" onclick="toggleMenu()">☰</button>
-        <ul class="nav-links animate animate-slide-up">
-            <li><a href="index.html" class="active kitty-bx">Home</a></li>
-            <li><a href="company.html" class="active kitty-bx">Company</a></li>
-            <li><a href="services.html" class="active kitty-bx">Services</a></li>
-            <li><a href="fnc-veteran-services.html" class="active kitty-bx">Join us</a></li>
-
-            <li><a href="blockchain-MFA.html" class="active kitty-bx">Blockchain MFA</a></li>
-
-            <li><a href="https://medium.com/@FNCLLC" class="active kitty-bx">Blog</a></li>
-            
-
+        
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#">Solutions ⌄</a>
+                <div class="dropdown-content">
+                    <div class="column">
+                        <h4>Use Cases</h4>
+                        <a href="#"><strong>For Employees</strong><br><span>Attain visibility, security and governance...</span></a>
+                        <a href="#"><strong>For Homegrown Apps</strong><br><span>Block prompt injections, data leaks...</span></a>
+                    </div>
+                    <div class="column">
+                        <h4>Industry</h4>
+                        <a href="#"><strong>Healthcare</strong><br><span>Secure AI adoption for next gen care.</span></a>
+                        <a href="#"><strong>Finance & Insurance</strong><br><span>Protect customer data. Meet compliance.</span></a>
+                    </div>
+                </div>
+            </li>
+            <li><a href="#">Resources ⌄</a></li>
+            <li><a href="#">Customers</a></li>
+            <li><a href="#">Company ⌄</a></li>
+            <li><a href="#">Blog</a></li>
         </ul>
-        <a href="contact.html" class="active cont kitty-box">Contact Us</a></li>
-           
+
+        <div class="nav-actions">
+            <a href="#" class="sign-in">Sign In</a>
+            <a href="#" class="btn-demo">Get a Demo</a>
+        </div>
     </nav>
-<section class="animate animate-slide-up">
- <section class="hero ">
-        <div class="hero-content animate animate-slide-left">
-            <h1 style="color: #FF6B35;"> Where Precision Meets Purpose.<br> 
 
-            </h1>
-            <p>FNC builds resilient systems and sustainable futures—empowering veterans, enabling decentralized innovation, and solving real-world problems with precision.</p>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Platform for<br>AI Security</h1>
+            <p>SECURE YOUR AI. EVERYWHERE IT MATTERS.</p>
+            <a href="#" class="btn-demo large">Get a Demo</a>
+        </div>
+        
+        <div class="trusted-by">
+            <p>AI SECURITY POWERING THE MOST INNOVATIVE COMPANIES WORLDWIDE</p>
+            <div class="logos">
+                <span>HiBob</span>
+                <span>ion BANK</span>
+                <span>RFA</span>
+                <span>Cymulate</span>
+            </div>
         </div>
     </section>
 
-    <div class="about-section">
-        <div class="about-image">
-            <img src="image/index_image/people-collab.png" alt="People collaborating">
-        </div>
-        <div class="about-content">
-            <h2><span>Who Are We</span></h2>
-            <p>We are committed to being your trusted partner in delivering comprehensive solutions.
-                Our experienced team is dedicated to helping businesses, blockchain projects, and individuals turn their
-                ideas into reality.
-                We offer end-to-end services, guiding you from initial concept to final implementation with expertise
-                and precision.</p>
-            <a href="about.html" class="about-button">Read our story</a>
-        </div>
-    </div>
-     
-    <div class="who-we-are">
-        
-        <div class="who-image">
-            <img src="image/index_image/people-collab.png" alt="People collaborating">
-        </div>
-        <div class="who-content">
-            <h2><span>Who Are We</span> </h2>
-            <p>We are committed to being your trusted partner in delivering comprehensive solutions.
-                Our experienced team is dedicated to helping businesses, blockchain projects, and individuals turn their
-                ideas into reality.
-                We offer end-to-end services, guiding you from intial concept to final implementation with expertise
-                and precision.</p>
-            <a href="company.html" style="color: black; text-decoration: none;"> <button class="read-more">Read our
-                    story</button></a>
-        </div>
-    </div>
-
-</section>
-   <!-- <section class="founder-section animate animate-slide-up">
-        <div class="founder-container">
-
-            <div class="founder-image animate animate-slide-left">
-                <img src="image/Rectangle 126.png" alt="Founder Image">
-                
-            </div>
-          
-            <div class="founder-content animate animate-slide-up">
-                <h2><stron>Founder’s Story</strong></h2>
-                <p><strong>Vasiliy S. Ivanov</strong> Born into a Russian-Ukrainian family, Vasiliy exhibited exceptional analytical abilities from an early age, consistently ranking high in mathematics and computer science.
-                    </p><p> His deep fascination with physics led him to study it extensively, honing a problem-solving mindset that seamlessly translates into his work in IT. This intellectual curiosity fuels his long-term ambition to pursue a Ph.D.
-                    in physics, applying scientific principles to drive future technological advancements.
-               </p>
-               
-            
-                
-               
-                <a href="company.html" class="read-more-btn">Read more</a>
-            </div>
-        </div>
-    </section>-->
-
-    
-
-    <section class="services-section blocked animate animate-slide-up puppy-park">
-        <div class="services-header">OUR SERVICES</div>
-        <h1 class="services-title">Simplifying Technology</h1>
-        <h2 class="services-subtitle">For Your Business</h2>
-
-        <p class="serve">At FNC, we provide cloud migration and optimization, custom website development, on-site IT support, IT consulting and many more to ensure your business operates efficiently and stays ahead. 
-            <br><strong>Let us handle the tech while you focus on growth.</strong></p>
-        
-<div class="butts animate animate-slide-up puppy-park">
-    <div class="type kitty-box">IT Services</div>
-    <div class="type kitty-box" style="background-color: #27DAB7;">IT Services</div>
-    <div class="type kitty-box" style="background-color: #6E44FF;">Devops</div>
-    <div class="type animate kitty-box" style="background-color: #FB421F;">Blockchain Development</div>
-
-    <div class="type kitty-box" style="background-color: #FFDC26;">Cloud Services</div>
-    <div class="type kitty-box" style="background-color: #C200C0; ">Custom Web Development</div>
-    <div class="type kitty-box" style="background-color: #6E44FF; ">Software Development</div>
-    
-
-
-</div>
-            <div class="blog-container new">
-
-                <div class="blog-card newer animate animate-slide-left">
-                    
-    
-                    <img src="image/serves.png" alt="A Veteran-Led, Self-Sustaining Future">
-
-
-                </div>
-                <!-- Blog 2 -->
-                <div class="blog-card newer animate animate-slide-up">
-                   
-
-                    <img src="image/server.png" alt="The Observer’s Hand">
-
-
-                </div>
-                <!-- Blog 3 -->
-                <div class="blog-card newer animate animate-slide-up">
-
-    
-                    <img src="image/servicess.png" alt="MFA NFT Marketplace Whitepaper">
-         
-    
-
-                </div>
-            </div>
-        
-        <i class="hgi hgi-solid hgi-question"></i>
-        <a href="services.html" style="color: white; text-decoration: none;"> <button class="view-more animate animate-slide-up">View All Services</a>
-    </section>
-
-    
-   
-
-
-
-    
-
-    
-    <!--<section class="founder-section mfa animate animate-slide-up">
-        <div class="founder-container nft ">
-
-            <div class="founder-image animate animate-slide-left">
-                <img src="image/Cardano-blockchain.webp" alt="Founder Image">
-                
-            </div>
-          
-            <div class="founder-content ">
-                <h2 class="animate animate-slide-up"><stron>Blockchain MFA</strong></h2>
-                <p class="animate animate-slide-up"><strong>FNC's Blockchain MFA</strong> a decentralized, blockchain-powered MFA ecosystem, integrating World Mobile Token (WTMX) for authentication and Cardano-based NFTs for subscription-based access control. Customers will stake Token (FNC) to gain and retain access, distributing staking rewards to service providers 
-                    for a self-sustaining authentication infrastructure.</p>
-               
-<p class="animate animate-slide-up">By integrating Cardano smart contracts, NFTs, and WTMX-powered transactions, this system ensures cost efficiency, decentralization, and tamper-proof authentication.</p>                
-               
-                <a href="https://medium.com/@FNCLLC/mfa-nft-marketplace-a-new-era-of-decentralized-authentication-9442003a22d6" class="read-more-btn animate animate-slide-up">Read more</a>
-            </div>
-        </div>
-    </section>-->
-
-
-
-   <!--  <div class="container">
-        <div class="heder-section">
-            <h2>WHAT THEY SAID</h2>
-            <p style=" color: black;">Meet our clients from</p>
-            <p>around the globe</p>
-        </div> 
-
-
-        <div class="testimonials">
-            <div class="testimonial">
-                <p>"This looks amazing. Thanks so much!"</p>
-                <div class="client">
-                    <img src="image/index_image/Ellipse 22.png" alt="Jane Brad">
-                    <div class="client-info">
-                        Jane Brad <br> <span
-                            style="font-size: 14px; line-height: 16.42px;  font-family: Work Sans, serif">USA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial">
-                <p>"This is the best so far. Thanks!"</p>
-                <div class="client">
-                    <img src="image/index_image/Ellipse 22 (5).png" alt="John Kevin">
-                    <div class="client-info">
-                        <strong>John Kevin</strong><br>Nigeria
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial">
-                <p>"I'm so happy. This is just perfect!"</p>
-                <div class="client">
-                    <img src="image/index_image/Ellipse 22 (3).png" alt="Dominic Jade">
-                    <div class="client-info">
-                        <strong>Dominic Jade</strong><br>Italy
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial">
-                <p>"This looks amazing. Thanks so much!"</p>
-                <div class="client">
-                    <img src="image/index_image/Ellipse 22 (4).png" alt="Brad Kevin">
-                    <div class="client-info">
-                        <strong>Brad Kevin</strong><br>USA
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial">
-                <p>"I'm so happy. This is just perfect!"</p>
-                <div class="client">
-                    <img src="image/index_image/Ellipse 22 (3).png" alt="Dominic Jade">
-
-                    <div class="client-info">
-                        <strong>Dominic Jade</strong><br>Italy
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial">
-                <p>"This looks amazing. Thanks so much!"</p>
-                <div class="client">
-                    <img src="image/index_image/Ellipse 22 (4).png" alt="Brad Kevin">
-                    <div class="client-info">
-                        <strong>Brad Kevin</strong><br>USA
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial">
-                <p>"This looks amazing. Thanks so much!"</p>
-                <div class="client">
-                    <img src="image/index_image/Ellipse 22 (4).png" alt="Brad Kevin">
-                    <div class="client-info">
-                        <strong>Brad Kevin</strong><br>USA
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial">
-                <p>"This is the best so far. Thanks!"</p>
-                <div class="client">
-                    <img src="image/index_image/Ellipse 22 (5).png" alt="John Kevin">
-                    <div class="client-info">
-                        <strong>John Kevin</strong><br>Nigeria
-                    </div>
-                </div>
-            </div>
-        </div> -->
-<section class="veteran-section animate animate-slide-up">
-<div class=" veteran-text animate animate-slide-up">
-    <h2>Veterans Training and Community Building</h2>
-    <p>Whether you're here to learn, build, or contribute to a purpose-driven mission, there's a place for you at Five Nines Consulting. </p>
-    <p>We’re creating something rare: a veteran-led, self-sustaining ecosystem where real-world problem-solving meets resilient technology, sustainable living, and inclusive opportunity. This is not charity, This is ownership. </p>
-<a href="fnc-veteran-services.html" class="learner">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#d8d8d8" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4.5 12h15m0 0l-5.625-6m5.625 6l-5.625 6"/></svg></a>
-</div>
-
-</section>
-
-<section class="mfa-section" data-zoom="true">
-    <div class="mfa-text">
-    <h2>Blockchain Multi-Factor <br><span style="color: #626262">Authentication</span> </h2>
-    <p>A decentralized identity and authentication platform powered by Cardano and WMTX.</p>
-    </div>
-    <div class="mfa-images-wrapper">
-    <div class="mfa-images animate animate-slide-left">
-        <img src="image/cardano-blockchain-logo-with-fnc-written_3qe1-MZ0Q7e_-oK-t6ZO5Q_UPTuzOpEQKSWlDLjl7DlWA.jpeg">
-
-        <img src="image/a-girl-holding-a-phone-and-ponting-the-p_4n4DUthJSKaDESYmEtPluA_205rknPZR82UhUby60g40g.jpeg">
-        <img src="image/a-laptop-screen-in-an-office-dispalying-_Ag7s2obhRmefq3pQSiU6Aw_luVrS7CjQDe02TUNjLyjPA.jpeg">
-
-    </div>
-    </div>
-    
-    <a href="https://medium.com/@FNCLLC/mfa-nft-marketplace-a-new-era-of-decentralized-authentication-9442003a22d6">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4.5 12h15m0 0l-5.625-6m5.625 6l-5.625 6"/></svg></a>
-
-</section>
-<section class="new-blogs appear-effect">
-    <h2>Our Blog <br><span style="color: #626262;">Insights</span> </h2>
-    <div class="blog-insights animate animate-slide-up">
-        <a href="https://medium.com/@FNCLLC/a-veteran-led-self-sustaining-future-the-fnc-vision-d7322393c67a">
-        <div class="blog-post">
-            <img src="image/veteran.png">
-            <div class="blog-texts">
-                <p>BLOG BY FNC TEAM</p>
-                <h2>A Veteran-Led, Self-Sustaining Future</h2>
-            </div>
-        </div>
-        </a>
-        <a href="https://medium.com/@FNCLLC/decentralized-mfa-using-cardano-and-wtmx-bfcec5266380">
-        <div class="blog-post">
-            <img src="image/images (12).jpeg">
-            <div class="blog-texts">
-                <p>BLOG BY VASILIY S. IVANOV AND PRECIOUS O.</p>
-                <h2>Blockchain MFA</h2>
-            </div>
-        </div>
-        </a>
-        <a href="https://medium.com/@FNCLLC/mfa-nft-marketplace-a-new-era-of-decentralized-authentication-9442003a22d6">
-            <div class="blog-post last">
-                <img src="image/a-product-landing-page-for-a-blockchain-_Ugwu8iMuTluTTP6OLyJxAw_luVrS7CjQDe02TUNjLyjPA.jpg">
-                <div class="blog-texts">
-                    <p>BLOG BY VASILIY S. IVANOV AND PRECIOUS O.</p>
-                    <h2>Decentralized MFA Using Cardano and WTMX</h2>
-                </div>
-            </div>
-            </a>
-
-    </div>
-</section>
-        
-    <div class="image-caption-container animate animate-slide-up">
-        <img src="image/index_image/Rectangle 123.png" style="max-width: 90vw;" alt="Team Discussion">
-        <p class="image-caption animate animate-slide-up">
-            <i>FNC delivers services through a client-focused approach, ensuring transparency, collaboration, and tailored solutions. 
-            We prioritize secure, efficient, scalable cyber security and IT solutions while offering continuous support and expertise to meet client needs.</i>
-        </p>
-    </div>
-    
-    <!--<div class="services-header animate animate-slide-up">Blog</div>
-    <h1 class="services-title animate animate-slide-up">Insights</h1>
-
-    <section class="blog-section animate animate-slide-up">
-        
-        
-        <div class="blog-container">
-
-            <div class="blog-card">
-                <a href="https://medium.com/@FNCLLC/a-veteran-led-self-sustaining-future-the-fnc-vision-d7322393c67a" class="linker">
-
-                <img src="image/veteran.png" alt="A Veteran-Led, Self-Sustaining Future">
-                <p class="blog-meta">BLOG BY FNC TEAM</p>
-                <h3>A Veteran-Led, Self-Sustaining Future</h3>
-            </a>
-            </div>
-            <div class="blog-card">
-                <a href="https://medium.com/@FNCLLC" class="linker">
-
-                <img src="blog/images/Frame 26088187.png" alt="The Observer’s Hand">
-                <p class="blog-meta">BLOG BY VASILIY S. IVANOV AND PRECIOUS O.</p>
-                <h3>The Observer’s Hand</h3>
-                </a>
-            </div>
-            <div class="blog-card">
-                <a href="" class="linker">
-
-                <img src="image/images (12).jpeg" alt="The Observer’s Hand">
-                <p class="blog-meta">BLOG BY VASILIY S. IVANOV AND PRECIOUS O.</p>
-                <h3>Blockchain MFA</h3>
-                </a>
-            </div>
-        </div>
-    </section>-->
-    
-    <footer class="footer">
-        <div class="contact-us">
-            <h3>CONTACT US</h3>
-            <hr>
-        </div>
-        <div class="container">
-
-
-            <div class="footer-container">
-                <div class="footer-column">
-
-                    <div class="social-links">
-                        <a href="https://x.com/fncnodeos" target="_blank"> X</a><br>
-                        <a href="https://www.linkedin.com/in/vasiliy-s-ivanov/" target="_blank"> LinkedIn</a><br>
-                        <a href="#" target="_blank"> Facebook</a><br>
-                        
-                    </div>
-
-                    <img src="image/general_image/five nine.png" alt="Five Nines Consulting" class="footer-logo">
-                </div>
-
-                <div class="footer-column">
-                    <h3> Quick links</h3>
-                    <div class="quick-links">
-
-                        <a href="https://fiveninesconsulting.io">Home</a><br>
-                        <a href="services.html">Services</a><br>
-                        <a href="company.html">Company</a><br>
-                        <a href="contact.html">Contact Us</a><br>
-                        <a href="https://medium.com/@FNCLLC">Blog</a><br>
-
-                    </div>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Location</h3>
-                    <div class="lokation">
-
-                        <p class="mails">Roanoke, VA</p>
-                    </div>
-                    <div class="footer-column news">
-                        <h3>Get in touch</h3>
-                        <p class="mails">info@fiveninesconsulting.io</p>
-                        <h3 style=" margin-top: 15px;">Phone</h3>
-                        <p class="mails">703-309-6460</p>
-                    </div>
-                </div>
-
-                
-            </div>
-            </div>
-            <div class="footer-bottom">
-                <hr>
-                <p>© 2025 FNC</p>
-            </div>
-
-    </footer>
-
-    <script src="script.js"></script>
 </body>
-
 </html>
