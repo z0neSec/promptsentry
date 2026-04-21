@@ -3,119 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FNC | Contact Us</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="styles/general_styles/nav_styles.css">
-    <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
-    <link rel="stylesheet" href="styles/general_styles/footer.css">
+    <title>Contact - PromptSentry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --bg-gradient: linear-gradient(135deg, #020c1b 0%, #0a192f 50%, #112240 100%); --text-main: #e6f1ff; --text-muted: #8892b0; --accent-blue: #0ea5e9; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-gradient); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); padding: 15px 40px; border-radius: 8px; margin: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .logo { text-decoration: none; }
+        .logo h2 { color: var(--text-main); font-weight: 800; letter-spacing: 1px; }
+        .logo span { color: var(--accent-blue); }
+        .nav-links { list-style: none; display: flex; gap: 40px; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 15px; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--accent-blue); }
+        .nav-actions { display: flex; align-items: center; }
+        .btn-mini-demo { background: none; border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 6px 16px; border-radius: 4px; font-weight: 600; font-size: 13px; text-decoration: none;}
+        .btn-mini-demo:hover { background: rgba(14, 165, 233, 0.1); }
+        
+        .contact-container { max-width: 600px; margin: 60px auto 0; padding: 40px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); flex: 1; width: 100%;}
+        .contact-header { text-align: center; margin-bottom: 40px; }
+        .contact-header h1 { font-size: 40px; font-weight: 800; color: var(--text-main); margin-bottom: 15px; }
+        .contact-header p { color: var(--text-muted); font-size: 16px; line-height: 1.5; }
+        
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-main); font-size: 14px; font-weight: 600; }
+        .form-control { width: 100%; padding: 14px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; font-size: 15px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.3s ease; }
+        .form-control:focus { border-color: var(--accent-blue); }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+        .btn-submit { width: 100%; background-color: var(--accent-blue); color: white; padding: 16px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.3s ease; margin-top: 10px; font-family: 'Inter', sans-serif; }
+        .btn-submit:hover { background-color: #0284c7; }
+
+        /* UPGRADED FOOTER CSS */
+        .footer { background-color: #020c1b; border-top: 1px solid rgba(255,255,255,0.05); padding: 80px 40px 30px; margin-top: 150px; width: 100%; position: relative; z-index: 2;}
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
+        .footer-logo { display: flex; flex-direction: column; align-items: flex-start; }
+        .footer-logo h2 { color: var(--text-main); font-weight: 800; font-size: 26px; margin-bottom: 40px; letter-spacing: 1px; }
+        .footer-logo span { color: var(--accent-blue); }
+        .footer-col h4 { color: var(--text-main); font-size: 14px; font-weight: 700; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .footer-col h4.contact-header { color: #f9a826; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 16px; }
+        .footer-links a { text-decoration: none; color: var(--text-muted); font-size: 15px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--text-main); }
+        .social-icons { display: flex; gap: 24px; margin-top: 40px; }
+        .social-icons a { display: block; transition: transform 0.3s ease; }
+        .social-icons a svg { width: 28px; height: 28px; fill: var(--text-main); transition: fill 0.3s ease; }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons a:hover svg { fill: var(--accent-blue); }
+        .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); }
+        .footer-bottom-links a { color: var(--text-muted); text-decoration: none; margin-left: 24px; transition: color 0.3s; }
+        .footer-bottom-links a:hover { color: var(--text-main); }
+        @media (max-width: 768px) { .footer-content { grid-template-columns: 1fr; gap: 40px; } }
+    </style>
 </head>
 <body>
-    
-    <nav class="navbar puppy-park">
-        <div class="navbar-brand animate animate-slide-left">
-            <img src="image/general_image/newlogo (1).png" alt="Five Nines Consulting Logo">
-        </div>
-        <button class="menu-button" onclick="toggleMenu()">☰</button>
-        <ul class="nav-links appear-effect">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="company.html" class="active">Company</a></li>
-            <li><a href="services.html" class="active">Services</a></li>
-            <li><a href="fnc-veteran-services.html" class="active kitty-bx">Join us</a></li>
-
-            <li><a href="blockchain-MFA.html" class="active">Blockchain MFA</a></li>
-
-            <li><a href="https://medium.com/@FNCLLC" class="active kitty-bx">Blog</a></li>
-            
-        
+    <nav class="navbar">
+        <a href="index.html" class="logo"><h2>▲ Prompt<span>Sentry</span></h2></a>
+        <ul class="nav-links">
+            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="company.html">Company</a></li>
+            <li><a href="contact.html" style="color: #0ea5e9;">Contact Us</a></li>
         </ul>
-        <a href="contact.html" class="active cont appear-effect">Contact Us</a></li>
-           
+        <div class="nav-actions"><a href="get-demo.html" class="btn-mini-demo">Get a Demo</a></div>
     </nav>
 
-    <div class="cntact-section contacts puppy-park">
-        <h1 class="appear-effect kitty-box">Get in touch</h1>
-        <p class="sub-text kitty-box appear-effect">You can contact us by email</p>
-        <a href="mailto:tehrus@gmail.com" class="email-link kitty-box appear-effect">
-            info@fiveninesconsulting.io
-        </a>
-    </div>
-    
-    <div class="form-container appear-effect">
-        <form>
-            <label for="name" class="labell">Name</label>
-            <input type="text" id="name" placeholder="Mark John">
-    
-            <label for="email" class="labell">Email</label>
-            <input  type="email" id="email" placeholder="example@gmail.com">
-    
-            <label for="message" class="labell">How can we help you?</label>
-            <textarea style="height: 283px;" id="message" placeholder="Let us know your challenges or vision. We're ready to help."></textarea>
-    
-            <label for="budget" class="labell">What is your budget?</label>
-            <input type="text" id="budget" placeholder="1000 USD" >
-            <a href="mailto:vasiliy.s.ivanov@fiveninesconsulting.io" class="labelll" style="width: 141px ; color: white; ">Submit</a>
-            
-        </form>
-    </div>
-    
-    
-    <footer class="footer">
-        <div class="contact-us">
-            <h3>CONTACT US</h3>
-            <hr>
+    <section class="contact-container">
+        <div class="contact-header">
+            <h1>Contact Support</h1>
+            <p>Have a question or need to get in touch with the team? Fill out the form below.</p>
         </div>
-        <div class="container">
+        <form action="#" method="POST">
+            <div class="form-group"><label>Full Name</label><input type="text" class="form-control" required></div>
+            <div class="form-group"><label>Email Address</label><input type="email" class="form-control" required></div>
+            <div class="form-group"><label>Message</label><textarea class="form-control" required></textarea></div>
+            <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+    </section>
 
-
-            <div class="footer-container">
-                <div class="footer-column">
-
-                    <div class="social-links">
-                        <a href="https://x.com/fncnodeos" target="_blank"> X</a><br>
-                        <a href="https://www.linkedin.com/in/vasiliy-s-ivanov/" target="_blank"> LinkedIn</a><br>
-                        <a href="#" target="_blank"> Facebook</a><br>
-                        
-                    </div>
-
-                    <img src="image/general_image/five nine.png" alt="Five Nines Consulting" class="footer-logo">
-                </div>
-
-                <div class="footer-column">
-                    <h3> Quick links</h3>
-                    <div class="quick-links">
-
-                        <a href="https://fiveninesconsulting.io">Home</a><br>
-                        <a href="services.html">Services</a><br>
-                        <a href="company.html">Company</a><br>
-                        <a href="contact.html">Contact Us</a><br>
-                        <a href="https://medium.com/@FNCLLC">Blog</a><br>
-                    </div>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Location</h3>
-                    <div class="lokation">
-
-                        <p class="mails">Roanoke, VA</p>
-                    </div>
-                    <div class="footer-column news">
-                        <h3>Get in touch</h3>
-                        <p class="mails">info@fiveninesconsulting.io</p>
-                        <h3 style=" margin-top: 15px;">Phone</h3>
-                        <p class="mails">703-309-6460</p>
-                    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col footer-logo">
+                <h2>▲ Prompt<span>Sentry</span></h2>
+                <h4 class="contact-header">Contact</h4>
+                <ul class="footer-links"><li><a href="contact.html">Contact Us</a></li></ul>
+                <div class="social-icons">
+                    <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
+                    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <hr>
-                <p>© 2025 FNC</p>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <ul class="footer-links"><li><a href="solutions.html">Shadow AI Governance</a></li><li><a href="solutions.html">Data Leak Prevention</a></li><li><a href="solutions.html">Prompt Injection Defense</a></li></ul>
             </div>
-
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul class="footer-links"><li><a href="company.html">About FNC</a></li><li><a href="#">Newsroom</a></li><li><a href="get-demo.html">Book a Demo</a></li></ul>
+            </div>
+        </div>
+        <div class="footer-bottom"><div>&copy; 2026 PromptSentry. A product of Five Nines Consulting. All rights reserved.</div><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div>
     </footer>
-    <script src="script.js"></script>
 </body>
 </html>

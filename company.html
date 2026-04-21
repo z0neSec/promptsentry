@@ -1,334 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FNC | The Company</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-        <link href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" rel="stylesheet"
-        >
-        <link rel="stylesheet" href="https://sets.hugeicons.com/YOUR-SET-ID.css" crossorigin="anonymous">
-        <link rel="icon" type="image/webp" sizes="32x32" href="image/general_image/token.webp">
-        <link rel="apple-touch-icon" href="image/general_image/token.webp">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="styles/general_styles/nav_styles.css">
-    <link rel="stylesheet" href="styles/index_styles/styles.css">
-    <link rel="stylesheet" href="styles/general_styles/footer.css">
-    <link rel="stylesheet" href="styles/company_styles/styles.css">
-</head>
+    <title>Company - PromptSentry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            var(--bg-gradient): linear-gradient(135deg, #020c1b 0%, #0a192f 50%, #112240 100%);
+            --text-main: #e6f1ff;
+            --text-muted: #8892b0;
+            --accent-blue: #0ea5e9; 
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.05);
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #020c1b; background-image: linear-gradient(135deg, #020c1b 0%, #0a192f 50%, #112240 100%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        /* Navbar */
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); padding: 15px 40px; border-radius: 8px; margin: 20px; border: 1px solid var(--card-border); position: sticky; top: 10px; z-index: 100; }
+        .logo { text-decoration: none; cursor: pointer; }
+        .logo h2 { color: var(--text-main); font-weight: 800; letter-spacing: 1px; font-size: 20px;}
+        .logo span { color: var(--accent-blue); } 
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 14px; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--accent-blue); }
+        .nav-actions { display: flex; align-items: center; }
+        .btn-mini-demo { background: none; border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 6px 16px; border-radius: 4px; font-weight: 600; font-size: 13px; text-decoration: none; transition: background 0.3s;}
+        .btn-mini-demo:hover { background: rgba(14, 165, 233, 0.1); }
+
+        /* Page Header */
+        .page-header { text-align: center; padding: 80px 20px 40px; }
+        .fnc-badge { display: inline-block; background: rgba(14, 165, 233, 0.1); border: 1px solid var(--accent-blue); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--accent-blue); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1.5px;}
+        .page-header h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; color: var(--text-main); line-height: 1.2; }
+        
+        /* Mission & Vision Split */
+        .mission-section { max-width: 1200px; margin: 60px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .mission-text h2 { font-size: 32px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; color: var(--text-main); }
+        .mission-text p { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
+        
+        /* Security Standards Badges */
+        .standards-box { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .standards-box h3 { color: #0a192f; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; text-align: center; margin-bottom: 30px; font-weight: 800;}
+        .badges-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .badge { border: 1px solid #e2e8f0; border-radius: 50%; width: 140px; height: 140px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10px; background: #f8fafc;}
+        .badge span.icon { font-size: 32px; margin-bottom: 10px; color: #020c1b;}
+        .badge span.text { font-size: 12px; font-weight: 700; color: #0a192f; text-transform: uppercase;}
+
+        /* Founder Section */
+        .founder-section { max-width: 900px; margin: 100px auto; padding: 0 20px; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 36px; font-weight: 800; color: var(--text-main); }
+        
+        .founder-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 40px; display: flex; gap: 40px; align-items: center; }
+        .founder-image { width: 220px; height: 220px; min-width: 220px; border-radius: 12px; background: rgba(14, 165, 233, 0.05); border: 2px dashed var(--accent-blue); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--accent-blue); font-size: 13px; font-weight: 600; padding: 20px; overflow: hidden; position: relative;}
+        .founder-info h3 { font-size: 28px; font-weight: 800; margin-bottom: 8px; color: var(--text-main); }
+        .founder-info h4 { font-size: 15px; font-weight: 600; color: var(--accent-blue); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;}
+        .founder-info p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;}
+        .founder-socials a { display: inline-block; color: var(--text-main); opacity: 0.7; transition: opacity 0.3s; }
+        .founder-socials a:hover { opacity: 1; color: var(--accent-blue); }
+        .founder-socials svg { width: 24px; height: 24px; fill: currentColor; }
+
+        /* Careers / Growing Banner */
+        .careers-banner { max-width: 1000px; margin: 100px auto; padding: 60px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(2, 12, 27, 0.8) 100%); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; display: flex; justify-content: space-between; align-items: center; gap: 40px;}
+        .careers-text h2 { font-size: 36px; font-weight: 800; margin-bottom: 15px; color: var(--text-main); }
+        .careers-text p { font-size: 16px; color: var(--text-muted); line-height: 1.6; max-width: 500px;}
+        .btn-careers { background-color: #f59e0b; color: #020c1b; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px; transition: all 0.3s ease; white-space: nowrap; }
+        .btn-careers:hover { background-color: #d97706; transform: translateY(-2px); }
+
+        @media (max-width: 900px) {
+            .mission-section { grid-template-columns: 1fr; }
+            .founder-card { flex-direction: column; text-align: center; }
+            .careers-banner { flex-direction: column; text-align: center; }
+        }
+
+        /* Pro Footer */
+        .footer { background-color: #020c1b; border-top: 1px solid rgba(255,255,255,0.05); padding: 80px 40px 30px; width: 100%; margin-top: auto;}
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
+        .footer-logo { display: flex; flex-direction: column; align-items: flex-start; }
+        .footer-logo h2 { color: var(--text-main); font-weight: 800; font-size: 26px; margin-bottom: 40px; letter-spacing: 1px; }
+        .footer-logo span { color: var(--accent-blue); }
+        .footer-col h4 { color: var(--text-main); font-size: 14px; font-weight: 700; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .footer-col h4.contact-header { color: #f9a826; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 16px; }
+        .footer-links a { text-decoration: none; color: var(--text-muted); font-size: 15px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--text-main); }
+        .social-icons { display: flex; gap: 24px; margin-top: 40px; }
+        .social-icons a { display: block; transition: transform 0.3s ease; }
+        .social-icons a svg { width: 28px; height: 28px; fill: var(--text-main); transition: fill 0.3s ease; }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .social-icons a:hover svg { fill: var(--accent-blue); }
+        .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); }
+        .footer-bottom-links a { color: var(--text-muted); text-decoration: none; margin-left: 24px; transition: color 0.3s; }
+        .footer-bottom-links a:hover { color: var(--text-main); }
+        @media (max-width: 768px) { .footer-content { grid-template-columns: 1fr; gap: 40px; } }
+    </style>
+</head>
 <body>
 
     <nav class="navbar">
-        <div class="navbar-brand animate animate-slide-left">
-            <img src="image/general_image/newlogo.png" alt="Five Nines Consulting Logo">
-        </div>
-        <button class="menu-button" onclick="toggleMenu()">☰</button>
-        <ul class="nav-links appear-effect">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="company.html" class="active">Company</a></li>
-            <li><a href="services.html" class="active">Services</a></li>
-            <li><a href="fnc-veteran-services.html" class="active kitty-bx">Join us</a></li>
-
-            <li><a href="blockchain-MFA.html" class="active">Blockchain MFA</a></li>
-
-            <li><a href="https://medium.com/@FNCLLC" class="active kitty-bx">Blog</a></li>
-            
-        
+        <a href="index.html" class="logo"><h2>▲ Prompt<span>Sentry</span></h2></a>
+        <ul class="nav-links">
+            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="company.html" style="color: #0ea5e9;">Company</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
         </ul>
-        <a href="contact.html" class="active cont appear-effect">Contact Us</a></li>
-           
+        <div class="nav-actions"><a href="get-demo.html" class="btn-mini-demo">Get a Demo</a></div>
     </nav>
 
-<section class="hero-company">
-    <div class="company-text">
-        <h2 class="appear-effect">Who <span style="color:  #626262;">We</span> Are</h2>
-        <p class="appear-effect">FNC is a veteran-led technology and infrastructure firm dedicated to building systems where reliability, sustainability, and precision are non-negotiable. From decentralized authentication tools to modular data centers and self-sustaining veteran communities, FNC engineers solutions that endure. </p>
-    <p class="appear-effect">At our core, we are a mission-driven team. We don’t just build infrastructure—we build people, careers, and communities. Our team will include cybersecurity engineers, cloud architects, agricultural experts, engineers, and combat-proven veterans, all united by a belief in ownership, discipline, and real-world outcomes. </p>
-    </div>
-    <div class="grid-2x2 puppy-park">
-        <h2 class="grid-tex animate animate-slide-left" style="font-family: Montserrat, serif; ">Company  <span style=" font-family: Montserrat, serif;">Overview</span></h2>
-        <div class="grid-item kitty-box"><img src="image/remote-support.png"> </div>
-        <div class="grid-item kitty-box"><img src="image/custom-it.png"></div>
-        <div class="grid-item kitty-box"><img src="image/Frame 26088347.png"></div>
+    <header class="page-header">
+        <div class="fnc-badge">A Product of Five Nines Consulting</div>
+        <h1>Born from Enterprise Security.<br>Built for the AI Era.</h1>
+    </header>
 
-
-
-      </div>
-      
-</section>
-      
-      <section class="mission-section animate animate-slide-up">
+    <section class="mission-section">
+        <div class="mission-text">
+            <h2>AI has revolutionized your workflows. We secure them.</h2>
+            <p>Generative AI is transforming productivity at unprecedented speeds. But this rapid adoption has fueled uncontrolled "Shadow AI" usage, exposing organizations to severe data leaks and entirely new threat vectors like prompt injections.</p>
+            <p>PromptSentry was developed by the infrastructure security specialists at Five Nines Consulting. We recognized that traditional firewalls and DLP systems are completely blind to the prompt layer.</p>
+            <p>We built the all-in-one enterprise platform to secure employee AI usage and homegrown AI applications, delivering real-time visibility, strict policy enforcement, and risk mitigation everywhere AI touches your network.</p>
+        </div>
         
-<div class="mission-text">
-
-    <h2 class="appear-effect">Our <span style="color:#626262;">Mission</span></h2>
-    <div class="grid-2x2 puppy-park hidden-grid">
-        <div class="grid-item kitty-box"><img src="image/a-professional-portrait-photograph-of-a-_qr88giJzQXGAsHMqmsOELQ_n5QGwPd7TIK8CAHIHHlP0w.jpeg"> </div>
-
-        <div class="grid-item kitty-box"><img src="image/a-girl-holding-a-phone-and-ponting-the-p_4n4DUthJSKaDESYmEtPluA_205rknPZR82UhUby60g40g.jpeg"></div>
-        <div class="grid-item animate animate-slide-up widen"><img src="image/a-photograph-of-a-modern-data-center-wit__p9yt5yCQaGExtvb2VLpEQ_oownxPECTAGiS2GqOIIOvw.jpeg"></div>
-      </div>
-    <p class="appear-effect">To deliver purpose-driven infrastructure and platforms that empower veterans, protect digital assets, and promote community-based innovation—where every line of code and every brick laid serves a greater mission. </p>
-</div>
-<div class="mission-images animate animate-slide-up">
-    <div class="smaller">
-    <img src="image/a-professional-portrait-photograph-of-a-_qr88giJzQXGAsHMqmsOELQ_n5QGwPd7TIK8CAHIHHlP0w.jpeg" class="appear-effect">
-    <img src="image/a-girl-holding-a-phone-and-ponting-the-p_4n4DUthJSKaDESYmEtPluA_205rknPZR82UhUby60g40g.jpeg" class="animate animate-slide-up">
-    </div>
-    <div class="larger">
-    <img src="image/custom-it.png" class="animate animate-slide-up">
-    <img src="image/a-photograph-of-a-modern-data-center-wit__p9yt5yCQaGExtvb2VLpEQ_oownxPECTAGiS2GqOIIOvw.jpeg">
-</div>
-    </div>
-      </section>
-
-<section class="core-section animate animate-slide-up">
-    <h2 class="heas">Our<span style="color: #626262;"> Core Values</span></h2>
-<div class="core-cards puppy-park">
-    <div class="core-card  animate animate-slide-up" style="background-color: #c4c4c444;">
-        <img src="icons/dartboard.png">
-        <div class="core-text">
-            <h2>Precision</h2>
-            <p> Every system is engineered for uptime, integrity, and transparency. </p>
-        </div>
-    </div>
-    <div class="core-card  animate animate-slide-up" style="background-color: #c4c4c444;">
-        <img src="icons/planet-earth.png">
-        <div class="core-text">
-            <h2>Sustainability</h2>
-            <p> From geothermal-powered compute to hydroponic food systems—we minimize waste and maximize reuse. </p>
-        </div>
-    </div>
-    <div class="core-card animate animate-slide-up" style="background-color: #c4c4c444;">
-        <img src="icons/target_18366255.png" >
-        <div class="core-text">
-            <h2>Purpose</h2>
-            <p>No project is just a deliverable—it’s part of a broader goal to support communities, and unlock potential. </p>
-        </div>
-    </div>
-    
-
-     <div class="core-card animate animate-slide-up" style="background-color: #c4c4c444;">
-        <img src="icons/security_2058432.png">
-        <div class="core-text">
-            <h2>Security</h2>
-            <p> From Blockchain MFA to zero-trust architecture, security is embedded by design. 
-            </p>
-        </div>
-    </div>
-</div>
-</section>
-
-
-<section class="case-studies">
-       
-    
-    <div class="case-grid puppy-park">
-        <div class="section-header animate animate-slide-up">
-            <h2 class="appear-effect">What <span style="color: #626262;">We Do</span></h2>
-            <p class="appear-effect">Have a glipse of our available services. we would keep adding to our broad services as we grow.</p>
-            <a href="services.html" class="ca-button appear-effect">See All Services</a>
-        </div>
-        <div class="case-item appear-effect">
-            <img src="image/custom-website.png">
-
-            <div class="case-info appear-effect">
-
-                <h2>Website Development</h2>
-<p>Get a fully functional, professionally designed website</p>
+        <div class="standards-box">
+            <h3>Our Security DNA</h3>
+            <div class="badges-grid">
+                <div class="badge"><span class="icon">🎯</span><span class="text">OWASP Top 10<br>Aligned</span></div>
+                <div class="badge"><span class="icon">🔒</span><span class="text">Zero-Trust<br>Architecture</span></div>
+                <div class="badge"><span class="icon">⚡</span><span class="text">Zero-Latency<br>Inspection</span></div>
+                <div class="badge"><span class="icon">🛡️</span><span class="text">Enterprise<br>DLP Native</span></div>
             </div>
         </div>
+    </section>
 
-        <div class="case-item appear-effect">
-            <img src="image/remote-support.png" alt="3D Scanner App">
-            <div class="case-info appear-effect">
-
-                <h2>IT Support & Consulting</h2>
-                <p>Expert technical guidance and infrastructure implementation.</p>
-            </div>
+    <section class="founder-section">
+        <div class="section-title">
+            <h2>Our Founder</h2>
         </div>
-
         
-        <a href="services.html" class="ca-button hide appear-effect">See All Services</a>
-
-    </div>
-</section>
-
-<section class="tehrus">
-    
-    <div class="tehrus-image animate animate-slide-up">
-
-        <img src="image/Rectangle 126.png">
-    </div>
-    <div class="tehrus-text">
-        <h2 class="animate animate-slide-up">The <span style="color: #626262;">Founder</span> </h2>
-        <p class="animate animate-slide-up">Vasiliy Ivanov is a builder, a soldier, and a systems architect who never accepted failure as an option. After years in the Airborne and Special Operations, he transitioned into technical infrastructure, now he plans to train infantrymen to replace routers
-             and design high-availability networks for mission-critical environments.</p>
-            <p class="appear-effect">He learned the hard way what breaks systems—from brittle proxy-based authentication to centralized cloud failures. </p>
-        <a href="the-founder.html" class="ca-button  appear-effect">Read More</a>
-        <a href="the-founder.html" class="ca-button hide  appear-effect" style="margin-top: 20px;">Read More</a>
-
+        <div class="founder-card">
+            <div class="founder-image">
+                <span>[ DESIGNER:<br>Insert Photo of<br>Vasiliy Ivanov ]</span>
+            </div>
+            
+            <div class="founder-info">
+                <h3>Vasiliy Ivanov</h3>
+                <h4>Founder & CEO</h4>
+                <p>Vasiliy is a builder, a former soldier, and a systems architect who learned the hard way what breaks systems—from brittle proxy-based authentication to centralized cloud failures. After years serving in Airborne and Special Operations, he transitioned into technical infrastructure, designing high-availability networks for mission-critical environments.</p>
+                <p>Applying this zero-failure mindset to the Generative AI boom, Vasiliy founded PromptSentry. He recognized that traditional firewalls were failing to protect the prompt layer, and built a platform to bridge the gap between rapid AI innovation and uncompromising enterprise data governance.</p>
+                <div class="founder-socials">
+                    <a href="#" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
                 </div>
-
-</section>
-<section class="vision">
-    <div class="vision-text animate animate-slide-up">
-        <h2 class="juix">Impact <span style="color: #626262;">In Progress</span> </h2>
-
-    </div>
-    <div class="vision-cards animate animate-slide-up puppy-park">
-        
-        <div class="vision-card animate animate-slide-up">
-            <img src="image/a-girl-holding-a-phone-and-ponting-the-p_4n4DUthJSKaDESYmEtPluA_205rknPZR82UhUby60g40g.jpeg">
-            <div class="vision-text">
-                <h2 class="appear-effect">Blockchain MFA</h2>
-                <p class="appear-effect"> A decentralized identity and authentication platform powered by Cardano and WMTX. 
-                </p>
-                <a href="https://medium.com/@FNCLLC/mfa-nft-marketplace-a-new-era-of-decentralized-authentication-9442003a22d6">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#7d2b89" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4.5 12h15m0 0l-5.625-6m5.625 6l-5.625 6"/></svg></a>
             </div>
         </div>
-        <div class="vision-card animate animate-slide-up">
-            <img src="image/a-photograph-of-a-modern-data-center-wit__p9yt5yCQaGExtvb2VLpEQ_oownxPECTAGiS2GqOIIOvw.jpeg">
-            <div class="vision-text">
-                <h2 class="appear-effect">Modular Data Infrastructure</h2>
-                <p class="appear-effect">From EMP-resistant data centers to edge deployments in remote zones, we will design infrastructure.. </p>
-                <a href="https://medium.com/@FNCLLC">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#7d2b89" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4.5 12h15m0 0l-5.625-6m5.625 6l-5.625 6"/></svg></a>
+    </section>
 
-            </div>
+    <section class="careers-banner">
+        <div class="careers-text">
+            <h2>PromptSentry is growing!</h2>
+            <p>Take your career to new heights. Join a team of passionate cloud architects and security engineers at the absolute forefront of Generative AI defense.</p>
         </div>
-        <div class="vision-card animate animate-slide-up">
-            <img src="image/a-professional-portrait-photograph-of-a-_qr88giJzQXGAsHMqmsOELQ_n5QGwPd7TIK8CAHIHHlP0w.jpeg">
-            <div class="vision-text">
-                <h2 class="appear-effect">Veteran Training & Community Building</h2>
-                <p class="appear-effect">Through a scalable community blueprint, we will train elite veterans in cybersecurity, IT,
-                     agriculture, and trades. </p>
-                     <a href="https://medium.com/@FNCLLC/a-veteran-led-self-sustaining-future-the-fnc-vision-d7322393c67a">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#7d2b89" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4.5 12h15m0 0l-5.625-6m5.625 6l-5.625 6"/></svg> </a>
-
-                    </div>
-        </div>
-        <div class="vision-card animate animate-slide-up">
-            <img src="image/Generated Image April 04, 2025 - 12_51PM.jpeg">
-            <div class="vision-text">
-                <h2 class="appear-effect">Sustainable Engineering</h2>
-                <p class="appear-effect">Geothermal cooling systems, aquaponics, solar-powered housing, and locally milled lumber all support our self-sustaining communities. </p>
-                <a href="https://medium.com/@FNCLLC">Learn More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#7d2b89" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4.5 12h15m0 0l-5.625-6m5.625 6l-5.625 6"/></svg></a>
-
-            </div>
-        </div>
-    </div>
-</section>
-<section class="work-out">
-
-    <div class="work-out-text animate animate-slide-up">
-        <h2>Work <span style="color: #626262;">With Us</span></h2>
-        <p> Whether you’re a government agency, enterprise client, or fellow builder, we’re always looking for partners who share our values and want to work with those who never quit. </p>
-    <p>Contact: <a href="#"> info@fiveninesconsulting.io</a> </p>    
-    </div>
-        <div class="work-out-image appear-effect">
-            <img src="image/on-site.png">
-        </div>
-</section>
-
-
-<div class="cntact-section contacts puppy-park">
-    <h1 class="appear-effect kitty-box lastly" style="font-size: 38px;">Get <span style="color: #626262;"> in touch</span></h1>
-    <p class="sub-text kitty-box appear-effect">You can contact us by email</p>
-    <a href="mailto:tehrus@gmail.com" class="email-link kitty-box appear-effect">
-        info@fiveninesconsulting.io
-    </a>
-</div>
-
-<div class="form-container appear-effect">
-    <form>
-        <label for="name" class="labell">Name</label>
-        <input type="text" id="name" placeholder="Mark John">
-
-        <label for="email" class="labell">Email</label>
-        <input  type="email" id="email" placeholder="example@gmail.com">
-
-        <label for="message" class="labell">How can we help you?</label>
-        <textarea style="height: 283px;" id="message" placeholder="Let us know your challenges or vision. We're ready to help."></textarea>
-
-        <label for="budget" class="labell">What is your budget?</label>
-        <input type="text" id="budget" placeholder="1000 USD" >
-        <a href="mailto:vasiliy.s.ivanov@fiveninesconsulting.io" class="labelll" style="width: 141px ; color: white; ">Submit</a>
-        
-    </form>
-</div>
-
-
-
+        <a href="mailto:careers@promptsentry.com" class="btn-careers">View Open Roles</a>
+    </section>
 
     <footer class="footer">
-        <div class="contact-us">
-            <h3>CONTACT US</h3>
-            <hr>
+        <div class="footer-content">
+            <div class="footer-col footer-logo">
+                <h2>▲ Prompt<span>Sentry</span></h2>
+                <h4 class="contact-header">Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
+                    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <ul class="footer-links">
+                    <li><a href="solutions.html">Shadow AI Governance</a></li>
+                    <li><a href="solutions.html">Data Leak Prevention</a></li>
+                    <li><a href="solutions.html">Prompt Injection Defense</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="company.html">About FNC</a></li>
+                    <li><a href="#">Newsroom</a></li>
+                    <li><a href="get-demo.html">Book a Demo</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="container">
-
-
-            <div class="footer-container">
-                <div class="footer-column">
-
-                    <div class="social-links">
-                        <a href="https://x.com/fncnodeos" target="_blank"> X</a><br>
-                        <a href="https://www.linkedin.com/in/vasiliy-s-ivanov/" target="_blank"> LinkedIn</a><br>
-                        <a href="#" target="_blank"> Facebook</a><br>
-                        
-                    </div>
-
-                    <img src="image/general_image/five nine.png" alt="Five Nines Consulting" class="footer-logo">
-                </div>
-
-                <div class="footer-column">
-                    <h3> Quick links</h3>
-                    <div class="quick-links">
-                        <a href="https://fiveninesconsulting.io">Home</a><br>
-                        <a href="services.html">Services</a><br>
-                        <a href="company.html">Company</a><br>
-                        <a href="contact.html">Contact Us</a><br>
-                        <a href="https://medium.com/@FNCLLC">Blog</a><br>
-
-                    </div>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Location</h3>
-                    <div class="lokation">
-
-                        <p class="mails">Roanoke, VA</p>
-                    </div>
-                    <div class="footer-column news">
-                        <h3>Get in touch</h3>
-                        <p class="mails">info@fiveninesconsulting.io</p>
-                        <h3 style=" margin-top: 15px;">Phone</h3>
-                        <p class="mails">703-309-6460</p>
-                    </div>
-                </div>
-
-
+        <div class="footer-bottom">
+            <div>&copy; 2026 PromptSentry. A product of Five Nines Consulting. All rights reserved.</div>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
             </div>
-            </div>
-            <div class="footer-bottom">
-                <hr>
-                <p>© 2025 FNC</p>
-            </div>
-
+        </div>
     </footer>
-    <script>
-        
-    </script>
 
-
-    <script src="script.js">
-
-        
-    </script>
-    </body>
-    </html>
+</body>
+</html>
