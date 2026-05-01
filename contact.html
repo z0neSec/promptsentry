@@ -133,8 +133,48 @@
             .demo-container, .contact-container, .feature-row { flex-direction: column; } 
             .demo-form-wrapper, .contact-form-wrapper { width: 100%; min-width: auto; }
         }
-        @media (max-width: 600px) { .form-row { flex-direction: column; gap: 0; } }
-    </style>
+       /* ... all your other CSS up above stays exactly the same ... */
+
+        .footer-legal { text-align: right; font-size: 13px; color: #737373; display: flex; flex-direction: column; gap: 12px; }
+        .footer-legal-links { display: flex; gap: 24px; justify-content: flex-end; }
+        .footer-legal-links a { color: #a3a3a3; text-decoration: none; transition: color 0.2s; }
+        .footer-legal-links a:hover { color: #ffffff; }
+
+        /* ========================================================
+           📱 UNIVERSAL MOBILE FIX (Overrides desktop for phones)
+           ======================================================== */
+        @media (max-width: 850px) {
+            /* 1. Shrink Giant Fonts */
+            .hero-left h1, .page-header h1, .demo-text h1 { font-size: 38px !important; line-height: 1.2; letter-spacing: -1px; }
+            .hero-left p, .page-header p, .demo-text p { font-size: 16px !important; }
+            .bottom-cta h2, .section-header-center h2, .dash-text-col h2 { font-size: 32px !important; }
+
+            /* 2. Stack the Navbar securely */
+            .navbar { flex-direction: column; gap: 15px; padding: 20px 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            
+            /* 3. Stack Complex Layouts (Hero, Dashboard, Demo, Contact) */
+            .hero-split, .dashboard-section, .demo-container { flex-direction: column; gap: 40px; align-items: center; padding: 20px; }
+            .hero-left, .dash-text-col, .demo-text { max-width: 100%; min-width: 100%; text-align: center; }
+            .hero-buttons { justify-content: center; flex-wrap: wrap; }
+            .hero-right { width: 100%; height: 400px; transform: scale(0.8); } /* Shrinks the floating cards to fit phone screens */
+            .dash-image-col, .demo-form-wrapper { min-width: 100%; width: 100%; }
+            .demo-form-wrapper { padding: 25px 20px; }
+            .form-row { flex-direction: column; gap: 0; } 
+
+            /* 4. Fix Elements that break the width */
+            .status-bar, .trusted-bar { flex-direction: column; align-items: center; gap: 20px; }
+            .story-section { padding: 30px 20px; }
+            .feature-grid-clean, .values-grid { grid-template-columns: 1fr; } 
+
+            /* 5. Ensure the Footer Stacks Flawlessly */
+            .footer { padding: 60px 20px 30px; }
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 30px; margin-top: 40px; }
+            .footer-legal-links { justify-content: flex-start; width: 100%; flex-wrap: wrap; gap: 15px; }
+            .footer-logo img { height: 48px; } 
+        }
+        </style>
 </head>
 <body>
 
