@@ -3,209 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company - PromptSentry</title>
+    <title>Company - PromptSentry by FNC</title>
+    <link rel="icon" type="image/svg+xml" href="image/logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            var(--bg-gradient): linear-gradient(135deg, #020c1b 0%, #0a192f 50%, #112240 100%);
-            --text-main: #e6f1ff;
-            --text-muted: #8892b0;
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1;
             --accent-blue: #0ea5e9; 
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --card-border: rgba(255, 255, 255, 0.05);
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            --accent-purple: #8b5cf6;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: #020c1b; background-image: linear-gradient(135deg, #020c1b 0%, #0a192f 50%, #112240 100%); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        /* Navbar */
-        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); padding: 15px 40px; border-radius: 8px; margin: 20px; border: 1px solid var(--card-border); position: sticky; top: 10px; z-index: 100; }
-        .logo { text-decoration: none; cursor: pointer; }
-        .logo h2 { color: var(--text-main); font-weight: 800; letter-spacing: 1px; font-size: 20px;}
-        .logo span { color: var(--accent-blue); } 
-        .nav-links { list-style: none; display: flex; gap: 30px; }
-        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 14px; transition: color 0.3s ease; }
-        .nav-links a:hover { color: var(--accent-blue); }
-        .nav-actions { display: flex; align-items: center; }
-        .btn-mini-demo { background: none; border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 6px 16px; border-radius: 4px; font-weight: 600; font-size: 13px; text-decoration: none; transition: background 0.3s;}
-        .btn-mini-demo:hover { background: rgba(14, 165, 233, 0.1); }
-
-        /* Page Header */
-        .page-header { text-align: center; padding: 80px 20px 40px; }
-        .fnc-badge { display: inline-block; background: rgba(14, 165, 233, 0.1); border: 1px solid var(--accent-blue); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--accent-blue); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1.5px;}
-        .page-header h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; color: var(--text-main); line-height: 1.2; }
-        
-        /* Mission & Vision Split */
-        .mission-section { max-width: 1200px; margin: 60px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .mission-text h2 { font-size: 32px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; color: var(--text-main); }
-        .mission-text p { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
-        
-        /* Security Standards Badges */
-        .standards-box { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-        .standards-box h3 { color: #0a192f; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; text-align: center; margin-bottom: 30px; font-weight: 800;}
-        .badges-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .badge { border: 1px solid #e2e8f0; border-radius: 50%; width: 140px; height: 140px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10px; background: #f8fafc;}
-        .badge span.icon { font-size: 32px; margin-bottom: 10px; color: #020c1b;}
-        .badge span.text { font-size: 12px; font-weight: 700; color: #0a192f; text-transform: uppercase;}
-
-        /* Founder Section */
-        .founder-section { max-width: 900px; margin: 100px auto; padding: 0 20px; }
-        .section-title { text-align: center; margin-bottom: 50px; }
-        .section-title h2 { font-size: 36px; font-weight: 800; color: var(--text-main); }
-        
-        .founder-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 40px; display: flex; gap: 40px; align-items: center; }
-        .founder-image { width: 220px; height: 220px; min-width: 220px; border-radius: 12px; background: rgba(14, 165, 233, 0.05); border: 2px dashed var(--accent-blue); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--accent-blue); font-size: 13px; font-weight: 600; padding: 20px; overflow: hidden; position: relative;}
-        .founder-info h3 { font-size: 28px; font-weight: 800; margin-bottom: 8px; color: var(--text-main); }
-        .founder-info h4 { font-size: 15px; font-weight: 600; color: var(--accent-blue); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;}
-        .founder-info p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;}
-        .founder-socials a { display: inline-block; color: var(--text-main); opacity: 0.7; transition: opacity 0.3s; }
-        .founder-socials a:hover { opacity: 1; color: var(--accent-blue); }
-        .founder-socials svg { width: 24px; height: 24px; fill: currentColor; }
-
-        /* Careers / Growing Banner */
-        .careers-banner { max-width: 1000px; margin: 100px auto; padding: 60px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(2, 12, 27, 0.8) 100%); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; display: flex; justify-content: space-between; align-items: center; gap: 40px;}
-        .careers-text h2 { font-size: 36px; font-weight: 800; margin-bottom: 15px; color: var(--text-main); }
-        .careers-text p { font-size: 16px; color: var(--text-muted); line-height: 1.6; max-width: 500px;}
-        .btn-careers { background-color: #f59e0b; color: #020c1b; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px; transition: all 0.3s ease; white-space: nowrap; }
-        .btn-careers:hover { background-color: #d97706; transform: translateY(-2px); }
-
-        @media (max-width: 900px) {
-            .mission-section { grid-template-columns: 1fr; }
-            .founder-card { flex-direction: column; text-align: center; }
-            .careers-banner { flex-direction: column; text-align: center; }
+        /* 🚀 THE DEEP BLUE "MAGIC" GRADIENT BACKGROUND 🚀 */
+        body { 
+            background: linear-gradient(135deg, #020c1b 0%, #0f172a 35%, #1e40af 75%, #1d4ed8 100%);
+            color: var(--text-main); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-x: hidden; 
+            padding-top: 28px; 
         }
 
-        /* Pro Footer */
-        .footer { background-color: #020c1b; border-top: 1px solid rgba(255,255,255,0.05); padding: 80px 40px 30px; width: 100%; margin-top: auto;}
-        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
-        .footer-logo { display: flex; flex-direction: column; align-items: flex-start; }
-        .footer-logo h2 { color: var(--text-main); font-weight: 800; font-size: 26px; margin-bottom: 40px; letter-spacing: 1px; }
-        .footer-logo span { color: var(--accent-blue); }
-        .footer-col h4 { color: var(--text-main); font-size: 14px; font-weight: 700; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1.5px; }
-        .footer-col h4.contact-header { color: #f9a826; }
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 16px; }
-        .footer-links a { text-decoration: none; color: var(--text-muted); font-size: 15px; transition: color 0.3s; }
-        .footer-links a:hover { color: var(--text-main); }
-        .social-icons { display: flex; gap: 24px; margin-top: 40px; }
-        .social-icons a { display: block; transition: transform 0.3s ease; }
-        .social-icons a svg { width: 28px; height: 28px; fill: var(--text-main); transition: fill 0.3s ease; }
-        .social-icons a:hover { transform: translateY(-3px); }
-        .social-icons a:hover svg { fill: var(--accent-blue); }
-        .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); }
-        .footer-bottom-links a { color: var(--text-muted); text-decoration: none; margin-left: 24px; transition: color 0.3s; }
-        .footer-bottom-links a:hover { color: var(--text-main); }
-        @media (max-width: 768px) { .footer-content { grid-template-columns: 1fr; gap: 40px; } }
+        /* Animations */
+        @keyframes blurReveal { 0% { opacity: 0; transform: translateY(20px); filter: blur(12px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
+        .saas-reveal { opacity: 0; animation: blurReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.3s; } .delay-3 { animation-delay: 0.5s; }
+        .scroll-animate { opacity: 0; transform: translateY(30px); filter: blur(8px); transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out; }
+        .scroll-animate.show { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+       /* Navbar (Your preferred floating pill design) */
+        .navbar { width: 100%; max-width: 1300px; margin: 20px auto; display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 12px 30px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: sticky; top: 10px; z-index: 100; }
+        
+        /* CLEAN NATIVE LOGO - NO FILTERS */
+        .logo img { height: 44px; width: auto; display: block; } 
+        
+        .nav-links { list-style: none; display: flex; gap: 35px; }
+        .nav-links a { text-decoration: none; color: #0f172a; font-weight: 700; font-size: 15px; transition: color 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); }
+        .btn-mini-demo { background: var(--accent-blue); color: #ffffff; padding: 10px 24px; border-radius: 6px; font-weight: 700; font-size: 14px; text-decoration: none; transition: background 0.3s;}
+        .btn-mini-demo:hover { background: #0284c7; }
+
+        /* Page Header */
+        .page-header { text-align: center; max-width: 900px; margin: 80px auto 40px; padding: 0 20px; position: relative; z-index: 2; }
+        .page-header h1 { font-size: 64px; font-weight: 800; margin-bottom: 24px; line-height: 1.1; color: var(--text-main); letter-spacing: -2px;}
+        .page-header h1 span { background: linear-gradient(to right, #38bdf8, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-header p { font-size: 20px; line-height: 1.6; color: var(--text-muted); font-weight: 400; }
+
+        /* 🚀 Platform Active Status Bar (Catchy, Truthful Progress) 🚀 */
+        .status-bar-wrapper { max-width: 1000px; margin: 0 auto 80px; padding: 0 20px; position: relative; z-index: 2; }
+        .status-bar { display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px 40px; backdrop-filter: blur(10px); flex-wrap: wrap; gap: 20px;}
+        .status-node { display: flex; align-items: center; gap: 12px; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 10px currentColor; }
+        .status-dot.active { background: var(--accent-green); color: var(--accent-green); animation: pulse 2s infinite; }
+        .status-dot.tuning { background: var(--accent-yellow); color: var(--accent-yellow); }
+        .status-dot.deploying { background: var(--accent-purple); color: var(--accent-purple); }
+        .status-text { display: flex; flex-direction: column; }
+        .status-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 4px; }
+        .status-value { font-size: 15px; font-weight: 600; color: #ffffff; }
+        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+
+        /* Story Section */
+        .story-section { max-width: 900px; margin: 0 auto 100px; padding: 50px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; position: relative; z-index: 3; backdrop-filter: blur(10px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .story-section h2 { font-size: 32px; font-weight: 800; margin-bottom: 24px; color: var(--text-main); letter-spacing: -1px; }
+        .story-section p { font-size: 17px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
+        .story-section p:last-child { margin-bottom: 0; }
+
+        /* Values Grid */
+        .values-section { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; position: relative; z-index: 2; }
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .value-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); padding: 40px 30px; border-radius: 16px; backdrop-filter: blur(10px); transition: transform 0.3s ease, background 0.3s ease; }
+        .value-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05); }
+        .value-icon { margin-bottom: 24px; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 14px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%); border: 1px solid rgba(14, 165, 233, 0.3); color: var(--accent-blue); }
+        .value-icon svg { width: 28px; height: 28px; }
+        .value-card h3 { font-size: 22px; color: var(--text-main); margin-bottom: 15px; font-weight: 700; }
+        .value-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+
+        /* Bottom CTA */
+        .bottom-cta { text-align: center; padding: 60px 20px 100px; position: relative; z-index: 2; max-width: 800px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.05); }
+        .bottom-cta h2 { font-size: 40px; font-weight: 800; margin-bottom: 30px; color: var(--text-main); line-height: 1.2; letter-spacing: -1px; }
+        .btn-hero { display: inline-block; background-color: var(--accent-blue); color: white; padding: 16px 36px; font-size: 16px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4); }
+        .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(14, 165, 233, 0.6); }
+
+        /* 🚀 ULTRA-MODERN LAKERA-STYLE FOOTER 🚀 */
+        .footer { background-color: #000000; border-top: 1px solid rgba(255,255,255,0.1); padding: 80px 40px 40px; width: 100%; position: relative; z-index: 2; margin-top: 60px; font-family: 'Inter', sans-serif; }
+        
+        /* Fixed Grid Layout - Desktop */
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; align-items: flex-start; }
+        
+        /* Left Column */
+        .footer-col-main { display: flex; flex-direction: column; align-items: flex-start; }
+        .footer-logo { margin-bottom: 32px; display: inline-block; }
+       .footer-logo { margin-bottom: 32px; display: inline-block; }
+.footer-logo img { 
+    height: 64px; /* <--- This makes it massively dominant */
+    width: auto;
+    display: block; 
+    filter: brightness(0) invert(1); 
+}
+        .footer-actions { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 200px; }
+        .btn-footer-primary { background: #ffffff; color: #000000; padding: 14px 24px; border-radius: 6px; font-weight: 700; font-size: 15px; text-align: center; text-decoration: none; transition: background 0.2s; }
+        .btn-footer-primary:hover { background: #e2e8f0; }
+        .btn-footer-secondary { background: rgba(255,255,255,0.05); color: #ffffff; padding: 14px 24px; border-radius: 6px; font-weight: 600; font-size: 15px; text-align: center; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); transition: background 0.2s; }
+        .btn-footer-secondary:hover { background: rgba(255,255,255,0.1); }
+
+        /* Right Columns */
+        .footer-col { display: flex; flex-direction: column; }
+        .footer-col h4 { color: #ffffff; font-size: 16px; font-weight: 600; margin-bottom: 24px; }
+        .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+        .footer-links a { text-decoration: none; color: #a3a3a3; font-size: 14px; transition: color 0.2s; }
+        .footer-links a:hover { color: #ffffff; }
+
+        /* Bottom Row */
+        .footer-bottom { max-width: 1200px; margin: 80px auto 0; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: flex-end; }
+        .footer-company-info { display: flex; flex-direction: column; gap: 24px; }
+        .company-address { font-size: 13px; color: #737373; line-height: 1.6; }
+        .social-icons-raw { display: flex; gap: 20px; }
+        .social-icons-raw a svg { width: 20px; height: 20px; fill: #737373; transition: fill 0.2s; }
+        .social-icons-raw a:hover svg { fill: #ffffff; }
+
+        .footer-legal { text-align: right; font-size: 13px; color: #737373; display: flex; flex-direction: column; gap: 12px; }
+        .footer-legal-links { display: flex; gap: 24px; justify-content: flex-end; }
+        .footer-legal-links a { color: #a3a3a3; text-decoration: none; transition: color 0.2s; }
+        .footer-legal-links a:hover { color: #ffffff; }
+
+        /* Mobile Layout */
+        @media (max-width: 900px) { 
+            .footer-content { grid-template-columns: 1fr; gap: 50px; } 
+            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 40px; }
+            .footer-legal { text-align: left; }
+            .footer-legal-links { justify-content: flex-start; }
+            .status-bar { flex-direction: column; align-items: flex-start; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <a href="index.html" class="logo"><h2>▲ Prompt<span>Sentry</span></h2></a>
+    <nav class="navbar saas-reveal">
+        <a href="index.html" class="logo"><img src="image/logo.png" alt="PromptSentry"></a>
         <ul class="nav-links">
             <li><a href="solutions.html">Solutions</a></li>
-            <li><a href="company.html" style="color: #0ea5e9;">Company</a></li>
+            <li><a href="company.html" class="active">Company</a></li>
             <li><a href="contact.html">Contact Us</a></li>
         </ul>
-        <div class="nav-actions"><a href="get-demo.html" class="btn-mini-demo">Get a Demo</a></div>
+        <div class="nav-actions"><a href="get-demo.html" class="btn-mini-demo">Request a demo &rarr;</a></div>
     </nav>
 
-    <header class="page-header">
-        <div class="fnc-badge">A Product of Five Nines Consulting</div>
-        <h1>Born from Enterprise Security.<br>Built for the AI Era.</h1>
+    <header class="page-header saas-reveal delay-1">
+        <h1>Where Precision Meets<br><span>AI Security</span></h1>
+        <p>PromptSentry is powered by Five Nines Consulting (FNC). We are a veteran-led team of security architects and engineers building resilient guardrails for the next era of enterprise technology.</p>
     </header>
 
-    <section class="mission-section">
-        <div class="mission-text">
-            <h2>AI has revolutionized your workflows. We secure them.</h2>
-            <p>Generative AI is transforming productivity at unprecedented speeds. But this rapid adoption has fueled uncontrolled "Shadow AI" usage, exposing organizations to severe data leaks and entirely new threat vectors like prompt injections.</p>
-            <p>PromptSentry was developed by the infrastructure security specialists at Five Nines Consulting. We recognized that traditional firewalls and DLP systems are completely blind to the prompt layer.</p>
-            <p>We built the all-in-one enterprise platform to secure employee AI usage and homegrown AI applications, delivering real-time visibility, strict policy enforcement, and risk mitigation everywhere AI touches your network.</p>
-        </div>
-        
-        <div class="standards-box">
-            <h3>Our Security DNA</h3>
-            <div class="badges-grid">
-                <div class="badge"><span class="icon">🎯</span><span class="text">OWASP Top 10<br>Aligned</span></div>
-                <div class="badge"><span class="icon">🔒</span><span class="text">Zero-Trust<br>Architecture</span></div>
-                <div class="badge"><span class="icon">⚡</span><span class="text">Zero-Latency<br>Inspection</span></div>
-                <div class="badge"><span class="icon">🛡️</span><span class="text">Enterprise<br>DLP Native</span></div>
+    <div class="status-bar-wrapper saas-reveal delay-2">
+        <div class="status-bar">
+            <div class="status-node">
+                <div class="status-dot active"></div>
+                <div class="status-text">
+                    <span class="status-label">Edge Heuristics</span>
+                    <span class="status-value">Active & Parsing</span>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <section class="founder-section">
-        <div class="section-title">
-            <h2>Our Founder</h2>
-        </div>
-        
-        <div class="founder-card">
-            <div class="founder-image">
-                <span>[ DESIGNER:<br>Insert Photo of<br>Vasiliy Ivanov ]</span>
+            <div class="status-node">
+                <div class="status-dot tuning"></div>
+                <div class="status-text">
+                    <span class="status-label">Gemma Reasoning</span>
+                    <span class="status-value">Active Tuning Phase</span>
+                </div>
             </div>
-            
-            <div class="founder-info">
-                <h3>Vasiliy Ivanov</h3>
-                <h4>Founder & CEO</h4>
-                <p>Vasiliy is a builder, a former soldier, and a systems architect who learned the hard way what breaks systems—from brittle proxy-based authentication to centralized cloud failures. After years serving in Airborne and Special Operations, he transitioned into technical infrastructure, designing high-availability networks for mission-critical environments.</p>
-                <p>Applying this zero-failure mindset to the Generative AI boom, Vasiliy founded PromptSentry. He recognized that traditional firewalls were failing to protect the prompt layer, and built a platform to bridge the gap between rapid AI innovation and uncompromising enterprise data governance.</p>
-                <div class="founder-socials">
-                    <a href="#" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    </a>
+            <div class="status-node">
+                <div class="status-dot deploying"></div>
+                <div class="status-text">
+                    <span class="status-label">988 Routing UI</span>
+                    <span class="status-value">Deployment & QA</span>
                 </div>
             </div>
         </div>
+    </div>
+
+    <section class="story-section scroll-animate">
+        <h2>The Architecture of Trust</h2>
+        <p>The widespread adoption of Generative AI created an immediate blind spot for enterprise security. Traditional firewalls operate on rigid keywords and are fundamentally incapable of understanding the nuanced <em>intent</em> behind AI prompts.</p>
+        <p>We are building PromptSentry because the market needs precision. Drawing on our background of delivering high-stakes digital infrastructure and executing with military-grade discipline, we engineered a dual-layer solution.</p>
+        <p>We are actively deploying and refining systems that combine the raw execution speed of edge-based heuristics with the profound contextual reasoning of dedicated GPU-accelerated Gemma models. We don't just block keywords. We are building the engine to evaluate intent, enforce governance, and secure your digital assets natively.</p>
     </section>
 
-    <section class="careers-banner">
-        <div class="careers-text">
-            <h2>PromptSentry is growing!</h2>
-            <p>Take your career to new heights. Join a team of passionate cloud architects and security engineers at the absolute forefront of Generative AI defense.</p>
+    <section class="values-section scroll-animate">
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h3>Veteran-Led Execution</h3>
+                <p>We leverage the discipline and precision of veterans to deliver end-to-end technical solutions. Security is executed with absolute reliability, cutting through the noise.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline></svg>
+                </div>
+                <h3>Technical Transparency</h3>
+                <p>We don't sell "magic AI." We build verifiable infrastructure. We are completely transparent about where we use deterministic routing and where we deploy GPU reasoning.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                </div>
+                <h3>The "Five Nines" Standard</h3>
+                <p>Our namesake reflects the industry standard for high availability (99.999% uptime), signaling an uncompromising, continuous commitment to professional excellence.</p>
+            </div>
         </div>
-        <a href="mailto:careers@promptsentry.com" class="btn-careers">View Open Roles</a>
     </section>
 
-    <footer class="footer">
+    <section class="bottom-cta scroll-animate">
+        <h2>Partner with FNC to secure your infrastructure.</h2>
+        <a href="get-demo.html" class="btn-hero">Book Your Demo</a>
+    </section>
+
+    <footer class="footer scroll-animate">
         <div class="footer-content">
-            <div class="footer-col footer-logo">
-                <h2>▲ Prompt<span>Sentry</span></h2>
-                <h4 class="contact-header">Contact</h4>
-                <ul class="footer-links">
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
-                    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+            <div class="footer-col-main">
+                <a href="index.html" class="footer-logo">
+                   <img src="image/logo.png" alt="PromptSentry">
+                </a>
+                <div class="footer-actions">
+                    <a href="get-demo.html" class="btn-footer-primary">Book a demo</a>
+                    <a href="solutions.html" class="btn-footer-secondary">Start for free</a>
                 </div>
             </div>
+
             <div class="footer-col">
-                <h4>Solutions</h4>
+                <h4>Products</h4>
                 <ul class="footer-links">
                     <li><a href="solutions.html">Shadow AI Governance</a></li>
                     <li><a href="solutions.html">Data Leak Prevention</a></li>
                     <li><a href="solutions.html">Prompt Injection Defense</a></li>
                 </ul>
             </div>
+
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Security</a></li>
+                </ul>
+            </div>
+
             <div class="footer-col">
                 <h4>Company</h4>
                 <ul class="footer-links">
                     <li><a href="company.html">About FNC</a></li>
                     <li><a href="#">Newsroom</a></li>
-                    <li><a href="get-demo.html">Book a Demo</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
+
         </div>
+
         <div class="footer-bottom">
-            <div>&copy; 2026 PromptSentry. A product of Five Nines Consulting. All rights reserved.</div>
-            <div class="footer-bottom-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
+            <div class="footer-company-info">
+                <div class="company-address">
+                    Five Nines Consulting<br>
+                    Roanoke, VA<br>
+                    United States
+                </div>
+                <div class="social-icons-raw">
+                    <a href="#" aria-label="X (Twitter)">
+                        <svg viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.646h2.039L6.486 3.24H4.298Z"/></svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="#" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-legal">
+                <div class="footer-legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+                <div>© 2026 PromptSentry. A product of Five Nines Consulting. All rights reserved.</div>
             </div>
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>
