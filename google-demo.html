@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Demo — PromptSentry</title>
+    <link rel="icon" type="image/png" href="image/Prompsentry_by_FNC_PNG.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-soft: #161b22;
+            --border: #30363d;
+            --border-soft: #21262d;
+            --text: #f0f6fc;
+            --text-muted: #8b949e;
+            --text-dim: #6e7681;
+            --accent: #2563eb;
+            --glow-2: #58a6ff;
+            --success: #3fb950;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        body::before {
+            content: ''; position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(48, 54, 61, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(48, 54, 61, 0.15) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.6), transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.6), transparent 70%);
+            pointer-events: none; z-index: 0;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .nav-wrap {
+            position: sticky; top: 0; z-index: 50; padding: 14px 24px;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: rgba(13, 17, 23, 0.75); border-bottom: 1px solid var(--border-soft);
+        }
+        .nav { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { display: flex; align-items: center; height: 36px; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
+        .nav-logo img { height: 100%; width: auto; display: block; }
+        .nav-back { color: var(--text-muted); font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; transition: color 0.15s ease; }
+        .nav-back:hover { color: var(--text); }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        section { position: relative; z-index: 1; flex: 1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        .demo-section { padding: 80px 0 100px; }
+        .demo-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start; }
+
+        .demo-text { padding-top: 8px; }
+        .demo-text h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 20px; }
+        .demo-text h1 .grad { background: linear-gradient(135deg, var(--glow-2) 0%, var(--accent) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .demo-text > p { font-size: 17px; color: var(--text-muted); line-height: 1.6; margin-bottom: 44px; }
+
+        .highlights { display: flex; flex-direction: column; gap: 24px; }
+        .highlight { display: flex; gap: 14px; align-items: flex-start; }
+        .highlight-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(37, 99, 235, 0.12); border: 1px solid rgba(37, 99, 235, 0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .highlight-icon svg { width: 16px; height: 16px; stroke: var(--glow-2); fill: none; stroke-width: 1.8; }
+        .highlight-text h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.01em; }
+        .highlight-text p { font-size: 14px; color: var(--text-muted); line-height: 1.55; }
+
+        .form-card {
+            position: relative; border-radius: 16px; padding: 1px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(88, 166, 255, 0.15) 50%, transparent 80%); isolation: isolate;
+        }
+        .form-card::before { content: ''; position: absolute; inset: -40px; border-radius: 24px; background: radial-gradient(ellipse at top right, rgba(37, 99, 235, 0.15), transparent 60%); z-index: -1; pointer-events: none; }
+        .form-inner { background: var(--bg-soft); border-radius: 15px; padding: 36px; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+        .form-control { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border-soft); border-radius: 8px; color: var(--text); font-size: 14px; font-family: inherit; transition: all 0.2s ease; }
+        .form-control::placeholder { color: var(--text-dim); }
+        .form-control:hover { border-color: var(--border); }
+        .form-control:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
+        .form-control option { background: var(--bg); color: var(--text); }
+        textarea.form-control { resize: vertical; min-height: 80px; font-family: inherit; line-height: 1.5; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        select.form-control {
+            appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+            background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+        }
+
+        .btn-submit { width: 100%; background: var(--text); color: var(--bg); padding: 14px; font-size: 15px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease; font-family: inherit; margin-top: 12px; }
+        .btn-submit:hover { transform: translateY(-1px); background: #cbd5e1; }
+        .form-footer { margin-top: 16px; font-size: 12px; color: var(--text-dim); text-align: center; line-height: 1.5; }
+
+        footer { border-top: 1px solid var(--border-soft); padding: 48px 0 40px; position: relative; z-index: 1; }
+        .footer-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .footer-brand { display: flex; flex-direction: column; gap: 14px; max-width: 320px; }
+        .footer-logo { height: 40px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
+        .footer-contact { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+        .footer-contact a:hover { color: var(--text); }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+        .footer-social { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border-soft); color: var(--text-muted); transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease; }
+        .footer-social:hover { color: var(--text); border-color: var(--border); background: rgba(255,255,255,0.03); }
+        .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+        .footer-copy { font-size: 12px; color: var(--text-dim); }
+
+        @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; animation: rise 0.7s ease-out forwards; }
+        .reveal-1 { animation-delay: 0.05s; }
+        .reveal-2 { animation-delay: 0.2s; }
+
+        @media (max-width: 860px) {
+            .demo-grid { grid-template-columns: 1fr; gap: 50px; }
+            .demo-section { padding: 50px 0 70px; }
+            .form-inner { padding: 24px; }
+            .form-row { grid-template-columns: 1fr; gap: 0; }
+            .footer-right { align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrap">
+        <nav class="nav">
+            <a href="google2-index.html" class="nav-logo" aria-label="PromptSentry home">
+                <img src="image/Prompsentry_by_FNC_PNG.png" alt="PromptSentry">
+            </a>
+            <a href="google2-index.html" class="nav-back">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to home
+            </a>
+        </nav>
+    </div>
+
+    <section class="demo-section">
+        <div class="container">
+            <div class="demo-grid">
+
+                <div class="demo-text reveal reveal-1">
+                    <h1>See PromptSentry<br><span class="grad">in action</span></h1>
+                    <p>Book a 30-minute walkthrough with a PromptSentry engineer. We'll show you exactly how the platform fits your stack.</p>
+
+                    <div class="highlights">
+                        <div class="highlight">
+                            <div class="highlight-icon">
+                                <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div class="highlight-text">
+                                <h4>AI Policy Enforcement</h4>
+                                <p>Gain full visibility and enforce strict rules on all traffic routed through your corporate AI tools.</p>
+                            </div>
+                        </div>
+                        <div class="highlight">
+                            <div class="highlight-icon">
+                                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div class="highlight-text">
+                                <h4>Sub-5ms edge defense</h4>
+                                <p>Watch prompt injections get blocked before they reach your model.</p>
+                            </div>
+                        </div>
+                        <div class="highlight">
+                            <div class="highlight-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div class="highlight-text">
+                                <h4>Contextual policy engine</h4>
+                                <p>Catch intent-based attacks that simple keyword filters miss.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card reveal reveal-2">
+                    <div class="form-inner">
+                        <form action="#" method="POST">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>First name</label>
+                                    <input type="text" class="form-control" placeholder="Jane" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Last name</label>
+                                    <input type="text" class="form-control" placeholder="Doe" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Work email</label>
+                                <input type="email" class="form-control" placeholder="jane@company.com" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Company</label>
+                                    <input type="text" class="form-control" placeholder="Acme Corp" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <select class="form-control" required>
+                                        <option value="" disabled selected>Select country</option>
+                                        <option value="US">United States</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="OTHER">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Primary use case</label>
+                                <select class="form-control" required>
+                                    <option value="" disabled selected>Select a use case</option>
+                                    <option value="policy_enforcement">AI Policy Enforcement</option>
+                                    <option value="compliance">Educational Compliance</option>
+                                    <option value="genai_app">GenAI App Security</option>
+                                    <option value="code_assistant">Code Assistant Defense</option>
+                                    <option value="other">Other / general exploration</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Message (Optional)</label>
+                                <textarea class="form-control" rows="3" placeholder="Tell us about your specific needs or architecture..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit">Request demo</button>
+                            <div class="form-footer">
+                                By submitting, you agree to Five Nines Consulting's Privacy Policy.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-row">
+            <div class="footer-brand">
+                <a href="google2-index.html" aria-label="PromptSentry home">
+                    <img src="image/Prompsentry_by_FNC_PNG.png" alt="PromptSentry" class="footer-logo">
+                </a>
+               <div class="footer-contact">
+    <a href="contact.html">Contact us</a><br>
+    Five Nines Consulting<br>
+    Roanoke, VA · United States
+</div>
+            </div>
+            <<div class="footer-right">
+    <a href="https://www.linkedin.com/company/five-nines-consulting-llc-fnc/" class="footer-social" aria-label="Five Nines Consulting on LinkedIn" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <div class="footer-copy">© 2026 PromptSentry — A Five Nines Consulting product</div>
+    <div class="footer-legal" style="display: flex; gap: 16px; font-size: 12px;">
+        <a href="privacy.html" style="color: var(--text-dim);">Privacy Policy</a>
+        <a href="terms.html" style="color: var(--text-dim);">Terms &amp; Conditions</a>
+    </div>
+</div>
+    </footer>
+
+</body>
+</html>

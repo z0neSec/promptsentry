@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Security — PromptSentry</title>
+    <link rel="icon" type="image/svg+xml" href="image/website-logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-soft: #161b22;
+            --bg-elevated: #1c2128;
+            --border: #30363d;
+            --border-soft: #21262d;
+            --text: #f0f6fc;
+            --text-muted: #8b949e;
+            --text-dim: #6e7681;
+            --accent: #2563eb;
+            --glow-1: #2563eb;
+            --glow-2: #58a6ff;
+            --success: #3fb950;
+            --danger: #f85149;
+            --warning: #d29922;
+            --syn-key: #79c0ff;
+            --syn-str: #a5d6ff;
+            --syn-num: #79c0ff;
+            --syn-bool: #ff7b72;
+            --syn-comment: #8b949e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+
+        body {
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: ''; position: fixed; inset: 0;
+            background-image:
+                linear-gradient(rgba(48, 54, 61, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(48, 54, 61, 0.15) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.6), transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.6), transparent 70%);
+            pointer-events: none; z-index: 0;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* Navbar — matches index */
+        .nav-wrap {
+            position: sticky; top: 0; z-index: 50;
+            padding: 14px 24px;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: rgba(13, 17, 23, 0.75);
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .nav {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; gap: 24px;
+        }
+        .nav-logo { display: inline-flex; align-items: center; transition: opacity 0.15s ease; flex-shrink: 0; }
+        .nav-logo:hover { opacity: 0.85; }
+        .nav-logo img { height: 36px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
+        .nav-links { display: flex; align-items: center; gap: 28px; margin-left: auto; }
+        .nav-link { color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.15s ease; font-family: inherit; }
+        .nav-link:hover { color: var(--text); }
+        .nav-link.active { color: var(--text); }
+        .nav-cta { background: var(--text); color: var(--bg); padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; transition: background 0.15s ease; }
+        .nav-cta:hover { background: #cbd5e1; }
+
+        /* Mega-menu */
+        .nav-item { position: relative; display: inline-block; }
+        .dropdown-trigger { background: none; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; color: var(--text-muted); }
+        .dropdown-trigger svg { width: 14px; height: 14px; transition: transform 0.2s ease; opacity: 0.7; }
+        .nav-item:hover .dropdown-trigger { color: var(--text); }
+        .nav-item:hover .dropdown-trigger svg { transform: rotate(180deg); opacity: 1; }
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(22, 27, 34, 0.95);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-soft); border-radius: 12px;
+            padding: 24px; width: 680px;
+            opacity: 0; visibility: hidden; transition: all 0.2s ease;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            margin-top: 14px;
+        }
+        .dropdown-menu::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
+        .nav-item:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .dropdown-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 32px; }
+        .dropdown-heading { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--glow-2); font-weight: 600; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; }
+        .dropdown-link { display: block; margin-bottom: 14px; transition: transform 0.15s ease; }
+        .dropdown-link:last-child { margin-bottom: 0; }
+        .dropdown-link:hover { transform: translateX(2px); }
+        .link-title { display: block; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+        .link-sub { display: block; font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+        .dropdown-col:not(:first-child) .dropdown-link { font-size: 13px; color: var(--text-muted); font-weight: 400; }
+        .dropdown-col:not(:first-child) .dropdown-link:hover { color: var(--text); }
+
+        section { position: relative; z-index: 1; flex: 1; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        .page-hero { padding: 80px 0 56px; text-align: center; }
+        .page-hero h1 { font-size: clamp(36px, 5vw, 54px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
+        .page-hero h1 .grad { background: linear-gradient(135deg, var(--glow-2) 0%, var(--glow-1) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-hero p { font-size: 18px; color: var(--text-muted); max-width: 660px; margin: 0 auto 32px; line-height: 1.6; }
+        .page-hero-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--text); color: var(--bg); padding: 12px 22px; border-radius: 8px; font-weight: 600; font-size: 15px; transition: transform 0.15s ease; }
+        .page-hero-cta:hover { transform: translateY(-1px); }
+        .page-hero-cta svg { width: 16px; height: 16px; }
+
+        .stats { padding: 32px 0 64px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .stat-card { border: 1px solid var(--border-soft); border-radius: 12px; padding: 24px; background: rgba(22, 27, 34, 0.4); text-align: center; }
+        .stat-value { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 600; color: var(--glow-2); margin-bottom: 8px; font-feature-settings: "tnum"; }
+        .stat-label { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+
+        .section-wrap { padding: 56px 0; border-bottom: 1px solid var(--border-soft); }
+        .section-wrap:last-of-type { border-bottom: none; padding-bottom: 96px; }
+        .sec-header { margin-bottom: 48px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .sec-eyebrow { font-size: 12px; color: var(--glow-2); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; }
+        .sec-header h2 { font-size: clamp(28px, 3.5vw, 36px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 14px; }
+        .sec-header p { color: var(--text-muted); font-size: 16px; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+        .deploy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
+        .deploy-card { background: linear-gradient(180deg, rgba(22, 27, 34, 0.6), rgba(13, 17, 23, 0.3)); border: 1px solid var(--border-soft); border-radius: 12px; padding: 28px 24px; transition: border-color 0.2s ease; }
+        .deploy-card:hover { border-color: var(--border); }
+        .deploy-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+        .deploy-card p { font-size: 14px; color: var(--text-muted); line-height: 1.55; min-height: 80px; }
+        .deploy-badge { display: inline-block; padding: 4px 10px; background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); color: var(--glow-2); font-size: 11px; font-family: 'JetBrains Mono', monospace; border-radius: 4px; margin-bottom: 18px; font-weight: 500; }
+
+        .sdk-banner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; background: linear-gradient(90deg, rgba(22, 27, 34, 0.8) 0%, rgba(37, 99, 235, 0.08) 100%); border: 1px solid var(--border-soft); border-radius: 12px; padding: 24px 32px; }
+        .sdk-text { flex: 1; min-width: 260px; }
+        .sdk-text h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .sdk-text p { font-size: 14px; color: var(--text-muted); margin: 0; }
+        .install-block { background: var(--bg); border: 1px solid var(--border); padding: 12px 18px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--glow-2); display: flex; align-items: center; gap: 12px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.4); flex-shrink: 0; }
+        .install-block svg { color: var(--text-dim); }
+
+        .split-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+        .split-text h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
+        .split-text > p { color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 24px; }
+
+        .glow-card { position: relative; border-radius: 12px; padding: 1px; background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(88, 166, 255, 0.15) 50%, transparent 80%); isolation: isolate; }
+        .glow-card::before { content: ''; position: absolute; inset: -40px; border-radius: 24px; background: radial-gradient(ellipse at top left, rgba(37, 99, 235, 0.2), transparent 60%); z-index: -1; pointer-events: none; }
+        .glow-card-inner { background: var(--bg-soft); border-radius: 11px; overflow: hidden; }
+        .window-chrome { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--border-soft); background: rgba(0,0,0,0.2); }
+        .window-dots { display: flex; gap: 6px; }
+        .window-dots span { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
+        .window-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-left: 8px; }
+
+        .code-content { padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; }
+        .code-content pre { margin: 0; }
+        .log-line { display: block; }
+        .log-info { color: var(--glow-2); }
+        .log-warn { color: var(--warning); }
+        .log-error { color: var(--danger); }
+        .log-pass { color: var(--success); }
+        .log-highlight { color: var(--text); font-weight: 500; }
+
+        .syn-key { color: var(--syn-key); }
+        .syn-str { color: var(--syn-str); }
+        .syn-num { color: var(--syn-num); }
+        .syn-bool { color: var(--syn-bool); }
+        .syn-comment { color: var(--syn-comment); font-style: italic; }
+
+        .feature-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+        .feature-list li { display: flex; align-items: flex-start; gap: 12px; }
+        .feature-list svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--success); fill: none; stroke-width: 2; margin-top: 3px; }
+        .feature-list h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+        .feature-list p { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.55; }
+
+        .compliance { background: rgba(22, 27, 34, 0.4); border: 1px solid var(--border-soft); border-radius: 14px; padding: 36px; }
+        .compliance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .compliance-col h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--glow-2); font-weight: 600; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; }
+        .compliance-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .compliance-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+        .compliance-list svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 4px; }
+        .compliance-list .icon-yes { stroke: var(--success); }
+        .compliance-list .icon-roadmap { stroke: var(--warning); }
+        .compliance-list strong { color: var(--text); font-weight: 500; }
+
+        .cta { padding: 80px 0; text-align: center; }
+        .cta-inner { border: 1px solid var(--border-soft); border-radius: 16px; padding: 48px 32px; background: linear-gradient(180deg, rgba(37, 99, 235, 0.06), transparent); position: relative; overflow: hidden; }
+        .cta-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center top, rgba(37, 99, 235, 0.15), transparent 60%); pointer-events: none; }
+        .cta-inner h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+        .cta-inner p { color: var(--text-muted); margin-bottom: 24px; font-size: 15px; }
+
+        footer { border-top: 1px solid var(--border-soft); padding: 48px 0 40px; position: relative; z-index: 1; }
+        .footer-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .footer-brand { display: flex; flex-direction: column; gap: 16px; max-width: 320px; }
+        .footer-logo-wrap { display: inline-flex; align-items: center; align-self: flex-start; transition: opacity 0.15s ease; }
+        .footer-logo-wrap:hover { opacity: 0.85; }
+        .footer-logo { height: 42px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
+        .footer-contact { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+        .footer-contact a:hover { color: var(--text); }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+        .footer-social { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border-soft); color: var(--text-muted); transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease; }
+        .footer-social:hover { color: var(--text); border-color: var(--border); background: rgba(255,255,255,0.03); }
+        .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+        .footer-copy { font-size: 12px; color: var(--text-dim); }
+
+        @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; animation: rise 0.6s ease-out forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+
+        @media (max-width: 960px) {
+            .split-layout { grid-template-columns: 1fr; gap: 40px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .compliance-grid { grid-template-columns: 1fr; gap: 24px; }
+        }
+        @media (max-width: 860px) {
+            .deploy-grid { grid-template-columns: 1fr; }
+            .deploy-card p { min-height: auto; }
+            .nav-links { gap: 16px; }
+            .nav-link { font-size: 13px; }
+            .dropdown-menu { display: none; }
+            .compliance { padding: 24px; }
+            .footer-right { align-items: flex-start; }
+            .nav-logo img { height: 30px; }
+        }
+        @media (max-width: 600px) {
+            .nav { gap: 12px; }
+            .nav-links { gap: 12px; }
+            .nav-link { display: none; }
+            .nav-links .nav-cta { display: inline-flex; }
+            .install-block { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrap">
+        <nav class="nav">
+            <a href="google2-index.html" class="nav-logo" aria-label="PromptSentry home">
+                <img src="image/website-logo.svg" alt="PromptSentry by FNC">
+            </a>
+            <div class="nav-links">
+                
+                <div class="nav-item">
+                    <button class="nav-link dropdown-trigger">
+                        Product
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-grid">
+                            <div class="dropdown-col">
+                                <div class="dropdown-heading">Solutions</div>
+                                <a href="edtech.html" class="dropdown-link">
+                                    <span class="link-title">EdTech &amp; Youth Safety</span>
+                                    <span class="link-sub">For families, schools, and platforms</span>
+                                </a>
+                                <a href="enterprise.html" class="dropdown-link">
+                                    <span class="link-title">Enterprise Security</span>
+                                    <span class="link-sub">For corporate AI pipelines</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-col">
+                                <div class="dropdown-heading">Use Cases</div>
+                                <a href="enterprise.html#policy" class="dropdown-link">AI Policy Enforcement</a>
+                                <a href="edtech.html#compliance" class="dropdown-link">Educational Compliance</a>
+                                <a href="enterprise.html#mcp" class="dropdown-link">MCP &amp; Agent Security</a>
+                                <a href="enterprise.html#deployment" class="dropdown-link">Self-Hosted Deployment</a>
+                            </div>
+                            <div class="dropdown-col">
+                                <div class="dropdown-heading">Risks We Manage</div>
+                                <a href="enterprise.html#policy" class="dropdown-link">Prompt Injection</a>
+                                <a href="enterprise.html" class="dropdown-link">Jailbreak Defense</a>
+                                <a href="enterprise.html#privacy" class="dropdown-link">PII &amp; Data Leaks</a>
+                                <a href="edtech.html#content-filter" class="dropdown-link">Explicit &amp; Toxic Content</a>
+                                <a href="edtech.html#grooming" class="dropdown-link">Grooming &amp; Manipulation</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="company.html" class="nav-link">Company</a>
+                
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                
+                <a href="google-demo.html" class="nav-cta">Request a demo</a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="reveal">Enterprise AI security,<br>deployed <span class="grad">your way</span></h1>
+            <p class="reveal delay-1">Protect your APIs, govern your AI traffic, and meet strict data residency requirements — with a multi-stage detection pipeline benchmarked to sub-1s p95 latency.</p>
+            <a href="google-demo.html" class="page-hero-cta reveal delay-2">
+                Request a demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">98.86%</div>
+                    <div class="stat-label">Attack defense across 1,850 prompts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">99.66%</div>
+                    <div class="stat-label">Harmful content classification</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">&lt;1s</div>
+                    <div class="stat-label">p95 latency on full pipeline</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-wrap" id="deployment">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-eyebrow">Deployment Models</div>
+                <h2>Zero compromise on data residency</h2>
+                <p>Pick the deployment model that matches your data, compliance, and infrastructure requirements. We forward sanitized traffic — we don't masquerade as your upstream provider.</p>
+            </div>
+
+            <div class="deploy-grid">
+                <div class="deploy-card">
+                    <div class="deploy-badge">Managed SaaS</div>
+                    <h3>GCP-hosted endpoint</h3>
+                    <p>Point your existing LLM API calls at PromptSentry instead of OpenAI, Anthropic, or Google directly. Five-minute integration. Best for fast pilots and teams without strict data residency rules.</p>
+                </div>
+                <div class="deploy-card">
+                    <div class="deploy-badge">Customer-hosted K8s</div>
+                    <h3>Your cloud, your VPC</h3>
+                    <p>Install via Helm chart into your existing GKE, EKS, or AKS cluster. Prompts and responses never leave your infrastructure. Built for regulated industries and EU customers with GDPR concerns.</p>
+                </div>
+                <div class="deploy-card">
+                    <div class="deploy-badge">Air-gapped</div>
+                    <h3>Self-hosted, isolated</h3>
+                    <p>Docker container plus local classifier model running on your GPU via vLLM, Ollama, or Hugging Face TGI. Zero external API calls. For defense, healthcare, and finance.</p>
+                </div>
+            </div>
+
+            <div class="sdk-banner">
+                <div class="sdk-text">
+                    <h4>Universal Python SDK</h4>
+                    <p>Whichever deployment you choose, integration is a five-line code change.</p>
+                </div>
+                <div class="install-block">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                    pip install promptsentry-sdk
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-wrap" id="policy">
+        <div class="container">
+            <div class="split-layout">
+                <div class="split-text">
+                    <div class="sec-eyebrow">AI Policy Enforcement</div>
+                    <h2>Full control over the AI traffic that flows through you</h2>
+                    <p>Once your sanctioned AI tools route through PromptSentry, you get prompt-level visibility, policy enforcement, and audit trails on every interaction. Block, redact, warn, or escalate — by user, team, or content category.</p>
+                    <ul class="feature-list">
+                       <li>
+    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    <div>
+        <h4>PromptSentry as an MCP server</h4>
+        <p>Install us directly in Claude Code, Cursor, or any agentic framework. One config file, three tool calls: <code>scan_prompt</code>, <code>scan_tool_output</code>, and <code>scan_response</code>.</p>
+    </div>
+</li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <div>
+                                <h4>Policy enforcement, not just detection</h4>
+                                <p>Block, redact, or escalate prompts based on customizable rules. PII detection, secret leakage, and acceptable-use policies, enforced in real time.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <div>
+                                <h4>CASB integration on request</h4>
+                                <p>Pair with your existing Zscaler, Netskope, or Palo Alto deployment for discovery of unsanctioned AI traffic. Available as a custom integration.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glow-card">
+                    <div class="glow-card-inner">
+                        <div class="window-chrome">
+                            <div class="window-dots"><span></span><span></span><span></span></div>
+                            <div class="window-title">policy-engine.log</div>
+                        </div>
+                        <div class="code-content">
+                            <span class="log-line"><span class="log-info">[INFO]  14:32:01</span> Prompt received from <span class="log-highlight">user@acme.com</span></span>
+                            <span class="log-line"><span class="log-info">[INFO]  14:32:01</span> Running tier-1 fast-path scan...</span>
+                            <span class="log-line"><span class="log-warn">[WARN]  14:32:01</span> PII pattern detected: <span class="log-highlight">SSN</span></span>
+                            <span class="log-line"><span class="log-info">[INFO]  14:32:01</span> Policy lookup: <span class="log-highlight">engineering-team</span></span>
+                            <span class="log-line"><span class="log-error">[BLOCK] 14:32:01</span> Action: redact and forward</span>
+                            <span class="log-line"><span class="log-pass">[PASS]  14:32:01</span> Sanitized prompt forwarded to LLM</span>
+                            <span class="log-line"><span class="log-info">[INFO]  14:32:01</span> Audit entry written: <span class="log-highlight">scan_99xLk2</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-wrap" id="mcp">
+        <div class="container">
+            <div class="split-layout">
+                <div class="glow-card">
+                    <div class="glow-card-inner">
+                        <div class="window-chrome">
+                            <div class="window-dots"><span></span><span></span><span></span></div>
+                            <div class="window-title">mcp-intercept.log</div>
+                        </div>
+                        <div class="code-content">
+                            <span class="log-line"><span class="log-info">[INFO]  14:32:01</span> Intercepted tool call: <span class="log-highlight">query_customer_db</span></span>
+                            <span class="log-line"><span class="log-info">[INFO]  14:32:01</span> Scanning arguments...</span>
+                            <span class="log-line"><span class="log-warn">[WARN]  14:32:01</span> Injection pattern in arg: <span class="log-highlight">user_id</span></span>
+                            <span class="log-line"><span class="log-error">[BLOCK] 14:32:01</span> Terminated before reaching DB</span>
+                            <span class="log-line"><span class="log-info">[INFO]  14:32:02</span> Tool response: <span class="log-highlight">fetch_ticket_history</span></span>
+                            <span class="log-line"><span class="log-info">[INFO]  14:32:02</span> Scanning retrieved data for PII...</span>
+                            <span class="log-line"><span class="log-pass">[PASS]  14:32:02</span> Data sanitized. Forwarding to context.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="split-text">
+                    <div class="sec-eyebrow">MCP-Native Defense</div>
+                    <h2>Security for the agentic stack</h2>
+                    <p>Anthropic's Model Context Protocol connects AI agents directly to your databases, files, and APIs. Every tool an agent can call is a new attack surface. We secure that surface natively.</p>
+                    <ul class="feature-list">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <div>
+                                <h4>Scan tool call inputs</h4>
+                                <p>Before an MCP tool call reaches your database or API, we scan the call name and arguments. Catches prompt injections hidden in tool parameters.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <div>
+                                <h4>Block indirect prompt injection</h4>
+                                <p>When a tool returns data to the LLM, we scan the response before it enters the model's context. The growing attack vector for agentic systems.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <div>
+                                <h4>PromptSentry as an MCP server</h4>
+                                <p>Install us directly in Claude Code, Cursor, or any agentic framework. One config file, two tool calls: <code>scan_prompt</code> and <code>scan_tool_output</code>.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-wrap" id="privacy">
+        <div class="container">
+            <div class="split-layout">
+                <div class="split-text">
+                    <div class="sec-eyebrow">Data Privacy</div>
+                    <h2>We're a processor, not a controller</h2>
+                    <p>Your prompts are processed in memory, evaluated, and discarded. By default we never store the content — only the verdict and metadata you need for audit and compliance.</p>
+                    <ul class="feature-list">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <div>
+                                <h4>Zero retention by default</h4>
+                                <p>Verdict, latency, confidence, and blocked categories are logged. The prompt content itself is discarded after the scan completes.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <div>
+                                <h4>Tamper-evident audit hashes</h4>
+                                <p>Every scan generates a SHA-256 hash. Prove to auditors a prompt was scanned without exposing what it contained.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <div>
+                                <h4>Optional encrypted audit mode</h4>
+                                <p>Need to review blocked prompts for regulated workflows? Enable per-tenant encrypted storage. We hold the storage; you hold the keys.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glow-card">
+                    <div class="glow-card-inner">
+                        <div class="window-chrome">
+                            <div class="window-dots"><span></span><span></span><span></span></div>
+                            <div class="window-title">audit.json</div>
+                        </div>
+                        <div class="code-content">
+<pre><code>{
+  <span class="syn-key">"timestamp"</span>: <span class="syn-str">"2026-05-12T14:30:05Z"</span>,
+  <span class="syn-key">"tenant_id"</span>: <span class="syn-str">"org_72bX9aP"</span>,
+  <span class="syn-key">"scan_id"</span>: <span class="syn-str">"scan_99xLk2"</span>,
+  <span class="syn-key">"verdict"</span>: <span class="syn-str">"BLOCKED"</span>,
+  <span class="syn-key">"categories"</span>: [<span class="syn-str">"PII_LEAK"</span>],
+  <span class="syn-key">"latency_ms"</span>: <span class="syn-num">4.2</span>,
+  <span class="syn-key">"confidence"</span>: <span class="syn-num">0.94</span>,
+  <span class="syn-key">"prompt_content"</span>: <span class="syn-bool">null</span>, <span class="syn-comment">// zero retention</span>
+  <span class="syn-key">"audit_hash"</span>: <span class="syn-str">"e3b0c44298fc1c149afbf4..."</span>
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-wrap" id="compliance">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-eyebrow">Compliance Posture</div>
+                <h2>Honest about where we are</h2>
+                <p>Enterprise procurement asks tough questions. Here's a straight answer on what we have today and what's on the roadmap.</p>
+            </div>
+
+            <div class="compliance">
+                <div class="compliance-grid">
+                    <div class="compliance-col">
+                        <h4>Live today</h4>
+                        <ul class="compliance-list">
+                            <li>
+                                <svg class="icon-yes" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span><strong>GDPR compliant by design</strong> — data minimization, purpose limitation, right to deletion</span>
+                            </li>
+                            <li>
+                                <svg class="icon-yes" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span><strong>Data Processing Agreements</strong> — signed with every customer</span>
+                            </li>
+                            <li>
+                                <svg class="icon-yes" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span><strong>Customer-hosted deployments</strong> — logs stay in your infrastructure, FNC never sees the data</span>
+                            </li>
+                            <li>
+                                <svg class="icon-yes" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span><strong>CAIQ and vendor security reviews</strong> — we'll complete your questionnaire</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="compliance-col">
+                        <h4>On the roadmap</h4>
+                        <ul class="compliance-list">
+                            <li>
+                                <svg class="icon-roadmap" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <span><strong>SOC 2 Type II</strong> — Q1 2027 target</span>
+                            </li>
+                            <li>
+                                <svg class="icon-roadmap" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <span><strong>ISO 27001</strong> — follows SOC 2</span>
+                            </li>
+                            <li>
+                                <svg class="icon-roadmap" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <span><strong>CASB integration</strong> — Zscaler and Netskope, built on first customer request</span>
+                            </li>
+                            <li>
+                                <svg class="icon-roadmap" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <span><strong>Formal pen test history</strong> — Q2 2027 with established firm</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta-inner">
+                <h2>See PromptSentry in your stack</h2>
+                <p>30-minute walkthrough with our engineering team. Bring your hardest prompts.</p>
+                <a href="google-demo.html" class="page-hero-cta">
+                    Request a demo
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+   <footer>
+        <div class="container">
+            <div class="footer-row">
+                <div class="footer-brand">
+                    <a href="google2-index.html" class="footer-logo-wrap" aria-label="PromptSentry home">
+                        <img src="image/website-logo.svg" alt="PromptSentry by FNC" class="footer-logo">
+                    </a>
+                  <div class="footer-contact">
+    <a href="contact.html">Contact us</a><br>
+    Five Nines Consulting<br>
+    Roanoke, VA · United States
+</div>
+                </div>
+              <div class="footer-right">
+    <a href="https://www.linkedin.com/company/five-nines-consulting-llc-fnc/" class="footer-social" aria-label="Five Nines Consulting on LinkedIn" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <div class="footer-copy">© 2026 PromptSentry — A Five Nines Consulting product</div>
+    <div class="footer-legal" style="display: flex; gap: 16px; font-size: 12px;">
+        <a href="privacy.html" style="color: var(--text-dim);">Privacy Policy</a>
+        <a href="terms.html" style="color: var(--text-dim);">Terms &amp; Conditions</a>
+    </div>
+</div>
+    </footer>
+    
+</body>
+</html>
