@@ -42,32 +42,22 @@
         }
 
         body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(48, 54, 61, 0.15) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(48, 54, 61, 0.15) 1px, transparent 1px);
+            content: ''; position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(48, 54, 61, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(48, 54, 61, 0.15) 1px, transparent 1px);
             background-size: 48px 48px;
             mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.6), transparent 70%);
             -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.6), transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; z-index: 0;
         }
 
         a { color: inherit; text-decoration: none; }
 
-        .nav-wrap {
-            position: sticky; top: 0; z-index: 50;
-            padding: 14px 24px;
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            background: rgba(13, 17, 23, 0.75);
-            border-bottom: 1px solid var(--border-soft);
-        }
+        /* Navbar */
+        .nav-wrap { position: sticky; top: 0; z-index: 50; padding: 14px 24px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(13, 17, 23, 0.75); border-bottom: 1px solid var(--border-soft); }
         .nav { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
         .nav-logo { display: inline-flex; align-items: center; transition: opacity 0.15s ease; flex-shrink: 0; }
         .nav-logo:hover { opacity: 0.85; }
-        .nav-logo img { height: 36px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
+        .nav-logo img { height: 48px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
         .nav-links { display: flex; align-items: center; gap: 28px; margin-left: auto; }
         .nav-link { color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.15s ease; font-family: inherit; }
         .nav-link:hover { color: var(--text); }
@@ -80,17 +70,7 @@
         .dropdown-trigger svg { width: 14px; height: 14px; transition: transform 0.2s ease; opacity: 0.7; }
         .nav-item:hover .dropdown-trigger { color: var(--text); }
         .nav-item:hover .dropdown-trigger svg { transform: rotate(180deg); opacity: 1; }
-        .dropdown-menu {
-            position: absolute; top: 100%; left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: rgba(22, 27, 34, 0.95);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-soft); border-radius: 12px;
-            padding: 24px; width: 680px;
-            opacity: 0; visibility: hidden; transition: all 0.2s ease;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-            margin-top: 14px;
-        }
+        .dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background: rgba(22, 27, 34, 0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border-soft); border-radius: 12px; padding: 24px; width: 680px; opacity: 0; visibility: hidden; transition: all 0.2s ease; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); margin-top: 14px; }
         .dropdown-menu::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
         .nav-item:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
         .dropdown-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 32px; }
@@ -103,6 +83,17 @@
         .dropdown-col:not(:first-child) .dropdown-link { font-size: 13px; color: var(--text-muted); font-weight: 400; }
         .dropdown-col:not(:first-child) .dropdown-link:hover { color: var(--text); }
 
+        /* Mobile hamburger */
+        .mobile-toggle { display: none; background: none; border: 1px solid var(--border-soft); border-radius: 8px; padding: 8px; cursor: pointer; color: var(--text); }
+        .mobile-toggle svg { width: 20px; height: 20px; display: block; }
+        .mobile-menu { display: none; position: fixed; top: 65px; left: 0; right: 0; background: rgba(13, 17, 23, 0.98); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-soft); padding: 20px 24px 28px; z-index: 49; }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a { display: block; padding: 14px 0; color: var(--text); font-size: 16px; font-weight: 500; border-bottom: 1px solid var(--border-soft); }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu-section { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--glow-2); margin-top: 18px; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+        .mobile-menu-section:first-child { margin-top: 0; }
+        .mobile-cta { display: block !important; text-align: center; background: var(--text); color: var(--bg) !important; padding: 12px 16px !important; border-radius: 8px; margin-top: 18px; border: none !important; font-weight: 600; }
+
         section { position: relative; z-index: 1; flex: 1; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
@@ -113,32 +104,10 @@
 
         .tiers { padding: 32px 0 80px; }
         .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-        .tier {
-            border: 1px solid var(--border-soft);
-            border-radius: 14px;
-            padding: 32px 24px;
-            background: linear-gradient(180deg, rgba(22, 27, 34, 0.6), rgba(13, 17, 23, 0.3));
-            display: flex; flex-direction: column;
-            position: relative;
-            transition: border-color 0.2s ease, transform 0.2s ease;
-        }
+        .tier { border: 1px solid var(--border-soft); border-radius: 14px; padding: 32px 24px; background: linear-gradient(180deg, rgba(22, 27, 34, 0.6), rgba(13, 17, 23, 0.3)); display: flex; flex-direction: column; position: relative; transition: border-color 0.2s ease, transform 0.2s ease; }
         .tier:hover { border-color: var(--border); transform: translateY(-2px); }
-        .tier.featured {
-            border-color: rgba(37, 99, 235, 0.4);
-            background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), rgba(22, 27, 34, 0.6));
-        }
-        .tier.featured::before {
-            content: 'Best for Builders';
-            position: absolute;
-            top: -10px; left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent);
-            color: var(--text);
-            font-size: 11px; font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 100px;
-            letter-spacing: 0.04em;
-        }
+        .tier.featured { border-color: rgba(37, 99, 235, 0.4); background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), rgba(22, 27, 34, 0.6)); }
+        .tier.featured::before { content: 'Best for Builders'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: var(--text); font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 100px; letter-spacing: 0.04em; }
         .tier-label { font-size: 12px; color: var(--glow-2); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 12px; }
         .tier-name { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
         .tier-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; min-height: 40px; }
@@ -154,29 +123,9 @@
         .tier.featured .tier-cta { background: var(--text); color: var(--bg); border-color: var(--text); }
         .tier.featured .tier-cta:hover { background: #cbd5e1; }
 
-        .pricing-note {
-            margin-top: 32px;
-            text-align: center;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-        .pricing-note-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--glow-2);
-            font-weight: 500;
-            padding: 6px 14px;
-            margin-left: 6px;
-            border: 1px solid rgba(88, 166, 255, 0.3);
-            border-radius: 100px;
-            transition: all 0.15s ease;
-        }
-        .pricing-note-btn:hover {
-            color: var(--text);
-            background: rgba(88, 166, 255, 0.08);
-            border-color: var(--glow-2);
-        }
+        .pricing-note { margin-top: 32px; text-align: center; font-size: 14px; color: var(--text-muted); }
+        .pricing-note-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--glow-2); font-weight: 500; padding: 6px 14px; margin-left: 6px; border: 1px solid rgba(88, 166, 255, 0.3); border-radius: 100px; transition: all 0.15s ease; }
+        .pricing-note-btn:hover { color: var(--text); background: rgba(88, 166, 255, 0.08); border-color: var(--glow-2); }
         .pricing-note-btn svg { width: 12px; height: 12px; }
 
         .faq { padding: 64px 0; }
@@ -190,7 +139,6 @@
         .faq-item a { color: var(--glow-2); }
         .faq-item a:hover { color: var(--text); }
 
-        /* Footer */
         footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; position: relative; z-index: 1; }
         .footer-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .footer-brand { display: flex; flex-direction: column; gap: 16px; max-width: 320px; }
@@ -212,17 +160,15 @@
             .tier-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 860px) {
-            .nav-links { gap: 16px; }
-            .nav-link { font-size: 13px; }
-            .dropdown-menu { display: none; }
-            .nav-logo img { height: 30px; }
+            .nav-links { display: none; }
+            .mobile-toggle { display: inline-flex; }
+            .nav-logo img { height: 42px; }
+            .pricing-hero { padding: 56px 0 24px; }
+            .footer-right { align-items: flex-start; }
         }
         @media (max-width: 600px) {
             .tier-grid { grid-template-columns: 1fr; }
-            .nav-links { gap: 12px; }
-            .nav-link { display: none; }
-            .pricing-hero { padding: 48px 0 24px; }
-            .footer-right { align-items: flex-start; }
+            .nav { gap: 12px; }
         }
     </style>
 </head>
@@ -270,11 +216,26 @@
                         </div>
                     </div>
                 </div>
-                <<a href="company.html" class="nav-link">Company</a>
-<a href="pricing.html" class="nav-link">Pricing</a>
-<a href="google-demo.html" class="nav-cta">Request a demo</a>
+                <a href="company.html" class="nav-link">Company</a>
+                <a href="pricing.html" class="nav-link active">Pricing</a>
+                <a href="google-demo.html" class="nav-cta">Request a demo</a>
             </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
         </nav>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-section">Solutions</div>
+        <a href="edtech.html">EdTech &amp; Youth Safety</a>
+        <a href="enterprise.html">Enterprise Security</a>
+        <div class="mobile-menu-section">Site</div>
+        <a href="company.html">Company</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact us</a>
+        <a href="google-demo.html" class="mobile-cta">Request a demo</a>
     </div>
 
     <section class="pricing-hero">
@@ -409,11 +370,11 @@
                 <a href="google2-index.html" class="footer-logo-wrap" aria-label="PromptSentry home">
                     <img src="image/website-logo.svg" alt="PromptSentry by FNC" class="footer-logo">
                 </a>
-               <div class="footer-contact">
-    <a href="contact.html">Contact us</a><br>
-    Five Nines Consulting<br>
-    Roanoke, VA · United States
-</div>
+                <div class="footer-contact">
+                    <a href="contact.html">Contact us</a><br>
+                    Five Nines Consulting<br>
+                    Roanoke, VA · United States
+                </div>
             </div>
             <div class="footer-right">
                 <a href="https://www.linkedin.com/company/five-nines-consulting-llc-fnc/" class="footer-social" aria-label="Five Nines Consulting on LinkedIn" target="_blank" rel="noopener noreferrer">
@@ -427,6 +388,15 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+    </script>
 
 </body>
 </html>

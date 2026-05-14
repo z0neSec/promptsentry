@@ -82,7 +82,7 @@
         }
         .nav-logo:hover { opacity: 0.85; }
         .nav-logo img {
-            height: 36px;
+            height: 48px;
             width: auto;
             display: block;
             filter: invert(1) hue-rotate(180deg) brightness(1.1);
@@ -154,6 +154,53 @@
         .link-sub { display: block; font-size: 12px; color: var(--text-dim); line-height: 1.4; }
         .dropdown-col:not(:first-child) .dropdown-link { font-size: 13px; color: var(--text-muted); font-weight: 400; }
         .dropdown-col:not(:first-child) .dropdown-link:hover { color: var(--text); }
+
+        /* Mobile hamburger */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border-soft);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--text);
+        }
+        .mobile-toggle svg { width: 20px; height: 20px; display: block; }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 65px;
+            left: 0; right: 0;
+            background: rgba(13, 17, 23, 0.98);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-soft);
+            padding: 20px 24px 28px;
+            z-index: 49;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            padding: 14px 0;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu-section { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--glow-2); margin-top: 18px; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+        .mobile-menu-section:first-child { margin-top: 0; }
+        .mobile-cta {
+            display: block !important;
+            text-align: center;
+            background: var(--text);
+            color: var(--bg) !important;
+            padding: 12px 16px !important;
+            border-radius: 8px;
+            margin-top: 18px;
+            border: none !important;
+            font-weight: 600;
+        }
 
         section { position: relative; z-index: 1; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -241,11 +288,38 @@
         .audience-link:hover { gap: 10px; }
         .audience-link svg { width: 14px; height: 14px; }
 
-        /* Trusted */
-        .trusted { padding: 32px 0; text-align: center; }
-        .trusted-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 24px; }
-        .trusted-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; color: var(--text-muted); font-size: 15px; font-weight: 500; }
-        .trusted-list span { opacity: 0.75; }
+       /* Trusted */
+        .trusted { padding: 48px 0; text-align: center; }
+        .trusted-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 32px; }
+        .trusted-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            color: var(--text-muted);
+        }
+        .provider {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-muted);
+            opacity: 0.7;
+            transition: opacity 0.2s ease, color 0.2s ease;
+        }
+        .provider:hover { opacity: 1; color: var(--text); }
+        .provider svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+        @media (max-width: 600px) {
+            .trusted-list { gap: 24px 28px; }
+            .provider { font-size: 14px; }
+            .provider svg { width: 20px; height: 20px; }
+        }
 
         /* Features */
         .features { padding: 80px 0; }
@@ -290,7 +364,7 @@
         .teaser-text { font-size: 13px; color: var(--text-dim); margin-top: 16px; }
 
         /* Footer */
-        footer { border-top: 1px solid var(--border-soft); padding: 48px 0 40px; position: relative; z-index: 1; }
+        footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; position: relative; z-index: 1; }
         .footer-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .footer-brand { display: flex; flex-direction: column; gap: 16px; max-width: 320px; }
         .footer-logo-wrap { display: inline-flex; align-items: center; align-self: flex-start; transition: opacity 0.15s ease; }
@@ -303,6 +377,9 @@
         .footer-social:hover { color: var(--text); border-color: var(--border); background: rgba(255,255,255,0.03); }
         .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
         .footer-copy { font-size: 12px; color: var(--text-dim); }
+        .footer-legal { display: flex; gap: 16px; font-size: 12px; }
+        .footer-legal a { color: var(--text-dim); transition: color 0.15s ease; }
+        .footer-legal a:hover { color: var(--text-muted); }
 
         /* Reveals */
         @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
@@ -316,9 +393,9 @@
 
         /* Mobile */
         @media (max-width: 860px) {
-            .nav-links { gap: 16px; }
-            .nav-link { font-size: 13px; }
-            .dropdown-menu { display: none; }
+            .nav-links { display: none; }
+            .mobile-toggle { display: inline-flex; }
+            .nav-logo img { height: 42px; }
             .feature-grid { grid-template-columns: 1fr; }
             .split-grid { grid-template-columns: 1fr; gap: 40px; }
             .audience-grid { grid-template-columns: 1fr; }
@@ -326,13 +403,12 @@
             .eval-row { grid-template-columns: 1fr auto; }
             .eval-bar { display: none; }
             .footer-right { align-items: flex-start; }
-            .nav-logo img { height: 30px; }
+            .hero { padding: 64px 0 48px; }
+            .hero-mockup-wrap { margin-top: 48px; }
+            .eval-body { padding: 20px 18px; }
         }
         @media (max-width: 600px) {
             .nav { gap: 12px; }
-            .nav-links { gap: 12px; }
-            .nav-link { display: none; }
-            .nav-links .nav-cta { display: inline-flex; }
         }
     </style>
 </head>
@@ -343,8 +419,8 @@
             <a href="google2-index.html" class="nav-logo" aria-label="PromptSentry home">
                 <img src="image/website-logo.svg" alt="PromptSentry by FNC">
             </a>
+
             <div class="nav-links">
-                
                 <div class="nav-item">
                     <button class="nav-link dropdown-trigger">
                         Product
@@ -381,16 +457,28 @@
                         </div>
                     </div>
                 </div>
-                
                 <a href="company.html" class="nav-link">Company</a>
-                
                 <a href="pricing.html" class="nav-link">Pricing</a>
-                
                 <a href="google-demo.html" class="nav-cta">Request a demo</a>
-                
             </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
         </nav>
     </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-section">Solutions</div>
+        <a href="edtech.html">EdTech &amp; Youth Safety</a>
+        <a href="enterprise.html">Enterprise Security</a>
+        <div class="mobile-menu-section">Site</div>
+        <a href="company.html">Company</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact us</a>
+        <a href="google-demo.html" class="mobile-cta">Request a demo</a>
+    </div>
+
     <section class="hero">
         <div class="container">
             <div class="eyebrow reveal reveal-1">
@@ -402,7 +490,7 @@
                 Security for <span class="grad">Enterprise</span>.
             </h1>
             <p class="hero-sub reveal reveal-3">
-                PromptSentry is the definitive guardrail for educational and corporate AI applications. Protect your users from jailbreaks, PII leaks, and explicit content with a multi-stage detection pipeline and sub-1s p95 latency.
+                PromptSentry is the AI security guardrail for educational and corporate AI applications. Protect your users from jailbreaks, PII leaks, and explicit content with a multi-stage detection pipeline that verifies every prompt with AI in seconds.
             </p>
             <a href="google-demo.html" class="hero-cta reveal reveal-3">
                 Request a demo
@@ -420,18 +508,18 @@
                     <div class="eval-body">
                         <div class="eval-header">
                             <span class="eval-title">PromptSentry · Latest Eval Run</span>
-                            <span class="eval-meta">Production tests: 1,531 passing</span>
+                            <span class="eval-meta">Production tests: 1,496 passing</span>
                         </div>
                         <div class="eval-headline">
                             <div>
                                 <div class="eval-stat-label">Attack defense</div>
-                                <div class="eval-stat-value"><span class="pct">98.86%</span></div>
-                                <div class="eval-stat-sub">1,829 / 1,850 blocked</div>
+                                <div class="eval-stat-value"><span class="pct">98.92%</span></div>
+                                <div class="eval-stat-sub">1,830 / 1,850 blocked</div>
                             </div>
                             <div>
                                 <div class="eval-stat-label">Harmful content classification</div>
-                                <div class="eval-stat-value"><span class="pct">99.66%</span></div>
-                                <div class="eval-stat-sub">890 / 893 correct</div>
+                                <div class="eval-stat-value"><span class="pct">99.33%</span></div>
+                                <div class="eval-stat-sub">887 / 893 correct</div>
                             </div>
                         </div>
                         <div class="eval-rows">
@@ -473,7 +561,7 @@
                 <div class="audience-card">
                     <div class="audience-eyebrow">EdTech</div>
                     <h3>Keep kids safe on every AI surface</h3>
-                    <p>Schools, families, and EdTech platforms get a guardrail that filters explicit content, blocks predatory patterns, and stops kids from being manipulated by AI — at sub-1s latency on every prompt.</p>
+                    <p>Schools, families, and EdTech platforms get a guardrail that filters explicit content, blocks predatory patterns, and stops kids from being manipulated by AI — with AI-verified inspection on every prompt.</p>
                     <ul class="audience-list">
                         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Age-appropriate content filtering</li>
                         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Grooming and manipulation detection</li>
@@ -487,7 +575,7 @@
                 <div class="audience-card">
                     <div class="audience-eyebrow">Enterprise</div>
                     <h3>Ship AI without shipping the risk</h3>
-                    <p>Engineering teams drop our SDK in front of any LLM endpoint and get jailbreak defense, PII protection, and policy enforcement — without rewriting the application or compromising on latency.</p>
+                    <p>Engineering teams wrap any LLM endpoint with a five-line code change and get jailbreak defense, PII protection, and policy enforcement — without rewriting the application.</p>
                     <ul class="audience-list">
                         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Prompt injection and jailbreak defense</li>
                         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Centralized AI Policy Enforcement</li>
@@ -503,25 +591,69 @@
     </section>
 
     <section class="trusted scroll-in">
-        <div class="container">
-            <div class="trusted-label">Works with any LLM provider</div>
-            <div class="trusted-list">
-                <span>OpenAI</span>
-                <span>Anthropic</span>
-                <span>Google Gemini</span>
-                <span>Mistral</span>
-                <span>Hugging Face</span>
-                <span>MCP</span>
-                <span>Self-hosted</span>
+            <div class="container">
+                <div class="trusted-label">Works with any LLM provider</div>
+                <div class="trusted-list">
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365 2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
+                        </svg>
+                        <span>OpenAI</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M17.3045 3.2H13.3984L20.4538 20.8H24.36L17.3045 3.2ZM6.6961 3.2L0 20.8H3.91758L5.31429 16.99H12.2604L13.6571 20.8H17.5746L10.8784 3.2H6.6961ZM6.49524 13.6712L8.78714 7.3375L11.0791 13.6712H6.49524Z"/>
+                        </svg>
+                        <span>Anthropic</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 24A14.304 14.304 0 0 0 0 12 14.304 14.304 0 0 0 12 0a14.305 14.305 0 0 0 12 12 14.305 14.305 0 0 0-12 12"/>
+                        </svg>
+                        <span>Google Gemini</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M3.428 3.4h3.429v3.428H3.428V3.4zm13.714 0h3.43v3.428h-3.43V3.4z"/>
+                            <path d="M3.428 6.828h6.857v3.429H3.428V6.828zm10.286 0h6.858v3.429h-6.858V6.828z" opacity=".85"/>
+                            <path d="M3.428 10.257h17.144v3.429H3.428v-3.429z" opacity=".7"/>
+                            <path d="M3.428 13.686h6.857v3.428H3.428v-3.428zm10.286 0h6.858v3.428h-6.858v-3.428z" opacity=".55"/>
+                            <path d="M3.428 17.114h3.429v3.429H3.428v-3.429zm13.714 0h3.43v3.429h-3.43v-3.429z" opacity=".4"/>
+                        </svg>
+                        <span>Mistral</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168.1-.527.493-.94 1.022-1.04a8.001 8.001 0 1 1 15.08 0c.53.1.922.513 1.022 1.04A9.957 9.957 0 0 0 22 12c0-5.523-4.477-10-10-10zm-3 8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-7.5 4.5a.5.5 0 0 0-.5.5v1.5a4 4 0 0 0 8 0V15a.5.5 0 0 0-1 0v1.5a3 3 0 0 1-6 0V15a.5.5 0 0 0-.5-.5z"/>
+                            <circle cx="6" cy="17" r="1.5" opacity=".6"/>
+                            <circle cx="18" cy="17" r="1.5" opacity=".6"/>
+                        </svg>
+                        <span>Hugging Face</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2 2 7v10l10 5 10-5V7L12 2zm0 2.236L19.764 8 12 11.764 4.236 8 12 4.236zM4 9.618l7 3.5v7.764l-7-3.5V9.618zm16 0v7.764l-7 3.5v-7.764l7-3.5z"/>
+                        </svg>
+                        <span>MCP</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="4" width="18" height="12" rx="2"/>
+                            <line x1="8" y1="20" x2="16" y2="20"/>
+                            <line x1="12" y1="16" x2="12" y2="20"/>
+                            <circle cx="12" cy="10" r="2" fill="currentColor"/>
+                        </svg>
+                        <span>Self-hosted</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
     <section class="features scroll-in">
         <div class="container">
             <div class="section-head">
-                <h2>Defense at every layer</h2>
-                <p>Whether AI is in the employee browser, a classroom app, your product, or a developer's IDE — PromptSentry inspects the prompt before the model ever sees it.</p>
+                <h2>Defense across the AI surface</h2>
+                <p>Wherever AI shows up — in the employee browser, a classroom app, your product, or a developer's IDE — PromptSentry inspects the prompt before the model sees it.</p>
             </div>
             <div class="feature-grid">
                 <div class="feature">
@@ -529,7 +661,7 @@
                         <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
                     </div>
                     <h3>For your workforce</h3>
-                    <p>Route your corporate LLM traffic through PromptSentry to gain full visibility. Set centralized policies that block, redact, or warn when employees attempt to send PII, source code, or credentials to external models.</p>
+                    <p>Route your sanctioned AI traffic through PromptSentry for full visibility. Set centralized policies that block, redact, or warn when employees attempt to send PII, source code, or credentials to external models.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">
@@ -543,7 +675,7 @@
                         <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="8 6 2 12 8 18" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </div>
                     <h3>For code assistants</h3>
-                    <p>Catch API keys, database URLs, and proprietary code before they get sent to Copilot, Cursor, or any AI coding tool. Inspect prompts at the IDE layer.</p>
+                    <p>If your developers use MCP-compatible AI tools (Cursor, Claude Code, agentic frameworks), PromptSentry integrates as an MCP server to inspect prompts before they reach the model.</p>
                 </div>
             </div>
         </div>
@@ -553,9 +685,9 @@
         <div class="container">
             <div class="split-grid">
                 <div class="split-text">
-                    <h2>Multi-stage detection. Sub-1s p95.</h2>
-                    <p>Most prompts are cleared in milliseconds by our pattern-matching fast-path. The harder ones — phrased politely, encoded, or hidden inside long context — escalate to AI-assisted contextual analysis powered by frontier classifier models.</p>
-                    <p>You get speed where it matters and judgment where it counts, without choosing between the two.</p>
+                    <h2>Multi-stage detection. AI-verified every time.</h2>
+                    <p>The pattern fast-path runs in under 1ms. Explicit attacks are stopped immediately. Everything else gets an AI-assisted verdict in seconds — p50 1.3s, p95 2.3s.</p>
+                    <p>Speed where it matters, judgment where it counts.</p>
                 </div>
                 <div class="glow-card">
                     <div class="glow-card-inner">
@@ -576,19 +708,19 @@
                                 <div class="arch-step tier1">
                                     <div class="arch-step-num">1</div>
                                     <div class="arch-step-content">
-                                        <div class="arch-step-title">Fast-path filtering</div>
-                                        <div class="arch-step-desc">Pattern heuristics, PII detection, encoding tricks</div>
+                                        <div class="arch-step-title">Fast-path pattern check</div>
+                                        <div class="arch-step-desc">Explicit-attack heuristics, PII detection, encoding tricks</div>
                                     </div>
-                                    <div class="arch-step-latency">sub-5ms</div>
+                                    <div class="arch-step-latency">&lt;1ms</div>
                                 </div>
                                 <div class="arch-arrow">▼</div>
                                 <div class="arch-step tier2">
                                     <div class="arch-step-num">2</div>
                                     <div class="arch-step-content">
-                                        <div class="arch-step-title">AI-assisted contextual analysis</div>
-                                        <div class="arch-step-desc">Intent classification for ambiguous prompts</div>
+                                        <div class="arch-step-title">AI-assisted verdict</div>
+                                        <div class="arch-step-desc">Every prompt classified by frontier model</div>
                                     </div>
-                                    <div class="arch-step-latency">sub-1s p95</div>
+                                    <div class="arch-step-latency">1.3s p50 · 2.3s p95</div>
                                 </div>
                                 <div class="arch-arrow">▼</div>
                                 <div class="arch-step allowed">
@@ -621,28 +753,28 @@
     </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-row">
-                <div class="footer-brand">
-                    <a href="google2-index.html" class="footer-logo-wrap" aria-label="PromptSentry home">
-                        <img src="image/website-logo.svg" alt="PromptSentry by FNC" class="footer-logo">
-                    </a>
-                  <div class="footer-contact">
-    <a href="contact.html">Contact us</a><br>
-    Five Nines Consulting<br>
-    Roanoke, VA · United States
-</div>
+        <div class="footer-row">
+            <div class="footer-brand">
+                <a href="google2-index.html" class="footer-logo-wrap" aria-label="PromptSentry home">
+                    <img src="image/website-logo.svg" alt="PromptSentry by FNC" class="footer-logo">
+                </a>
+                <div class="footer-contact">
+                    <a href="contact.html">Contact us</a><br>
+                    Five Nines Consulting<br>
+                    Roanoke, VA · United States
                 </div>
-              <div class="footer-right">
-    <a href="https://www.linkedin.com/company/five-nines-consulting-llc-fnc/" class="footer-social" aria-label="Five Nines Consulting on LinkedIn" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-    </a>
-    <div class="footer-copy">© 2026 PromptSentry — A Five Nines Consulting product</div>
-    <div class="footer-legal" style="display: flex; gap: 16px; font-size: 12px;">
-        <a href="privacy.html" style="color: var(--text-dim);">Privacy Policy</a>
-        <a href="terms.html" style="color: var(--text-dim);">Terms &amp; Conditions</a>
-    </div>
-</div>
+            </div>
+            <div class="footer-right">
+                <a href="https://www.linkedin.com/company/five-nines-consulting-llc-fnc/" class="footer-social" aria-label="Five Nines Consulting on LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <div class="footer-copy">© 2026 PromptSentry — A Five Nines Consulting product</div>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -655,6 +787,15 @@
             });
         }, { threshold: 0.12 });
         document.querySelectorAll('.scroll-in').forEach(el => io.observe(el));
+
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
     </script>
 
 </body>
