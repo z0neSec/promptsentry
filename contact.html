@@ -246,26 +246,26 @@
 
                 <div class="form-card reveal reveal-2">
                     <div class="form-inner">
-                        <form action="#" method="POST">
+                        <form action="https://docs.google.com/forms/d/e/1FAIpQLSdtuPekt8g7n13N27vTDl-cq_WRR3kTQ38ynMhQKznHWqLPog/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" placeholder="Jane Doe" required>
+                                    <input type="text" name="entry.365706945" class="form-control" placeholder="Jane Doe" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Company</label>
-                                    <input type="text" class="form-control" placeholder="Acme Corp" required>
+                                    <input type="text" name="entry.1452198637" class="form-control" placeholder="Acme Corp" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Work email</label>
-                                <input type="email" class="form-control" placeholder="jane@company.com" required>
+                                <input type="email" name="entry.862228069" class="form-control" placeholder="jane@company.com" required>
                             </div>
 
                             <div class="form-group">
                                 <label>How can we help?</label>
-                                <select class="form-control" required>
+                                <select name="entry.1414730578" class="form-control" required>
                                     <option value="" disabled selected>Select an inquiry type</option>
                                     <option value="sales">Sales &amp; demos</option>
                                     <option value="support">Technical support</option>
@@ -277,7 +277,7 @@
 
                             <div class="form-group">
                                 <label>Message</label>
-                                <textarea class="form-control" placeholder="Tell us a bit about your AI security needs..." required></textarea>
+                                <textarea name="entry.2058359630" class="form-control" placeholder="Tell us a bit about your AI security needs..." required></textarea>
                             </div>
 
                             <button type="submit" class="btn-submit">Send message</button>
@@ -285,6 +285,10 @@
                                 By submitting, you agree to Five Nines Consulting's Privacy Policy.
                             </div>
                         </form>
+                        
+                        <script type="text/javascript">var submitted=false;</script>
+                        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { alert('Thank you! Your message has been sent.'); window.location.reload(); }"></iframe>
+                        
                     </div>
                 </div>
 

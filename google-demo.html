@@ -215,8 +215,8 @@
                                 <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </div>
                             <div class="highlight-text">
-                                <h4>Multi-stage detection</h4>
-                                <p>AI-assisted verdict on every prompt — typically 1.3s, under 2.3s at p95.</p>
+                            <h4>Multi-stage detection</h4>
+                            <p>AI-assisted verdict on every prompt — typically under 900ms, under 1.4s at p95.</p>
                             </div>
                         </div>
                         <div class="highlight">
@@ -233,45 +233,31 @@
 
                 <div class="form-card reveal reveal-2">
                     <div class="form-inner">
-                        <form action="#" method="POST">
+                        <form action="https://docs.google.com/forms/d/e/1FAIpQLSfSyPOy0fcrQwek5I5Cyf3N0Fb-JCelN1bEOqb4RAYcRJCHdA/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>First name</label>
-                                    <input type="text" class="form-control" placeholder="Jane" required>
+                                    <input type="text" name="entry.2120625722" class="form-control" placeholder="Jane" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Last name</label>
-                                    <input type="text" class="form-control" placeholder="Doe" required>
+                                    <input type="text" name="entry.1866081622" class="form-control" placeholder="Doe" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Work email</label>
-                                <input type="email" class="form-control" placeholder="jane@company.com" required>
+                                <input type="email" name="entry.658778072" class="form-control" placeholder="jane@company.com" required>
                             </div>
 
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Company</label>
-                                    <input type="text" class="form-control" placeholder="Acme Corp" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Country</label>
-                                    <select class="form-control" required>
-                                        <option value="" disabled selected>Select country</option>
-                                        <option value="US">United States</option>
-                                        <option value="GB">United Kingdom</option>
-                                        <option value="CA">Canada</option>
-                                        <option value="AU">Australia</option>
-                                        <option value="NG">Nigeria</option>
-                                        <option value="OTHER">Other</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input type="text" name="entry.1287757197" class="form-control" placeholder="Acme Corp" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Primary use case</label>
-                                <select class="form-control" required>
+                                <select name="entry.1008454931" class="form-control" required>
                                     <option value="" disabled selected>Select a use case</option>
                                     <option value="policy_enforcement">AI Policy Enforcement</option>
                                     <option value="compliance">Educational Compliance</option>
@@ -283,7 +269,7 @@
 
                             <div class="form-group">
                                 <label>Message (Optional)</label>
-                                <textarea class="form-control" rows="3" placeholder="Tell us about your specific needs or architecture..."></textarea>
+                                <textarea name="entry.719787827" class="form-control" rows="3" placeholder="Tell us about your specific needs or architecture..."></textarea>
                             </div>
 
                             <button type="submit" class="btn-submit">Request demo</button>
@@ -291,6 +277,10 @@
                                 By submitting, you agree to Five Nines Consulting's Privacy Policy.
                             </div>
                         </form>
+                        
+                        <script type="text/javascript">var submitted=false;</script>
+                        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { alert('Thank you! We have received your request.'); window.location.reload(); }"></iframe>
+                        
                     </div>
                 </div>
 
