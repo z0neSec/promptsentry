@@ -177,7 +177,8 @@
         .footer-logo-wrap:hover { opacity: 0.85; }
         .footer-logo { height: 40px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
         .footer-contact { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
-        .footer-contact a:hover { color: var(--text); }
+        .footer-contact a { display: inline-block; padding: 6px 14px; margin-bottom: 10px; background: rgba(88, 166, 255, 0.1); color: var(--glow-2); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: 6px; font-weight: 500; transition: all 0.2s ease; }
+        .footer-contact a:hover { background: rgba(88, 166, 255, 0.2); color: var(--text); border-color: var(--glow-2); }
         .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
         .footer-social { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border-soft); color: var(--text-muted); transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease; }
         .footer-social:hover { color: var(--text); border-color: var(--border); background: rgba(255,255,255,0.03); }
