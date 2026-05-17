@@ -3,458 +3,551 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PromptSentry - AI Security Platform</title>
-    <link rel="icon" type="image/svg+xml" href="image/logo.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    
+    <title>PromptSentry — AI Safety for Kids. Security for Enterprise.</title>
+   <link rel="icon" type="image/svg+xml" href="image/shield-only.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --text-main: #ffffff;
-            --text-muted: #cbd5e1;
-            --accent-blue: #0ea5e9; 
-            --accent-green: #10b981;
-            --accent-red: #ef4444;
-            --accent-yellow: #f59e0b;
+            --bg: #0d1117;
+            --bg-soft: #161b22;
+            --bg-elevated: #1c2128;
+            --border: #30363d;
+            --border-soft: #21262d;
+            --text: #f0f6fc;
+            --text-muted: #8b949e;
+            --text-dim: #6e7681;
+            --accent: #2563eb;
+            --glow-1: #2563eb;
+            --glow-2: #58a6ff;
+            --success: #3fb950;
+            --danger: #f85149;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        
-        /* 🚀 THE DEEP BLUE "MAGIC" GRADIENT BACKGROUND 🚀 */
-        body { 
-            background: linear-gradient(135deg, #020c1b 0%, #0f172a 35%, #1e40af 75%, #1d4ed8 100%);
-            color: var(--text-main); 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            overflow-x: hidden; 
-            padding-top: 28px; 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Entrance & Float Animations */
-        @keyframes blurReveal { 0% { opacity: 0; transform: translateY(20px); filter: blur(12px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
-        @keyframes float1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes float2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        @keyframes float3 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-
-        .saas-reveal { opacity: 0; animation: blurReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-        .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.3s; } .delay-3 { animation-delay: 0.5s; }
-        .scroll-animate { opacity: 0; transform: translateY(30px); filter: blur(8px); transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out; }
-        .scroll-animate.show { opacity: 1; transform: translateY(0); filter: blur(0); }
-/* Navbar (Your preferred floating pill design) */
-        .navbar { width: 100%; max-width: 1300px; margin: 20px auto; display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 12px 30px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: sticky; top: 10px; z-index: 100; }
-        
-        /* CLEAN NATIVE LOGO - NO FILTERS */
-        .logo img { height: 44px; width: auto; display: block; } 
-        
-        .nav-links { list-style: none; display: flex; gap: 35px; }
-        .nav-links a { text-decoration: none; color: #0f172a; font-weight: 700; font-size: 15px; transition: color 0.3s ease; }
-        .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); }
-        .btn-mini-demo { background: var(--accent-blue); color: #ffffff; padding: 10px 24px; border-radius: 6px; font-weight: 700; font-size: 14px; text-decoration: none; transition: background 0.3s;}
-        .btn-mini-demo:hover { background: #0284c7; }
-        /* 👑 THE BULLETPROOF HERO LAYOUT 👑 */
-        .hero-split { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            max-width: 1250px; 
-            margin: 0 auto 80px; 
-            padding: 0 40px; 
-            min-height: 550px; 
-            gap: 60px; 
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(48, 54, 61, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(48, 54, 61, 0.15) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.6), transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.6), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
-        
-        .hero-left { flex: 1; max-width: 600px; }
-        .hero-left h1 { 
-            font-size: 72px; 
-            font-weight: 800; 
-            margin-bottom: 30px; 
-            line-height: 1.1; 
-            color: #ffffff; 
-            letter-spacing: -2px;
+
+        a { color: inherit; text-decoration: none; }
+
+        /* Navbar */
+        .nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 14px 24px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(13, 17, 23, 0.75);
+            border-bottom: 1px solid var(--border-soft);
         }
-        .hero-left h1 span { background: linear-gradient(to right, #38bdf8, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-left p { font-size: 18px; line-height: 1.6; margin-bottom: 40px; color: var(--text-muted); }
-        .hero-buttons { display: flex; gap: 16px; align-items: center; }
-        .btn-hero { display: inline-block; background-color: var(--accent-blue); color: white; padding: 16px 32px; font-size: 16px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4); }
-        .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(14, 165, 233, 0.6); }
-
-        /* 👑 RIGHT CARDS (STRICTLY CONFINED BOX) 👑 */
-        .hero-right { 
-            width: 500px; 
-            height: 500px; 
-            flex-shrink: 0; 
-            position: relative; 
-            perspective: 1000px; 
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
         }
-        .ui-card { position: absolute; background: #ffffff; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.05); color: #0f172a; font-family: 'Inter', sans-serif; overflow: hidden; }
-        
-        .card-1 { top: 10px; right: 0; left: auto; width: 380px; height: 180px; z-index: 1; animation: float1 6s ease-in-out infinite; opacity: 0.95; }
-        .c1-header { padding: 12px 16px; border-bottom: 1px solid #e2e8f0; font-weight: 800; font-size: 13px; display: flex; justify-content: space-between; }
-        .c1-body { padding: 16px; display: flex; gap: 10px; }
-        .c1-chart { flex: 1; height: 80px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; padding: 8px; }
-        .c1-bar-wrap { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
-        .c1-bar { height: 6px; background: #3b82f6; border-radius: 3px; }
-
-        .card-2 { top: 130px; right: 40px; left: auto; width: 440px; z-index: 2; animation: float2 7s ease-in-out infinite; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.6); }
-        .c2-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; }
-        .c2-header h4 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
-        .c2-header p { font-size: 12px; color: #64748b; }
-        .c2-row { display: flex; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 12px; font-weight: 600; align-items: center;}
-        .c2-row:last-child { border-bottom: none; }
-        .status-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; margin-right: 6px; }
-        .badge-crit { background: #fee2e2; color: #ef4444; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 800; border: 1px solid #fca5a5; }
-
-        .card-3 { bottom: 20px; right: 0; left: auto; width: 220px; z-index: 3; animation: float3 5s ease-in-out infinite; padding: 16px; text-align: center; }
-        .c3-title { font-size: 12px; font-weight: 800; text-align: left; margin-bottom: 15px; }
-        .c3-gauge-wrap { position: relative; width: 140px; height: 70px; margin: 0 auto; overflow: hidden; }
-        .c3-gauge-bg { position: absolute; top: 0; left: 0; width: 140px; height: 140px; border-radius: 50%; border: 12px solid #f1f5f9; box-sizing: border-box; }
-        .c3-gauge-fill { position: absolute; top: 0; left: 0; width: 140px; height: 140px; border-radius: 50%; border: 12px solid #ef4444; box-sizing: border-box; border-bottom-color: transparent; border-left-color: transparent; transform: rotate(-45deg); }
-        .c3-score { font-size: 24px; font-weight: 800; margin-top: 10px; }
-        .c3-score span { font-size: 12px; color: #64748b; font-weight: 600; }
-
-        /* The Ticker */
-        .ticker-container { background: #ffffff; padding: 20px 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; overflow: hidden; width: 100%; position: relative; z-index: 2; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .ticker-wrap { display: flex; width: max-content; animation: tickerScroll 30s linear infinite; }
-        .ticker-wrap:hover { animation-play-state: paused; }
-        @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .ticker-item { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 700; color: #0f172a; padding: 0 40px; text-transform: uppercase; letter-spacing: 1px; }
-        .ticker-item svg { color: var(--accent-blue); width: 20px; height: 20px; }
-        .ticker-dot { width: 6px; height: 6px; background: #cbd5e1; border-radius: 50%; margin: 0 20px; }
-
-        /* Trusted Bar */
-        .trusted-bar { display: flex; align-items: center; justify-content: center; gap: 40px; max-width: 1200px; margin: 40px auto 60px; padding: 30px; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); flex-wrap: wrap;}
-        .trusted-bar span { font-size: 13px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-right: 20px;}
-        .trusted-item { color: #ffffff; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px;}
-        .manual-logo-placeholder { width: 24px; height: 24px; border-radius: 5px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 10px; color: rgba(255,255,255,0.6); border: 1px dashed rgba(255,255,255,0.2);}
-
-        /* 🚀 CODED FEATURE ICONS 🚀 */
-        .features-clean { padding: 40px 20px 80px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;}
-        .section-header-center { text-align: center; margin-bottom: 70px; }
-        .section-header-center h2 { font-size: 40px; font-weight: 800; color: #ffffff; }
-        .feature-grid-clean { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
-        .clean-card { display: flex; flex-direction: column; align-items: flex-start; text-align: left; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);}
-        
-        /* New sleek white glow icons instead of broken images */
-        .feature-img-box { width: 64px; height: 64px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; position: relative; }
-        .feature-img-box::after { content: ''; position: absolute; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.2); filter: blur(15px); border-radius: 50%; z-index: 0; }
-        .feature-img-box svg { position: relative; z-index: 1; width: 48px; height: 48px; stroke: #ffffff; stroke-width: 1.5px; fill: none; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
-        
-        .clean-card h3 { font-size: 22px; color: #ffffff; margin-bottom: 16px; font-weight: 700; }
-        .clean-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
-
-        /* Dashboard Section */
-        .dashboard-section { padding: 60px 20px 80px; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 60px; flex-wrap: wrap; position: relative; z-index: 2;}
-        .dash-text-col { flex: 1; min-width: 300px; }
-        .dash-text-col h2 { font-size: 40px; font-weight: 800; margin-bottom: 20px; line-height: 1.1; color: #ffffff; }
-        .dash-text-col h2 span { color: var(--accent-blue); }
-        .dash-text-col p.sub { font-size: 17px; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; }
-        .dash-text-col p { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; }
-        .explore-platform { padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 15px; background-color: var(--accent-blue); color: white; display: inline-block;}
-        .explore-platform:hover { background-color: #0284c7; }
-
-        .dash-image-col { flex: 1; min-width: 400px; }
-        .console-widget { background: white; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; }
-        .console-header { background: #f8fafc; padding: 20px 25px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
-        .console-header h3 { font-size: 14px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 1px; }
-        .status-pulse { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--accent-green); }
-        .pulse-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        
-        .console-body { padding: 25px; }
-        .alert-item { display: flex; align-items: flex-start; gap: 15px; padding: 15px; border-radius: 8px; margin-bottom: 12px; background: #f8fafc; border-left: 4px solid #cbd5e1; }
-        .alert-item.critical { border-left-color: var(--accent-red); background: #fef2f2; }
-        .alert-item.warning { border-left-color: var(--accent-yellow); background: #fffbeb; }
-        .alert-item.secure { border-left-color: var(--accent-blue); background: #f0f9ff; }
-        .alert-icon { font-size: 20px; display: flex; align-items: center; justify-content: center;}
-        .alert-icon svg { width: 22px; height: 22px; }
-        .alert-item.critical .alert-icon svg { stroke: var(--accent-red); }
-        .alert-item.warning .alert-icon svg { stroke: var(--accent-yellow); }
-        .alert-item.secure .alert-icon svg { stroke: var(--accent-blue); }
-        .alert-content h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
-        .alert-content p { font-size: 13px; color: #64748b; line-height: 1.4; }
-        .alert-time { font-size: 11px; color: #94a3b8; font-weight: 600; margin-top: 6px; }
-
-       /* 🚀 ULTRA-MODERN LAKERA-STYLE FOOTER 🚀 */
-        .footer { background-color: #000000; border-top: 1px solid rgba(255,255,255,0.1); padding: 80px 40px 40px; width: 100%; position: relative; z-index: 2; margin-top: 60px; font-family: 'Inter', sans-serif; }
-        
-        /* Fixed Grid Layout */
-        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; align-items: flex-start; }
-        
-        /* Left Column */
-        .footer-col-main { display: flex; flex-direction: column; align-items: flex-start; }
-        .footer-logo { margin-bottom: 32px; display: inline-block; }
-        .footer-logo { margin-bottom: 32px; display: inline-block; }
-.footer-logo img { 
-    height: 64px; /* <--- This makes it massively dominant */
-    width: auto;
-    display: block; 
-    filter: brightness(0) invert(1); 
-}
-        .footer-actions { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 200px; }
-        .btn-footer-primary { background: #ffffff; color: #000000; padding: 14px 24px; border-radius: 6px; font-weight: 700; font-size: 15px; text-align: center; text-decoration: none; transition: background 0.2s; }
-        .btn-footer-primary:hover { background: #e2e8f0; }
-        .btn-footer-secondary { background: rgba(255,255,255,0.05); color: #ffffff; padding: 14px 24px; border-radius: 6px; font-weight: 600; font-size: 15px; text-align: center; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); transition: background 0.2s; }
-        .btn-footer-secondary:hover { background: rgba(255,255,255,0.1); }
-
-        /* Right Columns */
-        .footer-col { display: flex; flex-direction: column; }
-        .footer-col h4 { color: #ffffff; font-size: 16px; font-weight: 600; margin-bottom: 24px; }
-        .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
-        .footer-links a { text-decoration: none; color: #a3a3a3; font-size: 14px; transition: color 0.2s; }
-        .footer-links a:hover { color: #ffffff; }
-
-        /* Bottom Row */
-        .footer-bottom { max-width: 1200px; margin: 80px auto 0; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: flex-end; }
-        .footer-company-info { display: flex; flex-direction: column; gap: 24px; }
-        .company-address { font-size: 13px; color: #737373; line-height: 1.6; }
-        .social-icons-raw { display: flex; gap: 20px; }
-        .social-icons-raw a svg { width: 20px; height: 20px; fill: #737373; transition: fill 0.2s; }
-        .social-icons-raw a:hover svg { fill: #ffffff; }
-
-        .footer-legal { text-align: right; font-size: 13px; color: #737373; display: flex; flex-direction: column; gap: 12px; }
-        .footer-legal-links { display: flex; gap: 24px; justify-content: flex-end; }
-        .footer-legal-links a { color: #a3a3a3; text-decoration: none; transition: color 0.2s; }
-        .footer-legal-links a:hover { color: #ffffff; }
-
-        /* Mobile Layout */
-        @media (max-width: 900px) { 
-            .footer-content { grid-template-columns: 1fr; gap: 50px; } 
-            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 40px; }
-            .footer-legal { text-align: left; }
-            .footer-legal-links { justify-content: flex-start; }
-            .demo-container, .contact-container, .feature-row { flex-direction: column; } 
-            .demo-form-wrapper, .contact-form-wrapper { width: 100%; min-width: auto; }
+        .nav-logo {
+            display: inline-flex;
+            align-items: center;
+            transition: opacity 0.15s ease;
+            flex-shrink: 0;
         }
-        /* ... all your other CSS up above stays exactly the same ... */
-
-        .footer-legal { text-align: right; font-size: 13px; color: #737373; display: flex; flex-direction: column; gap: 12px; }
-        .footer-legal-links { display: flex; gap: 24px; justify-content: flex-end; }
-        .footer-legal-links a { color: #a3a3a3; text-decoration: none; transition: color 0.2s; }
-        .footer-legal-links a:hover { color: #ffffff; }
-
-        /* ========================================================
-           📱 UNIVERSAL MOBILE FIX (Overrides desktop for phones)
-           ======================================================== */
-        @media (max-width: 850px) {
-            /* 1. Shrink Giant Fonts */
-            .hero-left h1, .page-header h1, .demo-text h1 { font-size: 38px !important; line-height: 1.2; letter-spacing: -1px; }
-            .hero-left p, .page-header p, .demo-text p { font-size: 16px !important; }
-            .bottom-cta h2, .section-header-center h2, .dash-text-col h2 { font-size: 32px !important; }
-
-            /* 2. Stack the Navbar securely */
-            .navbar { flex-direction: column; gap: 15px; padding: 20px 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
-            
-            /* 3. Stack Complex Layouts (Hero, Dashboard, Demo, Contact) */
-            .hero-split, .dashboard-section, .demo-container { flex-direction: column; gap: 40px; align-items: center; padding: 20px; }
-            .hero-left, .dash-text-col, .demo-text { max-width: 100%; min-width: 100%; text-align: center; }
-            .hero-buttons { justify-content: center; flex-wrap: wrap; }
-            .hero-right { width: 100%; height: 400px; transform: scale(0.8); } /* Shrinks the floating cards to fit phone screens */
-            .dash-image-col, .demo-form-wrapper { min-width: 100%; width: 100%; }
-            .demo-form-wrapper { padding: 25px 20px; }
-            .form-row { flex-direction: column; gap: 0; } 
-
-            /* 4. Fix Elements that break the width */
-            .status-bar, .trusted-bar { flex-direction: column; align-items: center; gap: 20px; }
-            .story-section { padding: 30px 20px; }
-            .feature-grid-clean, .values-grid { grid-template-columns: 1fr; } 
-
-            /* 5. Ensure the Footer Stacks Flawlessly */
-            .footer { padding: 60px 20px 30px; }
-            .footer-content { grid-template-columns: 1fr; gap: 40px; }
-            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 30px; margin-top: 40px; }
-            .footer-legal-links { justify-content: flex-start; width: 100%; flex-wrap: wrap; gap: 15px; }
-            .footer-logo img { height: 48px; } 
-
-            
+        .nav-logo:hover { opacity: 0.85; }
+        .nav-logo img {
+            height: 48px;
+            width: auto;
+            display: block;
+            filter: invert(1) hue-rotate(180deg) brightness(1.1);
         }
-    </style>
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            margin-left: auto;
+        }
+        .nav-link {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.15s ease;
+            font-family: inherit;
+        }
+        .nav-link:hover { color: var(--text); }
+        .nav-cta {
+            background: var(--text);
+            color: var(--bg);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.15s ease;
+        }
+        .nav-cta:hover { background: #cbd5e1; }
+
+        /* Mega-Menu */
+        .nav-item { position: relative; display: inline-block; }
+        .dropdown-trigger {
+            background: none; border: none;
+            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 4px;
+            color: var(--text-muted);
+        }
+        .dropdown-trigger svg {
+            width: 14px; height: 14px;
+            transition: transform 0.2s ease; opacity: 0.7;
+        }
+        .nav-item:hover .dropdown-trigger { color: var(--text); }
+        .nav-item:hover .dropdown-trigger svg { transform: rotate(180deg); opacity: 1; }
+
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(22, 27, 34, 0.95);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-soft); border-radius: 12px;
+            padding: 24px; width: 680px;
+            opacity: 0; visibility: hidden; transition: all 0.2s ease;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            margin-top: 14px;
+        }
+        .dropdown-menu::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
+        .nav-item:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+        .dropdown-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 32px; }
+        .dropdown-heading {
+            font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+            color: var(--glow-2); font-weight: 600; margin-bottom: 16px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .dropdown-link { display: block; margin-bottom: 14px; transition: transform 0.15s ease; }
+        .dropdown-link:last-child { margin-bottom: 0; }
+        .dropdown-link:hover { transform: translateX(2px); }
+        .link-title { display: block; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+        .link-sub { display: block; font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+        .dropdown-col:not(:first-child) .dropdown-link { font-size: 13px; color: var(--text-muted); font-weight: 400; }
+        .dropdown-col:not(:first-child) .dropdown-link:hover { color: var(--text); }
+
+        /* Mobile hamburger */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border-soft);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--text);
+        }
+        .mobile-toggle svg { width: 20px; height: 20px; display: block; }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 65px;
+            left: 0; right: 0;
+            background: rgba(13, 17, 23, 0.98);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-soft);
+            padding: 20px 24px 28px;
+            z-index: 49;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            padding: 14px 0;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu-section { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--glow-2); margin-top: 18px; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+        .mobile-menu-section:first-child { margin-top: 0; }
+        .mobile-cta {
+            display: block !important;
+            text-align: center;
+            background: var(--text);
+            color: var(--bg) !important;
+            padding: 12px 16px !important;
+            border-radius: 8px;
+            margin-top: 18px;
+            border: none !important;
+            font-weight: 600;
+        }
+
+        section { position: relative; z-index: 1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero */
+        .hero { padding: 96px 0 64px; text-align: center; }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
+            border: 1px solid var(--border); border-radius: 100px; font-size: 13px;
+            color: var(--text-muted); margin-bottom: 32px; background: rgba(22, 27, 34, 0.5);
+        }
+        .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px var(--success); }
+        .hero h1 {
+            font-size: clamp(36px, 5.5vw, 60px); font-weight: 600; letter-spacing: -0.03em;
+            line-height: 1.1; margin-bottom: 24px; max-width: 900px; margin-left: auto; margin-right: auto;
+        }
+        .hero h1 .grad {
+            background: linear-gradient(135deg, var(--glow-2) 0%, var(--glow-1) 100%);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-sub { font-size: 18px; color: var(--text-muted); max-width: 660px; margin: 0 auto 40px; line-height: 1.6; }
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 8px; background: var(--text);
+            color: var(--bg); padding: 12px 22px; border-radius: 8px; font-weight: 600;
+            font-size: 15px; transition: transform 0.15s ease;
+        }
+        .hero-cta:hover { transform: translateY(-1px); }
+        .hero-cta svg { width: 16px; height: 16px; }
+
+        /* Glow card */
+        .glow-card {
+            position: relative; border-radius: 16px; padding: 1px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.5), rgba(88, 166, 255, 0.2) 50%, transparent 80%);
+            isolation: isolate;
+        }
+        .glow-card::before {
+            content: ''; position: absolute; inset: -40px; border-radius: 24px;
+            background: radial-gradient(ellipse at top left, rgba(37, 99, 235, 0.25), transparent 60%);
+            z-index: -1; pointer-events: none;
+        }
+        .glow-card-inner { background: var(--bg-soft); border-radius: 15px; overflow: hidden; }
+
+       .hero-mockup-wrap { max-width: 920px; margin: 96px auto 0; padding: 0 24px; }
+        .window-chrome {
+            display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+            border-bottom: 1px solid var(--border-soft); background: rgba(0,0,0,0.2);
+        }
+        .window-dots { display: flex; gap: 6px; }
+        .window-dots span { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
+        .window-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-left: 8px; }
+
+        /* Eval results */
+        .eval-body { padding: 28px 32px; }
+        .eval-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+        .eval-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+        .eval-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); }
+        .eval-headline { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border-soft); }
+        .eval-stat-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+        .eval-stat-value { font-family: 'JetBrains Mono', monospace; font-size: 36px; font-weight: 600; color: var(--text); line-height: 1; }
+        .eval-stat-value .pct { color: var(--success); }
+        .eval-stat-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); margin-top: 6px; }
+        .eval-rows { display: flex; flex-direction: column; gap: 8px; }
+        .eval-row { display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+        .eval-row-label { color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .eval-bar { width: 100px; height: 4px; background: rgba(48, 54, 61, 0.5); border-radius: 2px; overflow: hidden; }
+        .eval-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--glow-2)); border-radius: 2px; }
+        .eval-row-pct { color: var(--text); font-weight: 500; min-width: 50px; text-align: right; }
+
+        /* Two-audience section */
+        .audience { padding: 96px 0 64px; }
+        .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .audience-card {
+            border: 1px solid var(--border-soft); border-radius: 16px; padding: 36px;
+            background: linear-gradient(180deg, rgba(22, 27, 34, 0.6), rgba(13, 17, 23, 0.3));
+            position: relative; overflow: hidden; transition: border-color 0.2s ease;
+        }
+        .audience-card:hover { border-color: var(--border); }
+        .audience-eyebrow { font-size: 12px; color: var(--glow-2); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 12px; }
+        .audience-card h3 { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 14px; }
+        .audience-card p { color: var(--text-muted); font-size: 15px; line-height: 1.65; margin-bottom: 24px; }
+        .audience-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+        .audience-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-muted); }
+        .audience-list svg { width: 14px; height: 14px; stroke: var(--glow-2); flex-shrink: 0; margin-top: 4px; }
+        .audience-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text); font-size: 14px; font-weight: 500; transition: gap 0.15s ease; }
+        .audience-link:hover { gap: 10px; }
+        .audience-link svg { width: 14px; height: 14px; }
+
+       /* Trusted */
+        .trusted { padding: 48px 0; text-align: center; }
+        .trusted-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 32px; }
+        .trusted-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            color: var(--text-muted);
+        }
+        .provider {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-muted);
+            opacity: 0.7;
+            transition: opacity 0.2s ease, color 0.2s ease;
+        }
+        .provider:hover { opacity: 1; color: var(--text); }
+        .provider svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+        @media (max-width: 600px) {
+            .trusted-list { gap: 24px 28px; }
+            .provider { font-size: 14px; }
+            .provider svg { width: 20px; height: 20px; }
+        }
+
+        /* Features */
+        .features { padding: 80px 0; }
+        .section-head { max-width: 720px; margin: 0 auto 56px; text-align: center; }
+        .section-head h2 { font-size: clamp(32px, 4vw, 44px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
+        .section-head p { color: var(--text-muted); font-size: 17px; line-height: 1.6; }
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .feature { border: 1px solid var(--border-soft); border-radius: 12px; padding: 28px; background: linear-gradient(180deg, rgba(22, 27, 34, 0.6), rgba(13, 17, 23, 0.3)); transition: border-color 0.2s ease; }
+        .feature:hover { border-color: var(--border); }
+        .feature-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(37, 99, 235, 0.12); border: 1px solid rgba(37, 99, 235, 0.25); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .feature-icon svg { width: 18px; height: 18px; stroke: var(--glow-2); fill: none; stroke-width: 1.8; }
+        .feature h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+        .feature p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+        /* Split */
+        .split { padding: 80px 0; }
+        .split-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
+        .split-text h2 { font-size: clamp(28px, 3.5vw, 38px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 20px; }
+        .split-text p { color: var(--text-muted); font-size: 16px; line-height: 1.7; margin-bottom: 20px; }
+
+        /* Pipeline */
+        .arch-body { padding: 32px; }
+        .arch-flow { display: flex; flex-direction: column; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+        .arch-step { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--border-soft); border-radius: 8px; background: rgba(0,0,0,0.2); }
+        .arch-step-num { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; background: rgba(37, 99, 235, 0.15); color: var(--glow-2); font-weight: 600; flex-shrink: 0; }
+        .arch-step-content { flex: 1; }
+        .arch-step-title { color: var(--text); font-weight: 500; margin-bottom: 2px; font-family: 'Geist', sans-serif; font-size: 13px; }
+        .arch-step-desc { color: var(--text-dim); font-size: 11px; }
+        .arch-step-latency { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--glow-2); font-weight: 500; flex-shrink: 0; }
+        .arch-arrow { text-align: center; color: var(--text-dim); font-size: 16px; line-height: 0.5; }
+        .arch-step.tier1 { border-color: rgba(37, 99, 235, 0.3); }
+        .arch-step.tier2 { border-color: rgba(88, 166, 255, 0.3); }
+        .arch-step.allowed { border-color: rgba(63, 185, 80, 0.3); }
+        .arch-step.allowed .arch-step-num { background: rgba(63, 185, 80, 0.15); color: var(--success); }
+
+        /* CTA strip */
+        .cta-strip { padding: 96px 0; text-align: center; }
+        .cta-strip-inner { border: 1px solid var(--border-soft); border-radius: 16px; padding: 56px 32px; background: linear-gradient(180deg, rgba(37, 99, 235, 0.06), transparent); position: relative; overflow: hidden; }
+        .cta-strip-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center top, rgba(37, 99, 235, 0.15), transparent 60%); pointer-events: none; }
+        .cta-strip h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 14px; }
+        .cta-strip p { color: var(--text-muted); margin-bottom: 28px; font-size: 16px; }
+        .teaser-text { font-size: 13px; color: var(--text-dim); margin-top: 16px; }
+
+        /* Footer */
+        footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; position: relative; z-index: 1; }
+        .footer-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .footer-brand { display: flex; flex-direction: column; gap: 16px; max-width: 320px; }
+        .footer-logo-wrap { display: inline-flex; align-items: center; align-self: flex-start; transition: opacity 0.15s ease; }
+        .footer-logo-wrap:hover { opacity: 0.85; }
+        .footer-logo { height: 42px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
+        .footer-contact { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+        .footer-contact a:hover { color: var(--text); }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+        .footer-social { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border-soft); color: var(--text-muted); transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease; }
+        .footer-social:hover { color: var(--text); border-color: var(--border); background: rgba(255,255,255,0.03); }
+        .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+        .footer-copy { font-size: 12px; color: var(--text-dim); }
+        .footer-legal { display: flex; gap: 16px; font-size: 12px; }
+        .footer-legal a { color: var(--text-dim); transition: color 0.15s ease; }
+        .footer-legal a:hover { color: var(--text-muted); }
+
+        /* Reveals */
+        @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; animation: rise 0.7s ease-out forwards; }
+        .reveal-1 { animation-delay: 0.05s; }
+        .reveal-2 { animation-delay: 0.15s; }
+        .reveal-3 { animation-delay: 0.25s; }
+        .reveal-4 { animation-delay: 0.4s; }
+        .scroll-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .scroll-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Mobile */
+        @media (max-width: 860px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: inline-flex; }
+            .nav-logo img { height: 42px; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .split-grid { grid-template-columns: 1fr; gap: 40px; }
+            .audience-grid { grid-template-columns: 1fr; }
+            .eval-headline { grid-template-columns: 1fr; gap: 16px; }
+            .eval-row { grid-template-columns: 1fr auto; }
+            .eval-bar { display: none; }
+            .footer-right { align-items: flex-start; }
+            .hero { padding: 64px 0 48px; }
+            .hero-mockup-wrap { margin-top: 48px; }
+            .eval-body { padding: 20px 18px; }
+        }
+        @media (max-width: 600px) {
+            .nav { gap: 12px; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar saas-reveal">
-        <a href="index.html" class="logo"><img src="image/logo.png" alt="PromptSentry"></a>
-        <ul class="nav-links">
-            <li><a href="solutions.html">Solutions</a></li>
-            <li><a href="company.html">Company</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-        <div class="nav-actions"><a href="get-demo.html" class="btn-mini-demo">Request a demo &rarr;</a></div>
-    </nav>
+    <div class="nav-wrap">
+        <nav class="nav">
+            <a href="google2-index.html" class="nav-logo" aria-label="PromptSentry home">
+                <img src="image/website-logo.svg" alt="PromptSentry by FNC">
+            </a>
 
-    <section class="hero-split">
-        <div class="hero-left saas-reveal delay-1">
-            <h1>The Platform<br>for <span>AI Security</span></h1>
-            <p>PromptSentry is the broadest and most comprehensive AI security solution. Our dual-layer architecture operates on a single, unified platform—securing applications from sub-5ms edge heuristics to GPU-accelerated contextual analysis.</p>
-            <div class="hero-buttons">
-                <a href="get-demo.html" class="btn-hero">Request a demo &rarr;</a>
-            </div>
-        </div>
-        
-        <div class="hero-right saas-reveal delay-2">
-            <div class="ui-card card-1">
-                <div class="c1-header"><span>Managed policies</span><span style="color:#64748b;">⚙️</span></div>
-                <div class="c1-body">
-                    <div class="c1-chart">
-                        <span style="font-size:10px; color:#64748b; font-weight:700;">Total evaluations</span>
-                        <div style="font-size: 20px; font-weight:800; margin-top:8px;">1,318</div>
+            <div class="nav-links">
+                <div class="nav-item">
+                    <button class="nav-link dropdown-trigger">
+                        Product
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-grid">
+                            <div class="dropdown-col">
+                                <div class="dropdown-heading">Solutions</div>
+                                <a href="edtech.html" class="dropdown-link">
+                                    <span class="link-title">EdTech &amp; Youth Safety</span>
+                                    <span class="link-sub">For families, schools, and platforms</span>
+                                </a>
+                                <a href="enterprise.html" class="dropdown-link">
+                                    <span class="link-title">Enterprise Security</span>
+                                    <span class="link-sub">For corporate AI pipelines</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-col">
+                                <div class="dropdown-heading">Use Cases</div>
+                                <a href="enterprise.html#policy" class="dropdown-link">AI Policy Enforcement</a>
+                                <a href="edtech.html#compliance" class="dropdown-link">Educational Compliance</a>
+                                <a href="enterprise.html#mcp" class="dropdown-link">MCP &amp; Agent Security</a>
+                                <a href="enterprise.html#deployment" class="dropdown-link">Self-Hosted Deployment</a>
+                            </div>
+                            <div class="dropdown-col">
+                                <div class="dropdown-heading">Risks We Manage</div>
+                                <a href="enterprise.html#policy" class="dropdown-link">Prompt Injection</a>
+                                <a href="enterprise.html" class="dropdown-link">Jailbreak Defense</a>
+                                <a href="enterprise.html#privacy" class="dropdown-link">PII &amp; Data Leaks</a>
+                                <a href="edtech.html#content-filter" class="dropdown-link">Explicit &amp; Toxic Content</a>
+                                <a href="edtech.html#grooming" class="dropdown-link">Grooming &amp; Manipulation</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="c1-chart" style="flex: 1.5;">
-                        <span style="font-size:10px; color:#64748b; font-weight:700;">Violations by severity</span>
-                        <div class="c1-bar-wrap"><div class="c1-bar" style="width: 80%; background: #ef4444;"></div><span style="font-size:10px;">18</span></div>
-                        <div class="c1-bar-wrap"><div class="c1-bar" style="width: 40%; background: #f59e0b;"></div><span style="font-size:10px;">06</span></div>
-                    </div>
                 </div>
+                <a href="company.html" class="nav-link">Company</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="google-demo.html" class="nav-cta">Request a demo</a>
             </div>
 
-            <div class="ui-card card-2">
-                <div class="c2-header">
-                    <h4>13 total policies</h4>
-                    <p>Edge Regex parsing and Gemma reasoning enabled.</p>
-                </div>
-                <div class="c2-row" style="color: #64748b; font-size: 10px; text-transform: uppercase;">
-                    <div style="flex: 2;">Policy Name</div>
-                    <div style="flex: 1; text-align: center;">Status</div>
-                    <div style="flex: 1; text-align: right;">Severity</div>
-                </div>
-                <div class="c2-row">
-                    <div style="flex: 2; color:#0f172a;">Block Personally Identifiable Info (PII)</div>
-                    <div style="flex: 1; text-align: center;"><span class="status-dot"></span>Enabled</div>
-                    <div style="flex: 1; text-align: right;"><span class="badge-crit">Critical</span></div>
-                </div>
-                <div class="c2-row">
-                    <div style="flex: 2; color:#0f172a;">Intercept Shadow AI App Usage</div>
-                    <div style="flex: 1; text-align: center;"><span class="status-dot"></span>Enabled</div>
-                    <div style="flex: 1; text-align: right;"><span class="badge-crit" style="background:#fef3c7; color:#f59e0b; border-color:#fcd34d;">Warning</span></div>
-                </div>
-                <div class="c2-row">
-                    <div style="flex: 2; color:#0f172a;">Route 988 Self-Harm Context</div>
-                    <div style="flex: 1; text-align: center;"><span class="status-dot"></span>Enabled</div>
-                    <div style="flex: 1; text-align: right;"><span class="badge-crit">Critical</span></div>
-                </div>
-                <div class="c2-row">
-                    <div style="flex: 2; color:#0f172a;">Prevent Malicious Jailbreaks</div>
-                    <div style="flex: 1; text-align: center;"><span class="status-dot"></span>Enabled</div>
-                    <div style="flex: 1; text-align: right;"><span class="badge-crit">Critical</span></div>
-                </div>
-            </div>
-
-            <div class="ui-card card-3">
-                <div class="c3-title">Risk Assessment</div>
-                <div class="c3-gauge-wrap">
-                    <div class="c3-gauge-bg"></div>
-                    <div class="c3-gauge-fill"></div>
-                </div>
-                <div class="c3-score">80 <span>/ 100</span></div>
-                <div style="font-size:10px; font-weight:700; color:#ef4444; margin-top:4px; border: 1px solid #fca5a5; background:#fee2e2; padding: 2px 6px; border-radius: 10px; display:inline-block;">Critical</div>
-            </div>
-        </div>
-    </section>
-
-    <div class="ticker-container saas-reveal delay-3">
-        <div class="ticker-wrap">
-            <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Sub-5ms Edge Regex Parsing</div><div class="ticker-dot"></div>
-            <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> GPU Context Analysis ~2s</div><div class="ticker-dot"></div>
-            <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Native 988 Crisis UI Routing</div><div class="ticker-dot"></div>
-            <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Enterprise Shadow AI Governance</div><div class="ticker-dot"></div>
-            
-            <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Sub-5ms Edge Regex Parsing</div><div class="ticker-dot"></div>
-            <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> GPU Context Analysis ~2s</div><div class="ticker-dot"></div>
-            <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Native 988 Crisis UI Routing</div><div class="ticker-dot"></div>
-            <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Enterprise Shadow AI Governance</div><div class="ticker-dot"></div>
-        </div>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </nav>
     </div>
 
-    <div class="trusted-bar scroll-animate">
-        <span>Securing pipelines for:</span>
-        <div class="trusted-item"><div class="manual-logo-placeholder">G</div> Google Gemma</div>
-        <div class="trusted-item"><div class="manual-logo-placeholder">O</div> OpenAI GPT-4</div>
-        <div class="trusted-item"><div class="manual-logo-placeholder">A</div> Anthropic Claude</div>
-        <div class="trusted-item"><div class="manual-logo-placeholder">H</div> Hugging Face</div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-section">Solutions</div>
+        <a href="edtech.html">EdTech &amp; Youth Safety</a>
+        <a href="enterprise.html">Enterprise Security</a>
+        <div class="mobile-menu-section">Site</div>
+        <a href="company.html">Company</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact us</a>
+        <a href="google-demo.html" class="mobile-cta">Request a demo</a>
     </div>
 
-    <section class="features-clean scroll-animate">
-        <div class="section-header-center">
-            <h2>Defend against AI risks at all levels</h2>
+    <section class="hero">
+        <div class="container">
+            <div class="eyebrow reveal reveal-1">
+                <span class="eyebrow-dot"></span>
+                <span>Benchmarked on 2,700+ adversarial prompts</span>
+            </div>
+            <h1 class="reveal reveal-2">
+                AI Safety for Kids.<br>
+                Security for <span class="grad">Enterprise</span>.
+            </h1>
+            <p class="hero-sub reveal reveal-3">
+                PromptSentry is the AI security guardrail for educational and corporate AI applications. Protect your users from jailbreaks, PII leaks, and explicit content with a multi-stage detection pipeline. AI-verified verdict in under 900ms (p50), under 1.4s (p95).
+            </p>
+            <a href="google-demo.html" class="hero-cta reveal reveal-3">
+                Request a demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
         </div>
-        <div class="feature-grid-clean">
-            <div class="clean-card">
-                <div class="feature-img-box">
-                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg>
-                </div>
-                <h3>Prompt for Employees</h3>
-                <p>Enable your workforce to adopt AI tools safely. Gain complete visibility over Shadow AI usage and enforce acceptable use policies across the enterprise.</p>
-            </div>
-            
-            <div class="clean-card">
-                <div class="feature-img-box">
-                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                    </svg>
-                </div>
-                <h3>Prompt for Homegrown Apps</h3>
-                <p>Unleash the power of AI in your internal applications. Protect your custom endpoints and native features from prompt injection and jailbreak attempts.</p>
-            </div>
 
-            <div class="clean-card">
-                <div class="feature-img-box">
-                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="16 18 22 12 16 6"></polyline>
-                        <polyline points="8 6 2 12 8 18"></polyline>
-                    </svg>
-                </div>
-                <h3>Prompt for Code Assistants</h3>
-                <p>Securely integrate AI into your development lifecycle. Ensure developers don't accidentally expose sensitive API keys, secrets, or proprietary code.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="dashboard-section scroll-animate">
-        <div class="dash-text-col">
-            <h2>Intelligent Context,<br><span>Not Just Keywords</span></h2>
-            <p class="sub">Traditional firewalls are blind to intent. PromptSentry evaluates the deep context of every prompt using a multi-tiered reasoning engine.</p>
-            <p>Whether it's blocking known predatory patterns in 4.9ms via high-speed heuristics, or utilizing our GPU-accelerated Gemma models to understand 'under13' safety tenants and 988 Crisis routing—we balance lightning speed with profound context.</p>
-            <a href="solutions.html" class="explore-platform">See How It Works</a>
-        </div>
-        <div class="dash-image-col">
-            <div class="console-widget" style="transition: transform 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                <div class="console-header">
-                    <h3>Live Threat Console</h3>
-                    <div class="status-pulse"><div class="pulse-dot"></div> Guardrails Active</div>
-                </div>
-                <div class="console-body">
-                    <div class="alert-item critical">
-                        <div class="alert-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></div>
-                        <div class="alert-content">
-                            <h4>PII Data Leak Prevented</h4>
-                            <p>Employee attempted to paste customer SSN into public ChatGPT interface.</p>
-                            <div class="alert-time" style="color: var(--accent-red);">Edge Heuristics • &lt;5ms</div>
-                        </div>
+        <div class="hero-mockup-wrap reveal reveal-4">
+            <div class="glow-card">
+                <div class="glow-card-inner">
+                    <div class="window-chrome">
+                        <div class="window-dots"><span></span><span></span><span></span></div>
+                        <div class="window-title">benchmark-results.log</div>
                     </div>
-                    <div class="alert-item" style="border-left-color: var(--accent-purple); background: #f3e8ff;">
-                        <div class="alert-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--accent-purple);"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div>
-                        <div class="alert-content">
-                            <h4 style="color: #0f172a;">988 Crisis Lifeline Routed</h4>
-                            <p style="color: #475569;">Contextual engine detected high-risk self-harm intent. Intercepted and routed to professional UI.</p>
-                            <div class="alert-time" style="color: var(--accent-purple);">Gemma Analysis • 2.1s</div>
+                    <div class="eval-body">
+                        <div class="eval-header">
+                            <span class="eval-title">PromptSentry · Latest Eval Run</span>
+                            <span class="eval-meta">Production tests: 1,496 passing</span>
                         </div>
-                    </div>
-                    <div class="alert-item secure">
-                        <div class="alert-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg></div>
-                        <div class="alert-content">
-                            <h4>Prompt Injection Mitigated</h4>
-                            <p>Malicious payload neutralized targeting homegrown Customer Support bot.</p>
-                            <div class="alert-time" style="color: var(--accent-blue);">Sanitized • Just now</div>
+                        <div class="eval-headline">
+                            <div>
+                                <div class="eval-stat-label">Attack defense</div>
+                                <div class="eval-stat-value"><span class="pct">98.92%</span></div>
+                                <div class="eval-stat-sub">1,830 / 1,850 blocked</div>
+                            </div>
+                            <div>
+                                <div class="eval-stat-label">Harmful content classification</div>
+                                <div class="eval-stat-value"><span class="pct">99.33%</span></div>
+                                <div class="eval-stat-sub">887 / 893 correct</div>
+                            </div>
+                        </div>
+                        <div class="eval-rows">
+                            <div class="eval-row">
+                                <span class="eval-row-label">HarmBench · cybercrime</span>
+                                <div class="eval-bar"><div class="eval-bar-fill" style="width: 96.7%"></div></div>
+                                <span class="eval-row-pct">96.7%</span>
+                            </div>
+                            <div class="eval-row">
+                                <span class="eval-row-label">Garak · prompt injection</span>
+                                <div class="eval-bar"><div class="eval-bar-fill" style="width: 100%"></div></div>
+                                <span class="eval-row-pct">100%</span>
+                            </div>
+                            <div class="eval-row">
+                                <span class="eval-row-label">TrustLLM · jailbreak (scenario subset)</span>
+                                <div class="eval-bar"><div class="eval-bar-fill" style="width: 100%"></div></div>
+                                <span class="eval-row-pct">100%</span>
+                            </div>
+                            <div class="eval-row">
+                                <span class="eval-row-label">AdvBench · harmful behaviors</span>
+                                <div class="eval-bar"><div class="eval-bar-fill" style="width: 99.6%"></div></div>
+                                <span class="eval-row-pct">99.6%</span>
+                            </div>
+                            <div class="eval-row">
+                                <span class="eval-row-label">HarmBench · human jailbreaks</span>
+                                <div class="eval-bar"><div class="eval-bar-fill" style="width: 99.8%"></div></div>
+                                <span class="eval-row-pct">99.8%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -462,85 +555,247 @@
         </div>
     </section>
 
-    <footer class="footer scroll-animate">
-        <div class="footer-content">
-            
-            <div class="footer-col-main">
-                <a href="index.html" class="footer-logo">
-                   <img src="image/logo.png" alt="PromptSentry">
+    <section class="audience scroll-in">
+        <div class="container">
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-eyebrow">EdTech</div>
+                    <h3>Keep kids safe on every AI surface</h3>
+                    <p>Schools, families, and EdTech platforms get a guardrail that filters explicit content, blocks predatory patterns, and stops kids from being manipulated by AI — with AI-verified inspection on every prompt.</p>
+                    <ul class="audience-list">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Age-appropriate content filtering</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Grooming and manipulation detection</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Plain-language safety policies for educators</li>
+                    </ul>
+                    <a href="edtech.html" class="audience-link">
+                        Explore EdTech protection
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-eyebrow">Enterprise</div>
+                    <h3>Ship AI without shipping the risk</h3>
+                    <p>Engineering teams wrap any LLM endpoint with a five-line code change and get jailbreak defense, PII protection, and policy enforcement — without rewriting the application.</p>
+                    <ul class="audience-list">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Prompt injection and jailbreak defense</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Centralized AI Policy Enforcement</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SDK and MCP-native integrations</li>
+                    </ul>
+                    <a href="enterprise.html" class="audience-link">
+                        Explore enterprise security
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trusted scroll-in">
+            <div class="container">
+                <div class="trusted-label">Works with any LLM provider</div>
+                <div class="trusted-list">
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365 2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
+                        </svg>
+                        <span>OpenAI</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M17.3045 3.2H13.3984L20.4538 20.8H24.36L17.3045 3.2ZM6.6961 3.2L0 20.8H3.91758L5.31429 16.99H12.2604L13.6571 20.8H17.5746L10.8784 3.2H6.6961ZM6.49524 13.6712L8.78714 7.3375L11.0791 13.6712H6.49524Z"/>
+                        </svg>
+                        <span>Anthropic</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 24A14.304 14.304 0 0 0 0 12 14.304 14.304 0 0 0 12 0a14.305 14.305 0 0 0 12 12 14.305 14.305 0 0 0-12 12"/>
+                        </svg>
+                        <span>Google Gemini</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M3.428 3.4h3.429v3.428H3.428V3.4zm13.714 0h3.43v3.428h-3.43V3.4z"/>
+                            <path d="M3.428 6.828h6.857v3.429H3.428V6.828zm10.286 0h6.858v3.429h-6.858V6.828z" opacity=".85"/>
+                            <path d="M3.428 10.257h17.144v3.429H3.428v-3.429z" opacity=".7"/>
+                            <path d="M3.428 13.686h6.857v3.428H3.428v-3.428zm10.286 0h6.858v3.428h-6.858v-3.428z" opacity=".55"/>
+                            <path d="M3.428 17.114h3.429v3.429H3.428v-3.429zm13.714 0h3.43v3.429h-3.43v-3.429z" opacity=".4"/>
+                        </svg>
+                        <span>Mistral</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168.1-.527.493-.94 1.022-1.04a8.001 8.001 0 1 1 15.08 0c.53.1.922.513 1.022 1.04A9.957 9.957 0 0 0 22 12c0-5.523-4.477-10-10-10zm-3 8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-7.5 4.5a.5.5 0 0 0-.5.5v1.5a4 4 0 0 0 8 0V15a.5.5 0 0 0-1 0v1.5a3 3 0 0 1-6 0V15a.5.5 0 0 0-.5-.5z"/>
+                            <circle cx="6" cy="17" r="1.5" opacity=".6"/>
+                            <circle cx="18" cy="17" r="1.5" opacity=".6"/>
+                        </svg>
+                        <span>Hugging Face</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2 2 7v10l10 5 10-5V7L12 2zm0 2.236L19.764 8 12 11.764 4.236 8 12 4.236zM4 9.618l7 3.5v7.764l-7-3.5V9.618zm16 0v7.764l-7 3.5v-7.764l7-3.5z"/>
+                        </svg>
+                        <span>MCP</span>
+                    </div>
+                    <div class="provider">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="4" width="18" height="12" rx="2"/>
+                            <line x1="8" y1="20" x2="16" y2="20"/>
+                            <line x1="12" y1="16" x2="12" y2="20"/>
+                            <circle cx="12" cy="10" r="2" fill="currentColor"/>
+                        </svg>
+                        <span>Self-hosted</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <section class="features scroll-in">
+        <div class="container">
+            <div class="section-head">
+                <h2>Defense across the AI surface</h2>
+                <p>Wherever AI shows up — in the employee browser, a classroom app, your product, or a developer's IDE — PromptSentry inspects the prompt before the model sees it.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                    </div>
+                   <h3>For your workforce</h3>
+                    <p>Route your sanctioned AI traffic through PromptSentry for full visibility into authorized AI usage. Set centralized policies that block, redact, or warn when employees attempt to send PII, source code, or credentials to external models.</p>
+                </div> <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="14" width="20" height="8" rx="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="6" x2="6.01" y2="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="18" x2="6.01" y2="18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>For your apps</h3>
+                    <p>One API call before your LLM call. We block prompt injections, system prompt extraction attempts, and unsafe outputs before they reach your end users.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="8 6 2 12 8 18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>For code assistants</h3>
+                    <p>If your developers use MCP-compatible AI tools (Cursor, Claude Code, agentic frameworks), PromptSentry integrates as an MCP server to inspect prompts before they reach the model.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="split scroll-in">
+        <div class="container">
+            <div class="split-grid">
+                <div class="split-text">
+                    <h2>Multi-stage detection. AI-verified every time.</h2>
+                  <p>The pattern fast-path runs in under 1ms. Explicit attacks are stopped immediately. Everything else gets an AI-assisted verdict — under 900ms (p50), under 1.4s (p95).</p>
+                    <p>Speed where it matters, judgment where it counts.</p>
+                </div>
+                <div class="glow-card">
+                    <div class="glow-card-inner">
+                        <div class="window-chrome">
+                            <div class="window-dots"><span></span><span></span><span></span></div>
+                            <div class="window-title">request pipeline</div>
+                        </div>
+                        <div class="arch-body">
+                            <div class="arch-flow">
+                                <div class="arch-step">
+                                    <div class="arch-step-num">→</div>
+                                    <div class="arch-step-content">
+                                        <div class="arch-step-title">Incoming prompt</div>
+                                        <div class="arch-step-desc">From user, app, or IDE</div>
+                                    </div>
+                                </div>
+                                <div class="arch-arrow">▼</div>
+                                <div class="arch-step tier1">
+                                    <div class="arch-step-num">1</div>
+                                    <div class="arch-step-content">
+                                        <div class="arch-step-title">Fast-path pattern check</div>
+                                        <div class="arch-step-desc">Explicit-attack heuristics, PII detection, encoding tricks</div>
+                                    </div>
+                                    <div class="arch-step-latency">&lt;1ms</div>
+                                </div>
+                                <div class="arch-arrow">▼</div>
+                               <div class="arch-step tier2">
+                                    <div class="arch-step-num">2</div>
+                                    <div class="arch-step-content">
+                                        <div class="arch-step-title">AI-assisted verdict</div>
+                                        <div class="arch-step-desc">Non-trivial prompts classified by frontier model</div>
+                                    </div>
+                                   <div class="arch-step-latency">&lt;900ms p50 · &lt;1.4s p95</div>
+                                </div>
+                                <div class="arch-arrow">▼</div>
+                                <div class="arch-step allowed">
+                                    <div class="arch-step-num">✓</div>
+                                    <div class="arch-step-content">
+                                        <div class="arch-step-title">Forwarded to your LLM</div>
+                                        <div class="arch-step-desc">Or blocked, redacted, escalated per policy</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-strip scroll-in">
+        <div class="container">
+            <div class="cta-strip-inner">
+                <h2>Ship AI without shipping the risk</h2>
+                <p>Talk to our team about deploying PromptSentry for your school, product, or workforce.</p>
+                <a href="google-demo.html" class="hero-cta">
+                    Request a demo
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </a>
-                <div class="footer-actions">
-                    <a href="get-demo.html" class="btn-footer-primary">Book a demo</a>
-                    <a href="solutions.html" class="btn-footer-secondary">Start for free</a>
-                </div>
+                <div class="teaser-text">Pricing starts at $9.99/mo for families, up to custom Enterprise SLAs. <a href="pricing.html" style="color: var(--glow-2);">See all plans</a></div>
             </div>
-
-            <div class="footer-col">
-                <h4>Products</h4>
-                <ul class="footer-links">
-                    <li><a href="solutions.html">Shadow AI Governance</a></li>
-                    <li><a href="solutions.html">Data Leak Prevention</a></li>
-                    <li><a href="solutions.html">Prompt Injection Defense</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>Resources</h4>
-                <ul class="footer-links">
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Documentation</a></li>
-                    <li><a href="#">Security</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>Company</h4>
-                <ul class="footer-links">
-                    <li><a href="company.html">About FNC</a></li>
-                    <li><a href="#">Newsroom</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </div>
-
         </div>
+    </section>
 
-        <div class="footer-bottom">
-            <div class="footer-company-info">
-                <div class="company-address">
+    <footer>
+        <div class="footer-row">
+            <div class="footer-brand">
+                <a href="google2-index.html" class="footer-logo-wrap" aria-label="PromptSentry home">
+                    <img src="image/website-logo.svg" alt="PromptSentry by FNC" class="footer-logo">
+                </a>
+                <div class="footer-contact">
+                    <a href="contact.html">Contact us</a><br>
                     Five Nines Consulting<br>
-                    Roanoke, VA<br>
-                    United States
-                </div>
-                <div class="social-icons-raw">
-                    <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.646h2.039L6.486 3.24H4.298Z"/></svg></a>
-                    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+                    Roanoke, VA · United States
                 </div>
             </div>
-            <div class="footer-legal">
-                <div class="footer-legal-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms & Conditions</a>
+            <div class="footer-right">
+                <a href="https://www.linkedin.com/company/five-nines-consulting-llc-fnc/" class="footer-social" aria-label="Five Nines Consulting on LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <div class="footer-copy">© 2026 PromptSentry — A Five Nines Consulting product</div>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms &amp; Conditions</a>
                 </div>
-                <div>© 2026 PromptSentry. A product of Five Nines Consulting. All rights reserved.</div>
             </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                        observer.unobserve(entry.target); 
-                    }
-                });
-            }, observerOptions);
-            const animatedElements = document.querySelectorAll('.scroll-animate');
-            animatedElements.forEach(el => observer.observe(el));
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.scroll-in').forEach(el => io.observe(el));
+
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
         });
     </script>
+
 </body>
 </html>
