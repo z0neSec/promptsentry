@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us — PromptSentry</title>
-    <link rel="icon" type="image/svg+xml" href="image/website-logo.svg">
+   <link rel="icon" type="image/svg+xml" href="image/shield-only.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -50,7 +50,7 @@
 
         a { color: inherit; text-decoration: none; }
 
-        /* Minimal navbar */
+        /* Full Navbar Styles */
         .nav-wrap {
             position: sticky; top: 0; z-index: 50;
             padding: 14px 24px;
@@ -59,43 +59,63 @@
             border-bottom: 1px solid var(--border-soft);
         }
         .nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; gap: 24px;
         }
-        .nav-logo {
-            display: inline-flex;
-            align-items: center;
-            transition: opacity 0.15s ease;
-            flex-shrink: 0;
-        }
+        .nav-logo { display: inline-flex; align-items: center; transition: opacity 0.15s ease; flex-shrink: 0; }
         .nav-logo:hover { opacity: 0.85; }
-        .nav-logo img {
-            height: 48px;
-            width: auto;
-            display: block;
-            filter: invert(1) hue-rotate(180deg) brightness(1.1);
+        .nav-logo img { height: 48px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
+        
+        .nav-links { display: flex; align-items: center; gap: 28px; margin-left: auto; }
+        .nav-link { color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.15s ease; font-family: inherit; }
+        .nav-link:hover { color: var(--text); }
+        .nav-cta { background: var(--text); color: var(--bg); padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; transition: background 0.15s ease; }
+        .nav-cta:hover { background: #cbd5e1; }
+
+        /* Mega-Menu */
+        .nav-item { position: relative; display: inline-block; }
+        .dropdown-trigger { background: none; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; color: var(--text-muted); }
+        .dropdown-trigger svg { width: 14px; height: 14px; transition: transform 0.2s ease; opacity: 0.7; }
+        .nav-item:hover .dropdown-trigger { color: var(--text); }
+        .nav-item:hover .dropdown-trigger svg { transform: rotate(180deg); opacity: 1; }
+
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(22, 27, 34, 0.95);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-soft); border-radius: 12px;
+            padding: 24px; width: 680px;
+            opacity: 0; visibility: hidden; transition: all 0.2s ease;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); margin-top: 14px;
         }
-        .nav-back {
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-            transition: color 0.15s ease;
-            flex-shrink: 0;
+        .dropdown-menu::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
+        .nav-item:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+        .dropdown-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 32px; }
+        .dropdown-heading { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--glow-2); font-weight: 600; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; }
+        .dropdown-link { display: block; margin-bottom: 14px; transition: transform 0.15s ease; }
+        .dropdown-link:last-child { margin-bottom: 0; }
+        .dropdown-link:hover { transform: translateX(2px); }
+        .link-title { display: block; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+        .link-sub { display: block; font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+        .dropdown-col:not(:first-child) .dropdown-link { font-size: 13px; color: var(--text-muted); font-weight: 400; }
+        .dropdown-col:not(:first-child) .dropdown-link:hover { color: var(--text); }
+
+        /* Mobile hamburger */
+        .mobile-toggle { display: none; background: none; border: 1px solid var(--border-soft); border-radius: 8px; padding: 8px; cursor: pointer; color: var(--text); }
+        .mobile-toggle svg { width: 20px; height: 20px; display: block; }
+        .mobile-menu {
+            display: none; position: fixed; top: 65px; left: 0; right: 0;
+            background: rgba(13, 17, 23, 0.98); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-soft); padding: 20px 24px 28px; z-index: 49;
         }
-        .nav-back:hover { color: var(--text); }
-        .nav-back svg {
-            width: 14px;
-            height: 14px;
-            flex-shrink: 0;
-        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a { display: block; padding: 14px 0; color: var(--text); font-size: 16px; font-weight: 500; border-bottom: 1px solid var(--border-soft); }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu-section { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--glow-2); margin-top: 18px; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+        .mobile-menu-section:first-child { margin-top: 0; }
+        .mobile-cta { display: block !important; text-align: center; background: var(--text); color: var(--bg) !important; padding: 12px 16px !important; border-radius: 8px; margin-top: 18px; border: none !important; font-weight: 600; }
 
         section { position: relative; z-index: 1; flex: 1; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -110,23 +130,16 @@
         .methods-list { display: flex; flex-direction: column; gap: 28px; }
         .method { display: flex; gap: 16px; align-items: flex-start; }
         .method-icon {
-            width: 40px; height: 40px;
-            border-radius: 10px;
-            background: rgba(37, 99, 235, 0.12);
-            border: 1px solid rgba(37, 99, 235, 0.25);
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
+            width: 40px; height: 40px; border-radius: 10px;
+            background: rgba(37, 99, 235, 0.12); border: 1px solid rgba(37, 99, 235, 0.25);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
         .method-icon svg { width: 18px; height: 18px; stroke: var(--glow-2); fill: none; stroke-width: 1.8; }
         .method-text h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
         .method-text p { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 6px; }
         .method-text a { font-size: 14px; color: var(--glow-2); font-weight: 500; font-family: 'JetBrains Mono', monospace; transition: color 0.15s ease; word-break: break-all; }
         .method-text a:hover { color: var(--text); }
-        .method-text span.address {
-            font-size: 14px;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .method-text span.address { font-size: 14px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
 
         .form-card {
             position: relative; border-radius: 16px; padding: 1px;
@@ -179,13 +192,19 @@
         .reveal-1 { animation-delay: 0.05s; }
         .reveal-2 { animation-delay: 0.2s; }
 
+        /* Mobile overrides */
         @media (max-width: 860px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: inline-flex; }
+            .nav-logo img { height: 42px; }
             .contact-grid { grid-template-columns: 1fr; gap: 60px; }
             .contact-section { padding: 50px 0 70px; }
             .form-inner { padding: 24px; }
             .form-row { grid-template-columns: 1fr; gap: 0; }
             .footer-right { align-items: flex-start; }
-            .nav-logo img { height: 30px; }
+        }
+        @media (max-width: 600px) {
+            .nav { gap: 12px; }
         }
     </style>
 </head>
@@ -196,11 +215,64 @@
             <a href="google2-index.html" class="nav-logo" aria-label="PromptSentry home">
                 <img src="image/website-logo.svg" alt="PromptSentry by FNC">
             </a>
-            <a href="google2-index.html" class="nav-back">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back to home
-            </a>
+
+            <div class="nav-links">
+                <div class="nav-item">
+                    <button class="nav-link dropdown-trigger">
+                        Product
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-grid">
+                            <div class="dropdown-col">
+                                <div class="dropdown-heading">Solutions</div>
+                                <a href="edtech.html" class="dropdown-link">
+                                    <span class="link-title">EdTech &amp; Youth Safety</span>
+                                    <span class="link-sub">For families, schools, and platforms</span>
+                                </a>
+                                <a href="enterprise.html" class="dropdown-link">
+                                    <span class="link-title">Enterprise Security</span>
+                                    <span class="link-sub">For corporate AI pipelines</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-col">
+                                <div class="dropdown-heading">Use Cases</div>
+                                <a href="enterprise.html#policy" class="dropdown-link">AI Policy Enforcement</a>
+                                <a href="edtech.html#compliance" class="dropdown-link">Educational Compliance</a>
+                                <a href="enterprise.html#mcp" class="dropdown-link">MCP &amp; Agent Security</a>
+                                <a href="enterprise.html#deployment" class="dropdown-link">Self-Hosted Deployment</a>
+                            </div>
+                            <div class="dropdown-col">
+                                <div class="dropdown-heading">Risks We Manage</div>
+                                <a href="enterprise.html#policy" class="dropdown-link">Prompt Injection</a>
+                                <a href="enterprise.html" class="dropdown-link">Jailbreak Defense</a>
+                                <a href="enterprise.html#privacy" class="dropdown-link">PII &amp; Data Leaks</a>
+                                <a href="edtech.html#content-filter" class="dropdown-link">Explicit &amp; Toxic Content</a>
+                                <a href="edtech.html#grooming" class="dropdown-link">Grooming &amp; Manipulation</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="company.html" class="nav-link">Company</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="google-demo.html" class="nav-cta">Request a demo</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
         </nav>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-section">Solutions</div>
+        <a href="edtech.html">EdTech &amp; Youth Safety</a>
+        <a href="enterprise.html">Enterprise Security</a>
+        <div class="mobile-menu-section">Site</div>
+        <a href="company.html">Company</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact us</a>
+        <a href="google-demo.html" class="mobile-cta">Request a demo</a>
     </div>
 
     <section class="contact-section">
@@ -219,7 +291,7 @@
                             <div class="method-text">
                                 <h4>General &amp; support</h4>
                                 <p>Sales inquiries, technical support, and partnerships.</p>
-                                <a href="mailto:support@fiveninesconsulting.net">support@fiveninesconsulting.net</a>
+                                <a href="mailto:support@promptsentry.net">support@promptsentry.net</a>
                             </div>
                         </div>
                         <div class="method">
@@ -321,6 +393,20 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        
+        // Close menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+    </script>
 
 </body>
 </html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service — PromptSentry</title>
+   <link rel="icon" type="image/svg+xml" href="image/shield-only.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-soft: #161b22;
+            --bg-elevated: #1c2128;
+            --border: #30363d;
+            --border-soft: #21262d;
+            --text: #f0f6fc;
+            --text-muted: #8b949e;
+            --text-dim: #6e7681;
+            --accent: #2563eb;
+            --glow-2: #58a6ff;
+            --success: #3fb950;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+
+        body {
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        body::before {
+            content: ''; position: fixed; inset: 0;
+            background-image:
+                linear-gradient(rgba(48, 54, 61, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(48, 54, 61, 0.08) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.4), transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.4), transparent 70%);
+            pointer-events: none; z-index: 0;
+        }
+
+        a { color: var(--glow-2); text-decoration: none; transition: color 0.15s ease; }
+        a:hover { color: var(--text); }
+
+        .nav-wrap {
+            position: sticky; top: 0; z-index: 50;
+            padding: 14px 24px;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: rgba(13, 17, 23, 0.85);
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .nav { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+        .nav-logo { display: inline-flex; align-items: center; transition: opacity 0.15s ease; flex-shrink: 0; }
+        .nav-logo:hover { opacity: 0.85; }
+        .nav-logo img { height: 44px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
+        .nav-back { color: var(--text-muted); font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: color 0.15s ease; flex-shrink: 0; }
+        .nav-back:hover { color: var(--text); }
+        .nav-back svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+        section { position: relative; z-index: 1; flex: 1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        .doc-wrap { padding: 64px 0 96px; }
+        .doc-grid { display: grid; grid-template-columns: 240px 1fr; gap: 56px; align-items: start; }
+
+        .toc { position: sticky; top: 96px; max-height: calc(100vh - 120px); overflow-y: auto; padding-right: 8px; }
+        .toc::-webkit-scrollbar { width: 4px; }
+        .toc::-webkit-scrollbar-track { background: transparent; }
+        .toc::-webkit-scrollbar-thumb { background: var(--border-soft); border-radius: 2px; }
+        .toc-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--glow-2); font-weight: 600; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+        .toc-list a { display: block; font-size: 13px; color: var(--text-muted); padding: 6px 10px; border-radius: 6px; line-height: 1.4; border-left: 2px solid transparent; transition: all 0.15s ease; }
+        .toc-list a:hover { color: var(--text); background: rgba(255, 255, 255, 0.03); border-left-color: var(--glow-2); }
+
+        .doc-body { min-width: 0; }
+        .doc-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border-soft); }
+        .doc-eyebrow { font-size: 12px; color: var(--glow-2); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; }
+        .doc-header h1 { font-size: clamp(32px, 4vw, 44px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 24px; }
+        .doc-meta { display: flex; flex-wrap: wrap; gap: 28px; font-size: 13px; color: var(--text-muted); }
+        .doc-meta-item strong { color: var(--text); font-weight: 600; margin-right: 6px; }
+
+        .doc-body h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 48px; margin-bottom: 18px; color: var(--text); scroll-margin-top: 96px; }
+        .doc-body h2:first-of-type { margin-top: 0; }
+        .doc-body h2 .num { color: var(--glow-2); font-family: 'JetBrains Mono', monospace; font-size: 18px; margin-right: 10px; font-weight: 500; }
+        .doc-body h3 { font-size: 16px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; color: var(--text); }
+        .doc-body h3 .num { color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 14px; margin-right: 8px; font-weight: 500; }
+        .doc-body p { font-size: 15px; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
+        .doc-body p strong { color: var(--text); font-weight: 600; }
+        .doc-body ul { list-style: none; margin-bottom: 20px; padding-left: 4px; }
+        .doc-body ul li { font-size: 15px; color: var(--text-muted); line-height: 1.7; padding-left: 22px; position: relative; margin-bottom: 10px; }
+        .doc-body ul li::before { content: ''; position: absolute; left: 6px; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--text-dim); }
+        .doc-body ul li strong { color: var(--text); font-weight: 600; }
+        .doc-body code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--bg-soft); border: 1px solid var(--border-soft); padding: 2px 6px; border-radius: 4px; color: var(--glow-2); }
+
+        /* Tables */
+        .table-wrap { margin: 20px 0 28px; overflow-x: auto; border: 1px solid var(--border-soft); border-radius: 10px; background: rgba(22, 27, 34, 0.4); }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px; }
+        thead { background: rgba(0, 0, 0, 0.2); }
+        th { text-align: left; padding: 12px 16px; font-weight: 600; color: var(--text); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border-soft); }
+        td { padding: 14px 16px; color: var(--text-muted); border-bottom: 1px solid var(--border-soft); line-height: 1.6; }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover td { background: rgba(255, 255, 255, 0.02); color: var(--text); }
+        td strong, th strong { color: var(--text); font-weight: 600; }
+        td code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--glow-2); }
+
+        /* Disclaimer callout */
+        .callout {
+            background: rgba(217, 119, 6, 0.06);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            border-left: 3px solid #d97706;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+        .callout strong { color: var(--text); font-weight: 600; }
+
+        /* Footer */
+        footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; position: relative; z-index: 1; }
+        .footer-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .footer-brand { display: flex; flex-direction: column; gap: 16px; max-width: 320px; }
+        .footer-logo-wrap { display: inline-flex; align-items: center; align-self: flex-start; transition: opacity 0.15s ease; }
+        .footer-logo-wrap:hover { opacity: 0.85; }
+        .footer-logo { height: 42px; width: auto; display: block; filter: invert(1) hue-rotate(180deg) brightness(1.1); }
+        .footer-contact { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+        .footer-contact a { color: var(--glow-2); }
+        .footer-contact a:hover { color: var(--text); }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+        .footer-social { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border-soft); color: var(--text-muted); transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease; }
+        .footer-social:hover { color: var(--text); border-color: var(--border); background: rgba(255,255,255,0.03); }
+        .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+        .footer-copy { font-size: 12px; color: var(--text-dim); }
+        .footer-legal { display: flex; gap: 16px; font-size: 12px; }
+        .footer-legal a { color: var(--text-dim); transition: color 0.15s ease; }
+        .footer-legal a:hover { color: var(--text-muted); }
+
+        @media (max-width: 1024px) {
+            .doc-grid { grid-template-columns: 1fr; gap: 32px; }
+            .toc { position: static; max-height: none; padding-right: 0; background: rgba(22, 27, 34, 0.4); border: 1px solid var(--border-soft); border-radius: 12px; padding: 20px; }
+        }
+        @media (max-width: 860px) {
+            .nav-logo img { height: 38px; }
+            .doc-wrap { padding: 40px 0 64px; }
+            .footer-right { align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrap">
+        <nav class="nav">
+            <a href="google2-index.html" class="nav-logo" aria-label="PromptSentry home">
+                <img src="image/website-logo.svg" alt="PromptSentry by FNC">
+            </a>
+            <a href="google2-index.html" class="nav-back">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to home
+            </a>
+        </nav>
+    </div>
+
+    <section class="doc-wrap">
+        <div class="container">
+            <div class="doc-grid">
+
+                <aside class="toc">
+                    <div class="toc-label">Contents</div>
+                    <ul class="toc-list">
+                        <li><a href="#section-1">1. Agreement to Terms</a></li>
+                        <li><a href="#section-2">2. Description of Service</a></li>
+                        <li><a href="#section-3">3. Account & API Key Security</a></li>
+                        <li><a href="#section-4">4. Acceptable Use</a></li>
+                        <li><a href="#section-5">5. Operating Modes & Liability</a></li>
+                        <li><a href="#section-6">6. Third-Party Services</a></li>
+                        <li><a href="#section-7">7. Data Processing</a></li>
+                        <li><a href="#section-8">8. Child Data & Special Populations</a></li>
+                        <li><a href="#section-9">9. Service Availability & SLAs</a></li>
+                        <li><a href="#section-10">10. Intellectual Property</a></li>
+                        <li><a href="#section-11">11. Limitation of Liability</a></li>
+                        <li><a href="#section-12">12. Indemnification</a></li>
+                        <li><a href="#section-13">13. Termination</a></li>
+                        <li><a href="#section-14">14. Governing Law</a></li>
+                        <li><a href="#section-15">15. Force Majeure</a></li>
+                        <li><a href="#section-16">16. Assignment</a></li>
+                        <li><a href="#section-17">17. Survival</a></li>
+                        <li><a href="#section-18">18. Enterprise Terms</a></li>
+                        <li><a href="#section-19">19. Modifications</a></li>
+                        <li><a href="#section-20">20. Contact</a></li>
+                    </ul>
+                </aside>
+
+                <div class="doc-body">
+                    <div class="doc-header">
+                        <div class="doc-eyebrow">Legal</div>
+                        <h1>PromptSentry Terms of Service</h1>
+                        <div class="doc-meta">
+                            <div class="doc-meta-item"><strong>Effective Date:</strong> May 15, 2026</div>
+                            <div class="doc-meta-item"><strong>Last Updated:</strong> May 15, 2026</div>
+                            <div class="doc-meta-item"><strong>Published by:</strong> Five Nines Consulting LLC</div>
+                        </div>
+                    </div>
+
+                    <h2 id="section-1"><span class="num">1.</span>Agreement to Terms</h2>
+                    <p>By accessing or using PromptSentry (the "Service"), including through API integration, SDK, Docker deployment, Helm chart, or our web dashboard, you ("Customer", "you") agree to be bound by these Terms of Service ("Terms"). If you are entering into these Terms on behalf of an organization, you represent that you have authority to bind that organization.</p>
+                    <p>These Terms form a binding contract between you and Five Nines Consulting LLC. If you do not agree to these Terms, do not use the Service.</p>
+                    <p>The Privacy Policy at <a href="privacy.html">promptsentry.net/privacy</a> is incorporated by reference and governs how FNC processes personal data through the Service. By accepting these Terms, you also acknowledge the Privacy Policy.</p>
+
+                    <h2 id="section-2"><span class="num">2.</span>Description of Service</h2>
+                    <p>PromptSentry is a prompt injection firewall platform that:</p>
+                    <ul>
+                        <li>Scans text prompts submitted by end users before they reach an LLM</li>
+                        <li>Classifies prompts as clean, malicious, or gray-zone using a multi-stage pipeline</li>
+                        <li>Optionally blocks, logs, or monitors malicious prompts depending on operating mode</li>
+                        <li>Provides audit records, dashboards, and administrative controls for security teams</li>
+                        <li>Supports deployment as a self-hosted Docker container, Kubernetes workload, or FNC-managed SaaS</li>
+                    </ul>
+                    <p>The specific features available depend on the subscription tier and configuration.</p>
+
+                    <h2 id="section-3"><span class="num">3.</span>Account and API Key Security</h2>
+                    <p><strong>3.1</strong> You are responsible for maintaining the confidentiality of all API keys, admin tokens, and OAuth credentials associated with your account.</p>
+                    <p><strong>3.2</strong> You must immediately notify FNC at <a href="mailto:security@promptsentry.net">security@promptsentry.net</a> if you suspect unauthorized access to your credentials.</p>
+                    <p><strong>3.3</strong> FNC will never ask you to share your API key or admin token by email, phone, or chat.</p>
+                    <p><strong>3.4</strong> API key secrets are stored only as a SHA-256 hash in our systems. If you lose a key, you must rotate it — we cannot recover the original secret.</p>
+
+                    <h2 id="section-4"><span class="num">4.</span>Acceptable Use</h2>
+
+                    <h3><span class="num">4.1</span>Permitted Uses</h3>
+                    <p>You may use PromptSentry to:</p>
+                    <ul>
+                        <li>Protect LLM-based applications from prompt injection, jailbreaking, and harmful content</li>
+                        <li>Monitor and govern AI tool usage within your organization</li>
+                        <li>Enforce content policies for user-generated prompts</li>
+                        <li>Conduct authorized security testing of your own AI applications</li>
+                    </ul>
+
+                    <h3><span class="num">4.2</span>Prohibited Uses</h3>
+                    <p>You may not use PromptSentry to:</p>
+                    <ul>
+                        <li>Scan prompts in violation of applicable user notice or consent requirements. Customer is responsible for providing legally required notice to end users about prompt scanning.</li>
+                        <li>Circumvent, reverse-engineer, or attempt to defeat the detection pipeline</li>
+                        <li>Submit prompts designed to poison, corrupt, or manipulate the classification models</li>
+                        <li>Resell or sublicense the Service without a written reseller agreement with FNC</li>
+                        <li>Use the Service in violation of any applicable law, regulation, or third-party right</li>
+                        <li>Process prompts that would make FNC a Covered Entity or Business Associate under HIPAA without a signed BAA</li>
+                        <li>Attempt to extract training data, model weights, or classifier prompts from the Service</li>
+                    </ul>
+
+                    <h3><span class="num">4.3</span>Rate Limits</h3>
+                    <p>The default API rate limit is 500 scans per minute per IP. Enterprise contracts may negotiate higher limits. Exceeding rate limits returns HTTP 429. FNC reserves the right to suspend access for sustained abuse of rate limits.</p>
+
+                    <h2 id="section-5"><span class="num">5.</span>Operating Modes and Liability</h2>
+                    <p>PromptSentry operates in one of three modes, configurable by the Customer:</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mode</th>
+                                    <th>Behavior</th>
+                                    <th>Implication</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>monitor</code> (default)</td><td>All prompts pass through. Malicious verdicts logged but not blocked.</td><td>Customer is responsible for downstream enforcement.</td></tr>
+                                <tr><td><code>active</code></td><td>Malicious verdicts return HTTP 403 to the calling application. Prompt is blocked.</td><td>False positives may block legitimate requests. Customer is responsible for tuning thresholds.</td></tr>
+                                <tr><td><code>bypass</code></td><td>Pipeline disabled. All prompts allowed through.</td><td>No protection active. Customer assumes all risk.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3><span class="num">5.1</span>False Positives and Negatives</h3>
+                    <p><strong>False positives</strong> (benign prompts blocked): In active mode, false positives will block legitimate requests. FNC is not liable for business impact caused by false positive blocks. Customers are responsible for threshold tuning.</p>
+                    <p><strong>False negatives</strong> (attacks not detected): FNC does not guarantee 100% detection. Customers should implement defense-in-depth rather than relying solely on PromptSentry.</p>
+
+                    <h3><span class="num">5.2</span>Accuracy</h3>
+                    <p>Detection accuracy is measured against controlled benchmark datasets and may differ from Customer-specific prompt distributions. Current benchmark results on Gemini 3.1 Flash-Lite GA (primary classifier):</p>
+                    <ul>
+                        <li><strong>Attack suite</strong> (1,850 prompts from Garak, TrustLLM, HarmBench): <strong>98.92%</strong></li>
+                        <li><strong>Content safety suite</strong> (893 prompts): <strong>99.33%</strong></li>
+                        <li><strong>Basic suite</strong> (334 prompts): <strong>97.9%</strong></li>
+                    </ul>
+                    <p>These figures represent benchmark accuracy (e.g., "98.92% attack-suite accuracy on benchmark datasets"). Customers are responsible for ongoing evaluation against their own traffic distributions.</p>
+
+                    <h2 id="section-6"><span class="num">6.</span>Third-Party Services and Sub-Processors</h2>
+                    <p><strong>6.1</strong> The default PromptSentry configuration transmits prompt text to Google AI Studio (Gemini) for classification and, for gray-zone prompts, to Anthropic (Claude Opus). By using the default configuration, you agree to comply with Google's and Anthropic's applicable terms of service.</p>
+                    <p><strong>6.2</strong> FNC is not responsible for the availability, accuracy, or data handling of third-party services. If Google AI Studio or Anthropic is unavailable, PromptSentry falls back to regex-only detection (configurable behavior).</p>
+                    <p><strong>6.3</strong> Customers who require that prompt data never leave their own infrastructure must configure a BYOM (Bring Your Own Model) endpoint via <code>PROMPTSENTRY_CLASSIFIER_ENDPOINT_URL</code> and disable escalation. FNC can provide guidance but does not operate BYOM model infrastructure.</p>
+                    <p><strong>6.4</strong> Optional integrations (ServiceNow, Palo Alto Panorama) are Customer-configured and Customer-controlled. FNC is not responsible for data shared with these systems.</p>
+
+                    <h2 id="section-7"><span class="num">7.</span>Data Processing</h2>
+                    <p><strong>7.1</strong> The parties agree that for data processed through the <code>/scan</code> endpoint, FNC acts as a <strong>data processor</strong> and the Customer acts as the <strong>data controller</strong> for the purposes of GDPR Article 4(7)–(8).</p>
+                    <p><strong>7.2</strong> FNC will process personal data only on documented instructions from the Customer (via configuration), except where required by law.</p>
+                    <p><strong>7.3</strong> FNC will implement appropriate technical and organizational measures to protect personal data, as described in the <a href="privacy.html">Privacy Policy</a>.</p>
+                    <p><strong>7.4</strong> FNC will not sub-contract the processing of personal data to any sub-processor not listed in the <a href="privacy.html">Privacy Policy</a> without notifying the Customer in advance.</p>
+                    <p><strong>7.5</strong> FNC will delete any retained Customer scan data within 30 days of termination of the applicable Service agreement. Routine scan records are already deleted on the rolling 24-hour retention cycle described in the Privacy Policy — the 30-day termination window applies to any data that persists beyond normal retention (e.g., API key metadata, tenant configurations, and any Customer-enabled extended retention).</p>
+                    <p><strong>7.6</strong> Customers who require a signed Data Processing Agreement (DPA) for GDPR compliance should contact <a href="mailto:privacy@promptsentry.net">privacy@promptsentry.net</a>.</p>
+
+                    <h2 id="section-8"><span class="num">8.</span>Child Data and Special Populations</h2>
+                    <p><strong>8.1</strong> Customers deploying PromptSentry in products used by children under 13 must:</p>
+                    <ul>
+                        <li>Enable child safety mode (<code>child_safety.enabled=true</code> in tenant config)</li>
+                        <li>Obtain appropriate parental consent for data processing</li>
+                        <li>Sign a supplemental agreement with FNC acknowledging COPPA obligations</li>
+                    </ul>
+                    <p><strong>8.2</strong> FNC's child safety mode returns crisis resources (hotline numbers, text lines) for self-harm signals instead of generic blocks. Customers must not modify or suppress crisis resource delivery for users in crisis.</p>
+                    <p><strong>8.3</strong> Customers deploying PromptSentry in healthcare contexts handling PHI under HIPAA must contact <a href="mailto:legal@promptsentry.net">legal@promptsentry.net</a> to execute a Business Associate Agreement before going live.</p>
+
+                    <h2 id="section-9"><span class="num">9.</span>Service Availability and SLAs</h2>
+                    <p><strong>9.1 Uptime:</strong> FNC targets a 99% monthly uptime best-effort target for FNC-hosted (SaaS) deployments, excluding scheduled maintenance. Formal SLAs are available by separate written agreement for Enterprise customers. No uptime guarantees apply to self-hosted deployments.</p>
+                    <p><strong>9.2 Degraded Operation:</strong> PromptSentry degrades gracefully: Google AI unavailable → regex-only fallback; Anthropic unavailable → escalation skipped, primary verdict stands; Redis unavailable → scans may fail or proceed depending on configuration.</p>
+                    <p><strong>9.3 Security posture:</strong> PromptSentry is on the SOC 2 Type II roadmap, targeted for Q1 2027. The Service is designed to support compliance with GDPR, CCPA, and COPPA, though FNC has not undergone third-party security audit at this time.</p>
+                    <p><strong>9.4 Latency:</strong> Pipeline latency on the Gemini 3.1 Flash-Lite GA primary classifier (measured):</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Path</th>
+                                    <th>p50</th>
+                                    <th>p95</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Attack pipeline</td><td>~856ms</td><td>~1.3s</td></tr>
+                                <tr><td>Content pipeline</td><td>~887ms</td><td>~1.4s</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Actual latency depends on external classifier response times, network conditions, and Customer infrastructure. FNC does not guarantee specific latency SLAs except by separate written agreement.</p>
+                    <p><strong>9.5 Audit rights:</strong> Enterprise customers may submit an annual security questionnaire to <a href="mailto:security@promptsentry.net">security@promptsentry.net</a>. A SOC 2 report will be made available to Enterprise customers when completed (target Q1 2027). Penetration testing of FNC-managed infrastructure requires advance written approval.</p>
+
+                    <h2 id="section-10"><span class="num">10.</span>Intellectual Property</h2>
+                    <p><strong>10.1</strong> FNC retains all rights to the PromptSentry platform, including the detection pipeline, classifier prompts, pattern library (27 regex patterns across injection, encoding, multi-language, code injection, and meta-injection categories), scoring logic, and dashboard UI.</p>
+                    <p><strong>10.2</strong> Customers retain all rights to their data, including prompts submitted to the Service.</p>
+                    <p><strong>10.3</strong> Training signal data collected from Customer scans (gray-zone signals, Opus disagreements) is stored locally on Customer infrastructure and remains Customer data. FNC does not access or use Customer training signals.</p>
+                    <p><strong>10.4</strong> If you submit feedback or suggestions about the Service, FNC may use that feedback without restriction or compensation.</p>
+
+                    <h2 id="section-11"><span class="num">11.</span>Limitation of Liability</h2>
+                    <p><strong>11.1</strong> FNC's total liability for any claim arising under these Terms shall not exceed the <strong>greater of (a) the fees paid by Customer to FNC in the 12 months preceding the claim, or (b) $1,000</strong>.</p>
+                    <div class="callout">
+                        <strong>11.2</strong> FNC SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFITS, DATA LOSS, OR BUSINESS INTERRUPTION, WHETHER IN CONTRACT, TORT, OR OTHERWISE, EVEN IF FNC HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+                    </div>
+                    <p><strong>11.3</strong> FNC makes no warranty that:</p>
+                    <ul>
+                        <li>The Service will detect all prompt injection attacks or harmful content</li>
+                        <li>False positives will not occur</li>
+                        <li>Third-party classifiers (Google, Anthropic) will remain available</li>
+                        <li>The Service is free from errors, viruses, or other harmful components</li>
+                    </ul>
+                    <div class="callout">
+                        <strong>11.4</strong> THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+                    </div>
+
+                    <h2 id="section-12"><span class="num">12.</span>Indemnification</h2>
+                    <p>You agree to defend, indemnify, and hold harmless FNC and its officers, directors, employees, and contractors from any claim, liability, damage, or expense (including reasonable legal fees) arising from:</p>
+                    <ul>
+                        <li>Your use of the Service in violation of these Terms</li>
+                        <li>Prompts submitted to the Service by your end users</li>
+                        <li>Your failure to comply with applicable laws, including privacy laws governing your users</li>
+                        <li>Your deployment of the Service without adequate end-user notice of prompt scanning</li>
+                    </ul>
+
+                    <h2 id="section-13"><span class="num">13.</span>Termination</h2>
+                    <p><strong>13.1</strong> Either party may terminate the agreement with 30 days' written notice.</p>
+                    <p><strong>13.2</strong> FNC may immediately suspend or terminate access if:</p>
+                    <ul>
+                        <li>You materially breach these Terms and fail to cure within <strong>30 days of notice for non-monetary breach, or 10 days for non-payment</strong></li>
+                        <li>Your use creates a security risk or legal liability for FNC</li>
+                    </ul>
+                    <p><strong>13.3</strong> Upon termination of SaaS services, FNC will delete any retained Customer scan data within 30 days. Routine scan records are already deleted on the rolling 24-hour cycle described in the Privacy Policy. Customers may request an export of any retained scan records before termination.</p>
+
+                    <h2 id="section-14"><span class="num">14.</span>Governing Law and Disputes</h2>
+                    <p><strong>14.1</strong> These Terms are governed by the laws of the Commonwealth of Virginia, United States, without regard to conflict-of-law principles.</p>
+                    <p><strong>14.2</strong> Any dispute not resolved informally within 30 days of written notice shall be submitted to binding arbitration administered by the American Arbitration Association in Roanoke, Virginia, under its Commercial Arbitration Rules.</p>
+                    <p><strong>14.3</strong> Class action waiver: You waive any right to bring or participate in any class action lawsuit against FNC.</p>
+
+                    <h2 id="section-15"><span class="num">15.</span>Force Majeure</h2>
+                    <p>Neither party is liable for failure to perform obligations due to events beyond reasonable control, including acts of God, war, terrorism, pandemic, government action, or third-party service outages (including Google AI Studio, Anthropic, or other sub-processors).</p>
+
+                    <h2 id="section-16"><span class="num">16.</span>Assignment</h2>
+                    <p>Customer may not assign these Terms without FNC's prior written consent. FNC may assign these Terms to a successor in connection with a merger, acquisition, or sale of substantially all assets without Customer consent, provided the successor assumes all obligations herein.</p>
+
+                    <h2 id="section-17"><span class="num">17.</span>Survival</h2>
+                    <p>Sections 10 (Intellectual Property), 11 (Limitation of Liability), 12 (Indemnification), and 14 (Governing Law and Disputes) survive termination of these Terms.</p>
+
+                    <h2 id="section-18"><span class="num">18.</span>Enterprise and Negotiated Terms</h2>
+                    <p>These Terms represent FNC's standard terms. Enterprise customers with specific requirements — including custom DPAs, BAAs (HIPAA), MSAs, or negotiated SLAs — should contact <a href="mailto:sales@promptsentry.net">sales@promptsentry.net</a>. Negotiated terms supersede these standard Terms where they conflict.</p>
+
+                    <h2 id="section-19"><span class="num">19.</span>Modifications</h2>
+                    <p>FNC may update these Terms with 30 days' notice for material changes. Continued use of the Service after the effective date constitutes acceptance. For Customers on annual contracts, material changes to terms take effect at the next renewal unless FNC provides written notice of immediate changes.</p>
+
+                    <h2 id="section-20"><span class="num">20.</span>Contact</h2>
+                    <p><strong>Legal / Contracts:</strong> <a href="mailto:legal@promptsentry.net">legal@promptsentry.net</a></p>
+                    <p><strong>Security / Vulnerability Reports:</strong> <a href="mailto:security@promptsentry.net">security@promptsentry.net</a></p>
+                    <p><strong>Privacy / Data Requests:</strong> <a href="mailto:privacy@promptsentry.net">privacy@promptsentry.net</a></p>
+                    <p><strong>Sales / Enterprise:</strong> <a href="mailto:sales@promptsentry.net">sales@promptsentry.net</a></p>
+                    <p><strong>General Support:</strong> <a href="mailto:support@promptsentry.net">support@promptsentry.net</a></p>
+                    <p><strong>Five Nines Consulting LLC</strong><br>Roanoke, VA · United States</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-row">
+            <div class="footer-brand">
+                <a href="google2-index.html" class="footer-logo-wrap" aria-label="PromptSentry home">
+                    <img src="image/website-logo.svg" alt="PromptSentry by FNC" class="footer-logo">
+                </a>
+                <div class="footer-contact">
+                    <a href="contact.html">Contact us</a><br>
+                    Five Nines Consulting<br>
+                    Roanoke, VA · United States
+                </div>
+            </div>
+            <div class="footer-right">
+                <a href="https://www.linkedin.com/company/five-nines-consulting-llc-fnc/" class="footer-social" aria-label="Five Nines Consulting on LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <div class="footer-copy">© 2026 PromptSentry — A Five Nines Consulting product</div>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
